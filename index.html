@@ -3,903 +3,1403 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perfum Plus — Sistema de Tareas</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Perfum Plus — Tareas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --black:#0f0f0f; --white:#fafaf8; --cream:#f5f0e8;
-    --gold:#c9a84c; --gold-light:#e8d5a0; --gold-dark:#8a6a1f;
-    --red:#c0392b; --red-bg:#fdf0ee;
-    --yellow:#d4a017; --yellow-bg:#fdf8ee;
-    --green:#27ae60; --green-bg:#edfaf3;
-    --blue:#2980b9; --blue-bg:#eaf4fb;
-    --gray-100:#f0ede8; --gray-200:#e0dbd2;
-    --gray-400:#a09880; --gray-600:#5a5448; --gray-800:#2a2520;
-    --font-display:'Playfair Display',Georgia,serif;
-    --font-body:'DM Sans',sans-serif;
-    --radius:12px; --radius-sm:6px;
-    --shadow:0 2px 16px rgba(15,15,15,0.08);
-    --shadow-lg:0 8px 40px rgba(15,15,15,0.14);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  body{font-family:var(--font-body);background:var(--cream);color:var(--black);min-height:100vh;font-size:15px;line-height:1.6;}
+:root{
+  --black:#0c0c0b; --white:#faf9f6; --cream:#f2ede4; --cream2:#e8e1d6;
+  --gold:#b8943a; --gold-lt:#eddeb0; --gold-dk:#7a5f1f;
+  --red:#b83232; --red-bg:#fbefef;
+  --yellow:#b07a10; --yellow-bg:#fdf5e4;
+  --green:#2a7a4a; --green-bg:#eaf5ef;
+  --blue:#2060a0; --blue-bg:#eaf0fb;
+  --g100:#ede8e0; --g200:#d8d1c6; --g400:#9a9186; --g600:#5c5549; --g800:#2a2520;
+  --ff:'Cormorant Garamond',Georgia,serif;
+  --fb:'DM Sans',sans-serif;
+  --r:14px; --rs:8px;
+  --sh:0 2px 12px rgba(12,12,11,.07);
+  --sh2:0 6px 32px rgba(12,12,11,.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:15px}
+body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height:100vh;line-height:1.55}
 
-  #screen-login{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;background:var(--black);}
-  .login-logo{text-align:center;margin-bottom:2.5rem;}
-  .login-logo-title{font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:var(--gold);letter-spacing:0.04em;}
-  .login-logo-sub{font-size:0.72rem;letter-spacing:0.28em;color:var(--gray-400);text-transform:uppercase;margin-top:4px;}
-  .login-card{background:var(--white);border-radius:var(--radius);padding:2rem 1.75rem;width:100%;max-width:360px;box-shadow:var(--shadow-lg);}
-  .login-card h2{font-family:var(--font-display);font-size:1.3rem;font-weight:600;margin-bottom:1.5rem;color:var(--gray-800);}
-  .role-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.5rem;}
-  .role-tab{padding:0.6rem;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);background:none;font-family:var(--font-body);font-size:0.82rem;font-weight:500;cursor:pointer;color:var(--gray-600);transition:all 0.18s;}
-  .role-tab.active{border-color:var(--gold);background:var(--gold);color:var(--white);}
-  .form-group{margin-bottom:1rem;}
-  .form-group label{display:block;font-size:0.78rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--gray-600);margin-bottom:6px;}
-  .form-group select,.form-group input{width:100%;padding:0.7rem 0.9rem;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.95rem;color:var(--black);background:var(--white);appearance:none;outline:none;transition:border-color 0.18s;}
-  .form-group select:focus,.form-group input:focus{border-color:var(--gold);}
-  .btn-primary{width:100%;padding:0.85rem;background:var(--gold);color:var(--white);border:none;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.95rem;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:background 0.18s,transform 0.1s;margin-top:0.5rem;}
-  .btn-primary:active{transform:scale(0.98);}
-  .btn-primary:hover{background:var(--gold-dark);}
+/* ── LOGIN ── */
+#s-login{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;background:var(--black)}
+.logo-w{text-align:center;margin-bottom:2.5rem}
+.logo-t{font-family:var(--ff);font-size:2.8rem;font-weight:700;color:var(--gold);letter-spacing:.06em}
+.logo-s{font-size:.68rem;letter-spacing:.3em;color:var(--g400);text-transform:uppercase;margin-top:3px}
+.lcard{background:var(--white);border-radius:var(--r);padding:2rem 1.75rem;width:100%;max-width:340px;box-shadow:var(--sh2)}
+.lcard h2{font-family:var(--ff);font-size:1.4rem;font-weight:600;margin-bottom:1.4rem;color:var(--g800)}
+.rtabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1.4rem}
+.rtab{padding:.72rem;border:1.5px solid var(--g200);border-radius:var(--rs);background:none;font-family:var(--fb);font-size:.82rem;font-weight:500;cursor:pointer;color:var(--g600);transition:all .18s;min-height:44px}
+.rtab.on{border-color:var(--gold);background:var(--gold);color:var(--white)}
+.fg{margin-bottom:.9rem}
+.fg label{display:block;font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--g600);margin-bottom:5px}
+.fg select,.fg input{width:100%;padding:.65rem .9rem;border:1.5px solid var(--g200);border-radius:var(--rs);font-family:var(--fb);font-size:.95rem;color:var(--black);background:var(--white);appearance:none;outline:none;transition:border-color .18s}
+.fg select:focus,.fg input:focus{border-color:var(--gold)}
+.btn{width:100%;padding:.82rem;background:var(--gold);color:var(--white);border:none;border-radius:var(--rs);font-family:var(--fb);font-size:.95rem;font-weight:600;cursor:pointer;letter-spacing:.03em;transition:background .18s,transform .1s;margin-top:.4rem}
+.btn:hover{background:var(--gold-dk)}
+.btn:active{transform:scale(.98)}
+.btn-ghost{background:none;color:var(--g600);border:1.5px solid var(--g200)}
+.btn-ghost:hover{background:var(--cream);border-color:var(--g400)}
+.btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn:disabled:hover{background:var(--gold)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes completada-pulse{
+  0%{background:var(--green-bg);transform:scale(1)}
+  40%{background:#c8f0d8;transform:scale(1.012)}
+  100%{background:var(--white);transform:scale(1)}
+}
+@keyframes badge-bounce{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.22)}
+  65%{transform:scale(.94)}
+  100%{transform:scale(1)}
+}
+@keyframes tachar{
+  from{text-decoration-color:transparent}
+  to{text-decoration-color:var(--g400)}
+}
+.tarea-item.flash-green{
+  animation:completada-pulse .55s ease-out forwards;
+  border-radius:var(--rs);
+}
+.badge-bounce{animation:badge-bounce .4s cubic-bezier(.36,.07,.19,.97) forwards;}
+.tarea-desc.done{
+  text-decoration:line-through;
+  text-decoration-color:var(--g400);
+  color:var(--g400);
+  font-weight:400;
+  transition:color .3s,font-weight .3s;
+  animation:tachar .25s ease-out forwards;
+}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
 
-  .turno-login-box{background:var(--gold-light);border:1.5px solid var(--gold);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem;}
-  .turno-login-box p{font-size:0.85rem;color:var(--gold-dark);line-height:1.5;}
+/* ── APP HEADER ── */
+.ah{background:var(--black);padding:.9rem 1.2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.ah-brand{font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:.05em}
+.ah-sub{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g400);margin-top:1px}
+.ah-right{display:flex;align-items:center;gap:8px}
+.btn-sm{background:none;border:1px solid var(--g600);color:var(--g400);padding:.55rem .85rem;border-radius:20px;font-size:.7rem;cursor:pointer;font-family:var(--fb);letter-spacing:.06em;transition:all .15s;min-height:36px;display:inline-flex;align-items:center}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold)}
 
-  .app-header{background:var(--black);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
-  .app-header-brand{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:0.04em;}
-  .app-header-role{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-400);}
-  .btn-logout{background:none;border:1px solid var(--gray-600);color:var(--gray-400);padding:0.3rem 0.7rem;border-radius:20px;font-size:0.72rem;cursor:pointer;font-family:var(--font-body);letter-spacing:0.06em;transition:all 0.15s;}
-  .btn-logout:hover{border-color:var(--gold);color:var(--gold);}
+/* ── CONTENIDO ── */
+.ac{padding:1.1rem 1.1rem 5rem;max-width:580px;margin:0 auto}
 
+/* ── BADGE ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:.72rem;font-weight:600;letter-spacing:.03em}
+.b-red{background:var(--red-bg);color:var(--red)}
+.b-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.b-green{background:var(--green-bg);color:var(--green)}
+.b-blue{background:var(--blue-bg);color:var(--blue)}
+.b-gray{background:var(--g100);color:var(--g600)}
+.b-gold{background:var(--gold-lt);color:var(--gold-dk)}
+.bdot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.b-red .bdot{background:var(--red)}
+.b-yellow .bdot{background:var(--yellow)}
+.b-green .bdot{background:var(--green)}
+.b-blue .bdot{background:var(--blue)}
+.b-gray .bdot{background:var(--g400)}
+.b-gold .bdot{background:var(--gold)}
 
+/* ── CARD ── */
+.card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);padding:1rem 1.1rem;margin-bottom:.85rem}
+.card-t{font-weight:600;font-size:.9rem;color:var(--g800)}
+.cat-lbl{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:.3rem}
 
-  .app-content{padding:1.25rem;max-width:600px;margin:0 auto;}
-  .section-title{font-family:var(--font-display);font-size:1.35rem;font-weight:600;color:var(--gray-800);margin-bottom:0.3rem;}
-  .section-sub{font-size:0.82rem;color:var(--gray-400);margin-bottom:1.25rem;}
+/* ── PROGRESS ── */
+.prog-wrap{background:var(--g100);border-radius:10px;height:8px;overflow:hidden}
+.prog-bar{height:100%;border-radius:10px;background:var(--gold);transition:width .5s cubic-bezier(.4,0,.2,1)}
 
-  .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;letter-spacing:0.04em;}
-  .badge-red{background:var(--red-bg);color:var(--red);}
-  .badge-yellow{background:var(--yellow-bg);color:var(--yellow);}
-  .badge-green{background:var(--green-bg);color:var(--green);}
-  .badge-blue{background:var(--blue-bg);color:var(--blue);}
-  .badge-gray{background:var(--gray-100);color:var(--gray-600);}
-  .badge-dot{width:7px;height:7px;border-radius:50%;display:inline-block;}
-  .badge-red .badge-dot{background:var(--red);}
-  .badge-yellow .badge-dot{background:var(--yellow);}
-  .badge-green .badge-dot{background:var(--green);}
-  .badge-blue .badge-dot{background:var(--blue);}
-  .badge-gray .badge-dot{background:var(--gray-400);}
+/* ── TAREA ITEM ── */
+.tarea-item{padding:.6rem 0;border-bottom:1px solid var(--g100);position:relative}
+.tarea-item:last-child{border-bottom:none}
+.tarea-desc{font-size:.88rem;font-weight:500;color:var(--g800);line-height:1.4;flex:1;padding-right:8px}
+.tarea-desc.done{text-decoration:line-through;color:var(--g400);font-weight:400}
+.tarea-nota{width:100%;margin-top:.5rem;padding:.45rem .65rem;border:1.5px solid var(--g200);border-radius:var(--rs);font-family:var(--fb);font-size:.8rem;color:var(--g800);resize:none;outline:none;background:var(--cream);transition:border-color .15s}
+.tarea-nota:focus{border-color:var(--gold)}
 
-  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1rem 1.25rem;margin-bottom:1rem;}
-  .card-title{font-weight:600;font-size:0.92rem;color:var(--gray-800);}
-  .card-cat{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:0.2rem;}
+/* ── TOQUE BOTONES ── */
+.tq-wrap{display:flex;gap:6px;margin-top:.5rem}
+.tq{flex:1;min-height:44px;padding:.5rem .2rem;border-radius:var(--rs);border:1.5px solid var(--g200);background:none;font-family:var(--fb);font-size:.74rem;font-weight:500;cursor:pointer;transition:all .15s;color:var(--g600);display:flex;align-items:center;justify-content:center}
+.tq.on-red{border-color:var(--red);background:var(--red-bg);color:var(--red)}
+.tq.on-yellow{border-color:var(--yellow);background:var(--yellow-bg);color:var(--yellow)}
+.tq.on-green{border-color:var(--green);background:var(--green-bg);color:var(--green)}
 
-  .progress-wrap{background:var(--gray-100);border-radius:10px;height:7px;overflow:hidden;margin:0.5rem 0 0.75rem;}
-  .progress-bar{height:100%;border-radius:10px;background:var(--gold);transition:width 0.4s;}
+/* ── PROG HERO (colaborador) ── */
+.prog-hero{background:var(--black);border-radius:var(--r);padding:1.2rem 1.2rem 1rem;margin-bottom:.85rem;color:var(--white)}
+.ph-greeting{font-family:var(--ff);font-size:1.5rem;font-weight:600;color:var(--gold-lt);margin-bottom:.2rem}
+.ph-date{font-size:.75rem;color:var(--g400);letter-spacing:.06em;margin-bottom:1rem}
+.ph-nums{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.6rem}
+.ph-big{font-family:var(--ff);font-size:2.4rem;font-weight:700;color:var(--white);line-height:1}
+.ph-of{font-size:.85rem;color:var(--g400)}
+.ph-lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-bottom:.4rem}
+.prog-wrap-hero{background:rgba(255,255,255,.12);border-radius:10px;height:10px;overflow:hidden}
+.prog-bar-hero{height:100%;border-radius:10px;background:var(--gold);transition:width .6s cubic-bezier(.4,0,.2,1)}
 
-  .estado-btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
-  .btn-estado{padding:0.45rem 0.4rem;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);background:none;font-family:var(--font-body);font-size:0.75rem;font-weight:500;cursor:pointer;transition:all 0.15s;color:var(--gray-600);}
-  .btn-estado.sel-red{border-color:var(--red);background:var(--red-bg);color:var(--red);}
-  .btn-estado.sel-yellow{border-color:var(--yellow);background:var(--yellow-bg);color:var(--yellow);}
-  .btn-estado.sel-green{border-color:var(--green);background:var(--green-bg);color:var(--green);}
-  .meta-nota{width:100%;margin-top:0.6rem;padding:0.55rem 0.7rem;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.82rem;color:var(--gray-800);resize:none;outline:none;transition:border-color 0.15s;background:var(--cream);}
-  .meta-nota:focus{border-color:var(--gold);}
+/* ── CEO COLAB CARDS ── */
+.colab-grid{display:grid;grid-template-columns:1fr;gap:.7rem;margin-bottom:.85rem}
+.ccard{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);padding:1rem 1.1rem;cursor:pointer;transition:box-shadow .18s,transform .12s;border:1.5px solid transparent}
+.ccard:hover{box-shadow:var(--sh2);transform:translateY(-1px)}
+.ccard.activo{border-color:var(--green)}
+.ccard.ausente{opacity:.55;cursor:default}
+.ccard:hover.ausente{transform:none;box-shadow:var(--sh)}
+.cc-top{display:flex;align-items:center;gap:.85rem;margin-bottom:.65rem}
+.cc-av{width:42px;height:42px;border-radius:50%;background:var(--gold-lt);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--gold-dk);flex-shrink:0}
+.cc-info{flex:1;min-width:0}
+.cc-name{font-weight:600;font-size:.95rem;color:var(--g800)}
+.cc-sub{font-size:.75rem;color:var(--g400);margin-top:1px}
+.cc-pct{font-family:var(--ff);font-size:1.3rem;font-weight:700;color:var(--g800);flex-shrink:0}
 
-  .resumen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem;}
-  .resumen-item{background:var(--cream);border-radius:var(--radius-sm);padding:0.7rem 0.5rem;text-align:center;}
-  .resumen-num{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--gray-800);}
-  .resumen-lbl{font-size:0.7rem;color:var(--gray-400);letter-spacing:0.06em;text-transform:uppercase;margin-top:2px;}
+/* ── BOTÓN TAREA RÁPIDA ── */
+.fab{position:fixed;bottom:1.5rem;right:1.2rem;width:52px;height:52px;background:var(--gold);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(184,148,58,.45);transition:all .18s;z-index:200}
+.fab:hover{background:var(--gold-dk);transform:scale(1.06)}
+.fab:active{transform:scale(.95)}
+.fab svg{width:22px;height:22px;fill:none;stroke:var(--white);stroke-width:2.5;stroke-linecap:round}
 
-  .colab-row{display:flex;align-items:center;gap:0.9rem;padding:0.85rem 0.5rem;border-bottom:1px solid var(--gray-100);cursor:pointer;transition:background 0.12s;border-radius:var(--radius-sm);}
-  .colab-row:last-child{border-bottom:none;}
-  .colab-row:hover{background:var(--cream);}
-  .colab-avatar{width:40px;height:40px;border-radius:50%;background:var(--gold-light);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--gold-dark);flex-shrink:0;}
-  .colab-info{flex:1;min-width:0;}
-  .colab-name{font-weight:600;font-size:0.92rem;color:var(--gray-800);}
-  .colab-prog{font-size:0.75rem;color:var(--gray-400);margin-top:1px;}
-  .colab-pct{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--gray-800);}
+/* ── MODAL TAREA RÁPIDA ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(12,12,11,.55);z-index:300;display:flex;align-items:flex-end;justify-content:center}
+.modal{background:var(--white);border-radius:var(--r) var(--r) 0 0;padding:1.5rem 1.4rem 2rem;width:100%;max-width:540px}
+.modal-title{font-family:var(--ff);font-size:1.2rem;font-weight:600;color:var(--g800);margin-bottom:1.2rem}
+.modal-close{background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--g400);float:right;margin-top:-2px}
 
-  .dias-chip{display:inline-flex;align-items:center;gap:5px;background:var(--blue-bg);color:var(--blue);font-size:0.75rem;font-weight:600;padding:3px 10px;border-radius:20px;}
+/* ── SEMÁFORO ── */
+.sema-row{display:flex;gap:8px}
+.sema-c{width:44px;height:44px;border-radius:50%;border:2.5px solid transparent;cursor:pointer;transition:all .15s;flex-shrink:0}
+.sema-c:hover{transform:scale(1.08)}
+.sema-c.on{border-color:var(--black);transform:scale(1.15)}
+.sc-red{background:var(--red)}
+.sc-yellow{background:var(--yellow)}
+.sc-green{background:var(--green)}
 
-  .sema-selector{display:flex;gap:8px;}
-  .sema-btn{width:32px;height:32px;border-radius:50%;border:2.5px solid transparent;cursor:pointer;transition:all 0.15s;flex-shrink:0;}
-  .sema-btn-red{background:var(--red);}
-  .sema-btn-yellow{background:var(--yellow);}
-  .sema-btn-green{background:var(--green);}
-  .sema-btn.active{border-color:var(--black);transform:scale(1.15);}
+/* ── DETALLE PANEL ── */
+.det-back{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--g400);cursor:pointer;margin-bottom:1.1rem;font-weight:500;background:none;border:none;padding:0;font-family:var(--fb)}
+.det-back:hover{color:var(--gold)}
 
-  .alert-box{background:var(--cream);border-left:3px solid var(--gold);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:0.7rem 0.9rem;font-size:0.82rem;color:var(--gray-600);margin-top:0.75rem;font-style:italic;}
+/* ── HISTORIAL ── */
+.hist-item{padding:.75rem .9rem;background:var(--white);border-radius:var(--rs);box-shadow:var(--sh);margin-bottom:.5rem;cursor:pointer;transition:box-shadow .15s}
+.hist-item:hover{box-shadow:var(--sh2)}
+.hi-label{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:2px}
+.hi-fecha{font-size:.82rem;font-weight:600;color:var(--g800)}
+.hi-sub{font-size:.75rem;color:var(--g400);margin-top:1px}
 
-  .week-tabs{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;}
-  .week-tab{padding:0.35rem 0.75rem;border-radius:20px;border:1.5px solid var(--gray-200);background:none;font-family:var(--font-body);font-size:0.78rem;font-weight:500;cursor:pointer;color:var(--gray-600);transition:all 0.15s;}
-  .week-tab.active{background:var(--black);border-color:var(--black);color:var(--white);}
+/* ── RESUMEN NUMS ── */
+.nums-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:.85rem}
+.num-box{background:var(--cream);border-radius:var(--rs);padding:.7rem .5rem;text-align:center}
+.num-n{font-family:var(--ff);font-size:1.6rem;font-weight:700;color:var(--g800)}
+.num-l{font-size:.68rem;color:var(--g400);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
 
-  .back-btn{display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--gray-400);cursor:pointer;margin-bottom:1.25rem;font-weight:500;background:none;border:none;padding:0;font-family:var(--font-body);}
-  .back-btn:hover{color:var(--gold);}
+/* ── TABS (CEO) ── */
+.ctabs{display:flex;gap:5px;margin-bottom:1rem;flex-wrap:wrap}
+.ctab{padding:.62rem 1rem;border-radius:20px;border:1.5px solid var(--g200);background:none;font-family:var(--fb);font-size:.76rem;font-weight:500;cursor:pointer;color:var(--g600);transition:all .15s;min-height:44px;display:inline-flex;align-items:center}
+.ctab.on{background:var(--black);border-color:var(--black);color:var(--white)}
 
-  #toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--black);color:var(--white);padding:0.65rem 1.25rem;border-radius:30px;font-size:0.82rem;font-weight:500;opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;white-space:nowrap;}
-  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+/* ── TOAST ── */
+#toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--black);color:var(--white);padding:.6rem 1.2rem;border-radius:30px;font-size:.8rem;font-weight:500;opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  .hidden{display:none!important;}
-  .mt1{margin-top:1rem;}
-  .flex-between{display:flex;align-items:center;justify-content:space-between;}
-  .text-muted{color:var(--gray-400);font-size:0.82rem;}
+.hidden{display:none!important}
+.alerta-wrap{margin-bottom:.85rem}
+.alerta-card{background:#fff8f0;border:1.5px solid #e8820a;border-radius:var(--r);padding:.9rem 1rem;margin-bottom:.6rem;display:flex;align-items:flex-start;gap:.85rem}
+.alerta-icon{width:36px;height:36px;background:#fff0dc;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+.alerta-body{flex:1;min-width:0}
+.alerta-nombre{font-weight:600;font-size:.9rem;color:#7a3d00;margin-bottom:2px}
+.alerta-txt{font-size:.78rem;color:#a05000;line-height:1.4}
+
+.frow{display:flex;align-items:center;justify-content:space-between}
+.mt{margin-top:.75rem}
+.txt-muted{color:var(--g400);font-size:.8rem}
+.divider{height:1px;background:var(--g100);margin:.6rem 0}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="screen-login">
-  <div class="login-logo">
-    <div class="login-logo-title">PERFUM PLUS</div>
-    <div class="login-logo-sub">Sistema de Tareas</div>
+<!-- ══ LOGIN ══ -->
+<div id="s-login">
+  <div class="logo-w">
+    <div class="logo-t">PERFUM PLUS</div>
+    <div class="logo-s">Sistema de Tareas</div>
   </div>
-  <div class="login-card">
-    <h2>Ingresar al sistema</h2>
-    <div class="role-tabs">
-      <button class="role-tab active" onclick="setRole('colaborador',this)">Colaborador</button>
-      <button class="role-tab" onclick="setRole('ceo',this)">Ceo</button>
+  <div class="lcard">
+    <h2>Ingresar</h2>
+    <div class="rtabs">
+      <button class="rtab on" onclick="setRole('colab',this)">Colaborador</button>
+      <button class="rtab" onclick="setRole('ceo',this)">Ceo</button>
     </div>
-    <div id="login-colaborador">
-      <div class="form-group">
-        <label>Selecciona tu nombre</label>
-        <select id="sel-colab">
-          <option value="">— Elige tu nombre —</option>
+    <div id="l-colab">
+      <div class="fg">
+        <label>Nombre</label>
+        <select id="sel-nombre">
+          <option value="">— Selecciona —</option>
           <option value="Marlon">Marlon</option>
           <option value="Ingrid">Ingrid</option>
           <option value="Isabella">Isabella</option>
         </select>
       </div>
-
-      <button class="btn-primary" onclick="loginColab()">Entrar</button>
+      <button class="btn" onclick="loginColab()">Entrar</button>
     </div>
-    <div id="login-ceo" class="hidden">
-      <div class="form-group">
+    <div id="l-ceo" class="hidden">
+      <div class="fg">
         <label>Contraseña</label>
         <input type="password" id="inp-pass" placeholder="••••••" onkeydown="if(event.key==='Enter')loginCeo()">
       </div>
-      <button class="btn-primary" onclick="loginCeo()">Entrar como Ceo</button>
+      <button class="btn" onclick="loginCeo()">Entrar como Ceo</button>
     </div>
   </div>
 </div>
 
-<!-- COLABORADOR -->
-<div id="screen-colab" class="hidden">
-  <div class="app-header">
+<!-- ══ COLABORADOR ══ -->
+<div id="s-colab" class="hidden">
+  <div class="ah">
     <div>
-      <div class="app-header-brand">PERFUM PLUS</div>
-      <div class="app-header-role" id="colab-header-name">Colaborador</div>
+      <div class="ah-brand">PERFUM PLUS</div>
+      <div class="ah-sub" id="c-hname"></div>
     </div>
-    <button class="btn-logout" onclick="logout()">Salir</button>
+    <div class="ah-right">
+      <button class="btn-sm" onclick="cToggle()">Mi semana</button>
+      <button class="btn-sm" onclick="logout()">Salir</button>
+    </div>
   </div>
 
-  <!-- turno FDS auto-activado al login, sin banner -->
+  <div class="ac">
+    <!-- Vista principal: hoy -->
+    <div id="c-view-hoy">
+      <!-- Hero de progreso -->
+      <div class="prog-hero" id="c-hero"></div>
 
-  <div class="app-content">
-    <div class="week-tabs">
-      <button class="week-tab active" onclick="empTab('dia',this)">Hoy</button>
-      <button class="week-tab" onclick="empTab('periodo',this)" id="tab-periodo-lbl">Semana</button>
-    </div>
-
-    <div id="emp-tab-dia">
-      <div id="emp-metas-wrap">
-        <div class="section-title" id="emp-fecha-titulo">Tareas de hoy</div>
-        <div class="section-sub">Marca el estado de cada tarea al finalizar tu turno</div>
-        <div id="emp-metas-container"></div>
-        <button class="btn-primary mt1" onclick="guardarMetas()">Guardar reporte del día</button>
-        <div id="emp-alerta" class="hidden mt1">
-          <div class="card-cat">Mensaje del Ceo</div>
-          <div class="alert-box" id="emp-alerta-texto"></div>
+      <!-- Tareas del CEO primero -->
+      <div id="c-tp-wrap" class="hidden">
+        <div class="card" id="c-tp-card">
+          <div class="frow" style="margin-bottom:.6rem">
+            <span class="card-t">Del Ceo</span>
+            <span class="badge b-gold"><span class="bdot"></span>Personalizadas</span>
+          </div>
+          <div id="c-tp-lista"></div>
         </div>
       </div>
+
+      <!-- Tareas base por categoría -->
+      <div id="c-tareas-base"></div>
+
+      <button class="btn" id="btn-guardar" onclick="guardarReporte()" style="margin-top:.5rem">Guardar reporte del día</button>
+
+      <!-- Mensaje del Ceo -->
+      <div id="c-msg" class="hidden" style="margin-top:.75rem">
+        <div style="background:var(--cream);border-left:3px solid var(--gold);border-radius:0 var(--rs) var(--rs) 0;padding:.65rem .9rem;font-size:.82rem;color:var(--g600);font-style:italic" id="c-msg-txt"></div>
+      </div>
     </div>
 
-    <div id="emp-tab-periodo" class="hidden">
-      <div class="section-title" id="emp-periodo-titulo">Mi semana</div>
-      <div class="section-sub" id="emp-periodo-sub"></div>
-      <div class="resumen-grid">
-        <div class="resumen-item"><div class="resumen-num" id="emp-p-comp">—</div><div class="resumen-lbl">Completadas</div></div>
-        <div class="resumen-item"><div class="resumen-num" id="emp-p-pct">—</div><div class="resumen-lbl">Eficacia</div></div>
-        <div class="resumen-item"><div class="resumen-num" id="emp-p-dias">—</div><div class="resumen-lbl" id="emp-p-dias-lbl">Días activos</div></div>
-      </div>
-      <div id="emp-historial"></div>
+    <!-- Vista: semana/mes -->
+    <div id="c-view-periodo" class="hidden">
+      <button class="det-back" onclick="cToggle()">← Volver a hoy</button>
+      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem" id="c-per-titulo"></div>
+      <div class="txt-muted" style="margin-bottom:1rem" id="c-per-sub"></div>
+      <div class="nums-row" id="c-per-nums"></div>
+      <div class="prog-wrap" style="margin-bottom:.85rem"><div class="prog-bar" id="c-per-prog" style="width:0%"></div></div>
+      <div id="c-per-hist"></div>
     </div>
   </div>
 </div>
 
-<!-- CEO -->
-<div id="screen-ceo" class="hidden">
-  <div class="app-header">
+<!-- ══ CEO ══ -->
+<div id="s-ceo" class="hidden">
+  <div class="ah">
     <div>
-      <div class="app-header-brand">PERFUM PLUS</div>
-      <div class="app-header-role">Dashboard · Ceo</div>
+      <div class="ah-brand">PERFUM PLUS</div>
+      <div class="ah-sub">Dashboard · Ceo</div>
     </div>
-    <button class="btn-logout" onclick="logout()">Salir</button>
+    <button class="btn-sm" onclick="logout()">Salir</button>
   </div>
-  <div class="app-content">
-    <div class="week-tabs">
-      <button class="week-tab active" onclick="ceoTab('hoy',this)">Hoy</button>
-      <button class="week-tab" onclick="ceoTab('marlon',this)">Marlon</button>
-      <button class="week-tab" onclick="ceoTab('ingrid',this)">Ingrid</button>
-      <button class="week-tab" onclick="ceoTab('isabella',this)">Isabella</button>
-      <button class="week-tab" onclick="ceoTab('config',this)">Tareas</button>
+
+  <div class="ac">
+    <div class="ctabs">
+      <button class="ctab on" onclick="ceoTab('hoy',this)">Hoy</button>
+      <button class="ctab" onclick="ceoTab('marlon',this)">Marlon</button>
+      <button class="ctab" onclick="ceoTab('ingrid',this)">Ingrid</button>
+      <button class="ctab" onclick="ceoTab('isabella',this)">Isabella</button>
+      <button class="ctab" onclick="ceoTab('analisis',this)">Análisis</button>
+      <button class="ctab" onclick="ceoTab('config',this)">Tareas</button>
     </div>
 
-    <!-- HOY: todos en tiempo real -->
-    <div id="ceo-tab-hoy">
-      <div class="section-title">Quién está hoy</div>
-      <div class="section-sub" id="ceo-hoy-sub"></div>
-      <div id="ceo-hoy-lista"></div>
+    <!-- HOY -->
+    <div id="ct-hoy">
+      <div class="txt-muted" style="margin-bottom:.75rem" id="ceo-hoy-fecha"></div>
+      <div id="ceo-alertas" class="alerta-wrap"></div>
+      <div class="colab-grid" id="ceo-cards"></div>
+    </div>
+
+    <!-- DETALLE colaborador -->
+    <div id="ct-detalle" class="hidden">
+      <button class="det-back" onclick="volverCeo()">← Volver</button>
+      <div style="font-family:var(--ff);font-size:1.4rem;font-weight:600;color:var(--g800)" id="det-nombre"></div>
+      <div class="txt-muted" style="margin-bottom:1rem" id="det-fecha"></div>
+
+      <div class="card">
+        <div class="card-t" style="margin-bottom:.75rem">Tareas del día</div>
+        <div id="det-tareas"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-t" style="margin-bottom:.75rem">Calificación</div>
+        <div class="frow" style="margin-bottom:.6rem">
+          <span class="txt-muted">Semáforo de rendimiento</span>
+          <div class="sema-row">
+            <div class="sema-c sc-red"    onclick="setSema('red',this)"></div>
+            <div class="sema-c sc-yellow" onclick="setSema('yellow',this)"></div>
+            <div class="sema-c sc-green"  onclick="setSema('green',this)"></div>
+          </div>
+        </div>
+        <div id="sema-lbl" class="txt-muted" style="font-size:.78rem;margin-bottom:.75rem"></div>
+        <div class="fg" style="margin-bottom:0">
+          <label>Mensaje (opcional)</label>
+          <textarea id="ceo-msg" class="tarea-nota" rows="2" placeholder="Ej: Buen turno hoy, sigue así..."></textarea>
+        </div>
+        <button class="btn" style="margin-top:.75rem" onclick="guardarCalif()">Guardar calificación</button>
+      </div>
     </div>
 
     <!-- MARLON: reporte semanal -->
-    <div id="ceo-tab-marlon" class="hidden">
-      <div class="section-title">Marlon</div>
-      <div class="section-sub">Reporte semanal — últimos 7 días</div>
-      <div id="marlon-semana"></div>
+    <div id="ct-marlon" class="hidden">
+      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem">Marlon</div>
+      <div class="txt-muted" style="margin-bottom:1rem">Reporte semanal — últimos 7 días</div>
+      <div class="nums-row" id="m-nums"></div>
+      <div class="prog-wrap" style="margin-bottom:.85rem"><div class="prog-bar" id="m-prog" style="width:0%"></div></div>
+      <div id="m-hist"></div>
+      <div id="m-proximas"></div>
     </div>
 
     <!-- INGRID: reporte mensual -->
-    <div id="ceo-tab-ingrid" class="hidden">
-      <div class="section-title">Ingrid</div>
-      <div class="section-sub" id="ceo-ingrid-sub"></div>
-      <div id="ingrid-mes"></div>
+    <div id="ct-ingrid" class="hidden">
+      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem">Ingrid</div>
+      <div class="txt-muted" style="margin-bottom:1rem" id="ingrid-sub"></div>
+      <div class="nums-row" id="i-nums"></div>
+      <div class="prog-wrap" style="margin-bottom:.85rem"><div class="prog-bar" id="i-prog" style="width:0%"></div></div>
+      <div id="i-hist"></div>
+      <div id="i-proximas"></div>
     </div>
 
     <!-- ISABELLA: reporte mensual -->
-    <div id="ceo-tab-isabella" class="hidden">
-      <div class="section-title">Isabella</div>
-      <div class="section-sub" id="ceo-isabella-sub"></div>
-      <div id="isabella-mes"></div>
+    <div id="ct-isabella" class="hidden">
+      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem">Isabella</div>
+      <div class="txt-muted" style="margin-bottom:1rem" id="isabella-sub"></div>
+      <div class="nums-row" id="isa-nums"></div>
+      <div class="prog-wrap" style="margin-bottom:.85rem"><div class="prog-bar" id="isa-prog" style="width:0%"></div></div>
+      <div id="isa-hist"></div>
+      <div id="isa-proximas"></div>
     </div>
 
-    <!-- DETALLE día -->
-    <div id="ceo-tab-detalle" class="hidden">
-      <button class="back-btn" onclick="volverCeo()">← Volver</button>
-      <div class="section-title" id="det-nombre"></div>
-      <div class="section-sub" id="det-fecha"></div>
-      <div class="card">
-        <div class="card-title" style="margin-bottom:0.75rem">Tareas del día</div>
-        <div id="det-metas"></div>
+    <!-- ANÁLISIS EDA -->
+    <div id="ct-analisis" class="hidden">
+      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem">Análisis del equipo</div>
+      <div class="txt-muted" style="margin-bottom:1.1rem" id="eda-sub"></div>
+
+      <!-- Resumen ejecutivo -->
+      <div class="card" style="margin-bottom:.85rem;background:var(--black);border:none">
+        <div class="card-t" style="color:var(--gold-lt);margin-bottom:.6rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase">Resumen ejecutivo</div>
+        <div id="eda-resumen" style="font-size:.88rem;color:rgba(250,249,246,.75);line-height:1.7"></div>
       </div>
-      <div class="card">
-        <div class="card-title" style="margin-bottom:0.75rem">Calificación del Ceo</div>
-        <div class="flex-between" style="margin-bottom:0.75rem">
-          <span class="text-muted">Semáforo de rendimiento</span>
-          <div class="sema-selector">
-            <div class="sema-btn sema-btn-red"    onclick="setSema('red',this)"></div>
-            <div class="sema-btn sema-btn-yellow" onclick="setSema('yellow',this)"></div>
-            <div class="sema-btn sema-btn-green"  onclick="setSema('green',this)"></div>
-          </div>
-        </div>
-        <div id="sema-lbl" class="text-muted" style="font-size:0.8rem;margin-bottom:0.75rem"></div>
-        <label class="card-cat">Mensaje para el colaborador (opcional)</label>
-        <textarea class="meta-nota" id="ceo-mensaje" rows="2" placeholder="Ej: Buen trabajo hoy, sigue así..."></textarea>
-        <button class="btn-primary mt1" onclick="guardarCalif()">Guardar calificación</button>
+
+      <!-- Bloque 1: Tendencia semana (Marlon) -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="card-t" style="margin-bottom:.2rem">Tendencia de Marlon</div>
+        <div class="txt-muted" style="font-size:.75rem;margin-bottom:.9rem">Eficacia diaria — últimos 7 días laborables</div>
+        <div style="position:relative;height:160px"><canvas id="chart-tendencia-m"></canvas></div>
+      </div>
+
+      <!-- Bloque 2: Tendencia mes (Ingrid + Isabella) -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="card-t" style="margin-bottom:.2rem">Tendencia fin de semana</div>
+        <div class="txt-muted" style="font-size:.75rem;margin-bottom:.9rem">Eficacia por día trabajado este mes — Ingrid e Isabella</div>
+        <div style="position:relative;height:160px"><canvas id="chart-tendencia-fds"></canvas></div>
+      </div>
+
+      <!-- Bloque 3: Rendimiento por categoría -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="card-t" style="margin-bottom:.2rem">Rendimiento por categoría</div>
+        <div class="txt-muted" style="font-size:.75rem;margin-bottom:.9rem">% de tareas completadas por área — todo el equipo esta semana</div>
+        <div style="position:relative;height:180px"><canvas id="chart-cats"></canvas></div>
+      </div>
+
+      <!-- Bloque 4: Consistencia -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="card-t" style="margin-bottom:.75rem">Consistencia del equipo</div>
+        <div id="eda-consistencia"></div>
       </div>
     </div>
 
-      <div class="card" id="card-tarea-pers">
-        <div class="card-title" style="margin-bottom:0.75rem">Asignar tarea personalizada</div>
-        <div class="form-group">
-          <label>¿Para qué día?</label>
-          <input type="date" id="pers-fecha" style="font-family:var(--font-body)">
-        </div>
-        <div class="form-group">
-          <label>Descripción de la tarea</label>
-          <input type="text" id="pers-desc" placeholder="Ej: Llamar al proveedor de difusores" maxlength="100">
-        </div>
-        <button class="btn-primary" onclick="asignarTareaPers()">Asignar tarea</button>
-        <div id="pers-lista" style="margin-top:0.75rem"></div>
-      </div>
-    </div>
-
-    <!-- CONFIG -->
-    <div id="ceo-tab-config" class="hidden">
-      <div class="section-title">Gestión de tareas</div>
-      <div class="section-sub">Define las tareas que verán los colaboradores cada día</div>
-      <div id="config-metas-lista"></div>
-      <div class="card mt1">
-        <div class="card-title" style="margin-bottom:0.75rem">Agregar nueva tarea</div>
-        <div class="form-group">
+    <!-- CONFIG TAREAS BASE -->
+    <div id="ct-config" class="hidden">
+      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem">Gestión de tareas</div>
+      <div class="txt-muted" style="margin-bottom:1rem">Tareas base para todos los colaboradores</div>
+      <div id="cfg-lista"></div>
+      <div class="card mt">
+        <div class="card-t" style="margin-bottom:.75rem">Nueva tarea base</div>
+        <div class="fg">
           <label>Categoría</label>
-          <select id="nueva-cat">
+          <select id="cfg-cat">
             <option value="ventas">Ventas y atención al cliente</option>
-            <option value="orden">Orden y limpieza del local</option>
+            <option value="orden">Orden y limpieza</option>
             <option value="redes">Redes sociales y contenido</option>
             <option value="inventario">Inventario y productos</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="fg" style="margin-bottom:0">
           <label>Descripción</label>
-          <input type="text" id="nueva-desc" placeholder="Ej: Atender mínimo 15 clientes" maxlength="80">
+          <input type="text" id="cfg-desc" placeholder="Ej: Verificar stock al abrir" maxlength="80">
         </div>
-        <button class="btn-primary" onclick="agregarMeta()">Agregar meta</button>
+        <button class="btn" style="margin-top:.75rem" onclick="agregarTareaBase()">Agregar tarea</button>
       </div>
     </div>
+  </div>
+
+  <!-- FAB: tarea rápida personalizada -->
+  <button class="fab" id="fab-btn" onclick="abrirModal()" title="Asignar tarea personalizada">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+</div>
+
+<!-- ══ MODAL: tarea rápida ══ -->
+<div id="modal" class="modal-overlay hidden" onclick="if(event.target===this)cerrarModal()">
+  <div class="modal">
+    <div class="frow" style="margin-bottom:1.2rem">
+      <span class="modal-title" style="float:none;margin:0">Asignar tarea</span>
+      <button class="modal-close" onclick="cerrarModal()">✕</button>
+    </div>
+    <div class="fg">
+      <label>Colaborador</label>
+      <select id="m-colab">
+        <option value="">— Elegir —</option>
+        <option value="Marlon">Marlon</option>
+        <option value="Ingrid">Ingrid</option>
+        <option value="Isabella">Isabella</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>¿Para qué día?</label>
+      <input type="date" id="m-fecha" style="font-family:var(--fb)">
+    </div>
+    <div class="fg" style="margin-bottom:0">
+      <label>Tarea</label>
+      <input type="text" id="m-desc" placeholder="Ej: Revisar difusores del local" maxlength="100">
+    </div>
+    <button class="btn" style="margin-top:1rem" onclick="guardarTareaRapida()">Asignar tarea</button>
   </div>
 </div>
 
 <div id="toast"></div>
 
 <script>
-const PASS_CEO='1234';
-const COLAB_FDS=['Ingrid','Isabella'];
-const CATS={ventas:'Ventas y atención al cliente',orden:'Orden y limpieza del local',redes:'Redes sociales y contenido',inventario:'Inventario y productos'};
-const SEMA_LABELS={red:'Bajo rendimiento — requiere atención',yellow:'Rendimiento regular — puede mejorar',green:'Excelente rendimiento — sigue así'};
+// ─── CONSTANTES ───
+const PASS='1234';
+const FDS=['Ingrid','Isabella'];
+const CATS={ventas:'Ventas y atención',orden:'Orden y limpieza',redes:'Redes sociales',inventario:'Inventario'};
+const SEMA={red:'Bajo rendimiento — requiere atención',yellow:'Rendimiento regular — puede mejorar',green:'Excelente rendimiento — sigue así'};
+const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const MESES_C=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 
-let state=JSON.parse(localStorage.getItem('pp_v3')||'null')||{
-  metas:[
-    {id:1,cat:'ventas',desc:'Atender a todos los clientes con amabilidad y rapidez'},
+// ─── ESTADO ───
+let S=JSON.parse(localStorage.getItem('pp_v5')||'null')||{
+  tareas:[
+    {id:1,cat:'ventas',desc:'Atender a todos los clientes con amabilidad'},
     {id:2,cat:'ventas',desc:'Ofrecer productos adicionales a cada cliente'},
-    {id:3,cat:'orden',desc:'Mantener las vitrinas limpias y ordenadas'},
-    {id:4,cat:'orden',desc:'Limpiar y organizar el local al inicio y cierre del turno'},
-    {id:5,cat:'redes',desc:'Tomar al menos 1 foto o video para contenido del día'},
-    {id:6,cat:'inventario',desc:'Verificar el stock de los perfumes más vendidos'},
-    {id:7,cat:'inventario',desc:'Reportar productos agotados o próximos a agotarse'}
+    {id:3,cat:'orden',desc:'Mantener vitrinas limpias y ordenadas'},
+    {id:4,cat:'orden',desc:'Limpiar el local al inicio y cierre del turno'},
+    {id:5,cat:'redes',desc:'Tomar al menos 1 foto o video para contenido'},
+    {id:6,cat:'inventario',desc:'Verificar stock de los perfumes más vendidos'},
+    {id:7,cat:'inventario',desc:'Reportar productos agotados o por agotarse'}
   ],
-  reportes:{},califs:{},turnos:{},tareasPers:{},nextIdPers:100
+  rep:{},    // rep[fecha][colab] = {estados:{id:color}, notas:{id:txt}}
+  califs:{}, // califs[fecha][colab] = {sema, mensaje}
+  turnos:{}, // turnos[fecha][colab] = true
+  tp:{},     // tp[fecha][colab] = [{id,desc}]
+  nid:100
 };
 
-let currentUser=null,currentRole=null,currentDet=null,currentSema=null,prevTab='hoy',detFecha=null;
+let CU=null,CR=null,CD=null,CS=null,PREV='hoy',DF=null;
 
-function save(){localStorage.setItem('pp_v3',JSON.stringify(state));}
-function today(){return new Date().toISOString().slice(0,10);}
-function currentMonth(){return new Date().toISOString().slice(0,7);}
-function fmtDate(d){const[y,m,dd]=d.split('-');const M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];return `${dd} ${M[parseInt(m)-1]} ${y}`;}
-function fmtMonth(ym){const[y,m]=ym.split('-');const M=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];return `${M[parseInt(m)-1]} ${y}`;}
-function initials(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-function esFDS(n){return COLAB_FDS.includes(n);}
-function turnoActivo(n){return esFDS(n)?!!(state.turnos[today()]?.[n]):true;}
+function sv(){localStorage.setItem('pp_v5',JSON.stringify(S));}
+let _svTimer=null;
+function svDebounce(){
+  clearTimeout(_svTimer);
+  _svTimer=setTimeout(()=>sv(),400);
+}
 
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200);}
-function show(id){['screen-login','screen-colab','screen-ceo'].forEach(s=>document.getElementById(s).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');}
+// Limpieza de datos con más de 60 días para evitar saturar localStorage
+function limpiarDatosAntiguos(){
+  const limite=new Date();
+  limite.setDate(limite.getDate()-60);
+  const limiteStr=limite.toISOString().slice(0,10);
+  ['rep','califs','turnos','tp'].forEach(k=>{
+    if(!S[k])return;
+    Object.keys(S[k]).forEach(f=>{
+      if(f<limiteStr)delete S[k][f];
+    });
+  });
+  sv();
+}
+function hoy(){return new Date().toISOString().slice(0,10);}
+function mes(){return new Date().toISOString().slice(0,7);}
+function fd(d){if(!d)return '';const[y,m,dd]=d.split('-');return `${dd} ${MESES_C[+m-1]} ${y}`;}
+function fm(ym){const[y,m]=ym.split('-');return `${MESES[+m-1]} ${y}`;}
+function ini(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+function esFDS(n){return FDS.includes(n);}
+function esLaborable(emp,fecha){
+  // Marlon solo trabaja lunes(1) a viernes(5)
+  if(emp==='Marlon'){const dow=new Date(fecha+'T12:00:00').getDay();return dow>=1&&dow<=5;}
+  // FDS: solo si activaron turno
+  if(esFDS(emp))return S.turnos[fecha]?.[emp]===true;
+  return true;
+}
+function turnoOn(n){return esFDS(n)?!!(S.turnos[hoy()]?.[n]):true;}
+function diaSemana(d){const dias=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];return dias[new Date(d+'T12:00:00').getDay()];}
+function finSemNum(d){const n=+d.split('-')[2];return n<=7?1:n<=14?2:n<=21?3:4;}
 
-// LOGIN
-function setRole(role,btn){
-  document.querySelectorAll('.role-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('login-colaborador').classList.toggle('hidden',role==='ceo');
-  document.getElementById('login-ceo').classList.toggle('hidden',role==='colaborador');
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
+function showS(id){['s-login','s-colab','s-ceo'].forEach(s=>document.getElementById(s).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');}
+
+// ─── SESIÓN PERSISTENTE ───
+function guardarSesion(){
+  localStorage.setItem('pp_sesion',JSON.stringify({user:CU,rol:CR,fecha:hoy()}));
+}
+function limpiarSesion(){
+  localStorage.removeItem('pp_sesion');
+}
+function restaurarSesion(){
+  try{
+    const s=JSON.parse(localStorage.getItem('pp_sesion')||'null');
+    if(!s)return false;
+    // Sesión válida máximo 12 horas (mismo día)
+    if(s.fecha!==hoy()){limpiarSesion();return false;}
+    CU=s.user;CR=s.rol;
+    if(CR==='colab'){
+      // Re-activar turno FDS si corresponde
+      if(esFDS(CU)){
+        const f=hoy();
+        if(!S.turnos[f])S.turnos[f]={};
+        S.turnos[f][CU]=true;sv();
+      }
+      renderColab();showS('s-colab');
+    } else if(CR==='ceo'){
+      renderCeo();showS('s-ceo');
+    }
+    return true;
+  }catch(e){limpiarSesion();return false;}
+}
+
+// ─── LOGIN ───
+function setRole(r,btn){
+  document.querySelectorAll('.rtab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('l-colab').classList.toggle('hidden',r==='ceo');
+  document.getElementById('l-ceo').classList.toggle('hidden',r==='colab');
 }
 
 function loginColab(){
-  const sel=document.getElementById('sel-colab').value;
-  if(!sel){toast('Selecciona tu nombre');return;}
-  currentUser=sel;currentRole='colaborador';
-  // Cambio 3: FDS → auto-activar turno con fecha actual al ingresar
-  if(esFDS(sel)){
-    const f=today();
-    if(!state.turnos[f])state.turnos[f]={};
-    state.turnos[f][sel]=true;
-    save();
+  const n=document.getElementById('sel-nombre').value;
+  if(!n){toast('Selecciona tu nombre');return;}
+  CU=n;CR='colab';
+  if(esFDS(n)){
+    const f=hoy();
+    if(!S.turnos[f])S.turnos[f]={};
+    S.turnos[f][n]=true;sv();
   }
-  renderColab();show('screen-colab');
+  guardarSesion();
+  renderColab();showS('s-colab');
 }
+
 function loginCeo(){
-  if(document.getElementById('inp-pass').value!==PASS_CEO){toast('Contraseña incorrecta');return;}
-  currentRole='ceo';renderCeo();show('screen-ceo');
+  if(document.getElementById('inp-pass').value!==PASS){toast('Contraseña incorrecta');return;}
+  CR='ceo';guardarSesion();renderCeo();showS('s-ceo');
 }
+
 function logout(){
-  currentUser=null;currentRole=null;
+  limpiarSesion();
+  CU=null;CR=null;
   document.getElementById('inp-pass').value='';
-  document.getElementById('sel-colab').value='';
-  show('screen-login');
+  document.getElementById('sel-nombre').value='';
+  showS('s-login');
+  toast('Sesión cerrada');
 }
 
-// COLABORADOR
+// ─── COLABORADOR ───
 function renderColab(){
-  document.getElementById('colab-header-name').textContent=currentUser;
-  document.getElementById('tab-periodo-lbl').textContent=esFDS(currentUser)?'Mi mes':'Mi semana';
-  renderMetasHoy();
+  document.getElementById('c-hname').textContent=CU;
+  renderHeroYTareas();
 }
 
-function renderMetasHoy(){
-  const f=today();
-  document.getElementById('emp-fecha-titulo').textContent='Tareas de hoy — '+fmtDate(f);
-  const rep=state.reportes[f]?.[currentUser]||{};
-  const grupos={};
-  state.metas.forEach(m=>{if(!grupos[m.cat])grupos[m.cat]=[];grupos[m.cat].push(m);});
-  let html='';
-  Object.keys(grupos).forEach(cat=>{
-    html+=`<div class="card"><div class="card-cat">${CATS[cat]}</div>`;
-    grupos[cat].forEach(m=>{
-      const est=rep.estados?.[m.id]||'';
-      const nota=rep.notas?.[m.id]||'';
-      const pct=est==='green'?100:est==='yellow'?50:est==='red'?0:null;
-      html+=`<div style="padding:0.6rem 0;border-bottom:1px solid var(--gray-100)">
-        <div class="flex-between" style="margin-bottom:6px">
-          <span style="font-size:0.88rem;font-weight:500;color:var(--gray-800);flex:1;padding-right:8px">${m.desc}</span>
-          ${pct!==null?`<span class="badge badge-${est}"><span class="badge-dot"></span>${pct}%</span>`:''}
-        </div>
-        <div class="estado-btns">
-          <button class="btn-estado ${est==='red'?'sel-red':''}"    onclick="setEstado(${m.id},'red')">Pendiente</button>
-          <button class="btn-estado ${est==='yellow'?'sel-yellow':''}" onclick="setEstado(${m.id},'yellow')">En proceso</button>
-          <button class="btn-estado ${est==='green'?'sel-green':''}"  onclick="setEstado(${m.id},'green')">Completada</button>
-        </div>
-        <textarea class="meta-nota" rows="1" placeholder="Nota (opcional)..." onchange="setNota(${m.id},this.value)">${nota}</textarea>
-      </div>`;
-    });
-    html+=`</div>`;
-  });
-  // Tareas personalizadas del día
-  const tp=state.tareasPers?.[f]?.[currentUser]||[];
+function renderHeroYTareas(){
+  const f=hoy();
+  const rep=S.rep[f]?.[CU]||{};
+  const est=rep.estados||{};
+  const notas=rep.notas||{};
+  const tp=S.tp[f]?.[CU]||[];
+  const totalBase=S.tareas.length;
+  const totalTP=tp.length;
+  const total=totalBase+totalTP;
+  const comp=Object.values(est).filter(e=>e==='green').length;
+  const pct=total?Math.round(comp/total*100):0;
+  const dia=diaSemana(f);
+
+  // Hero
+  document.getElementById('c-hero').innerHTML=`
+    <div class="ph-greeting">Hola, ${CU}</div>
+    <div class="ph-date">${dia} ${fd(f)}</div>
+    <div class="ph-lbl">Tareas completadas hoy</div>
+    <div class="ph-nums">
+      <span class="ph-big">${comp}</span>
+      <span class="ph-of">de ${total}</span>
+      <span class="badge b-${pct>=75?'green':pct>=40?'yellow':'red'}" style="margin-left:6px"><span class="bdot"></span>${pct}%</span>
+    </div>
+    <div class="prog-wrap-hero"><div class="prog-bar-hero" style="width:${pct}%"></div></div>`;
+
+  // Tareas personalizadas del CEO al tope
+  const tpWrap=document.getElementById('c-tp-wrap');
   if(tp.length){
-    html+='<div class="card"><div class="card-cat" style="display:flex;align-items:center;gap:6px">Tareas personalizadas <span style="background:var(--gold-light);color:var(--gold-dark);font-size:0.68rem;font-weight:600;padding:1px 7px;border-radius:10px;letter-spacing:0.04em">del Ceo</span></div>';
+    tpWrap.classList.remove('hidden');
+    let h='';
     tp.forEach(t=>{
-      const estKey='p_'+t.id;
-      const est=rep.estados?.[estKey]||'';
-      const nota=rep.notas?.[estKey]||'';
-      const pct=est==='green'?100:est==='yellow'?50:est==='red'?0:null;
-      html+=`<div style="padding:0.6rem 0;border-bottom:1px solid var(--gray-100)">
-        <div class="flex-between" style="margin-bottom:6px">
-          <span style="font-size:0.88rem;font-weight:500;color:var(--gray-800);flex:1;padding-right:8px">${t.desc}</span>
-          ${pct!==null?`<span class="badge badge-${est}"><span class="badge-dot"></span>${pct}%</span>`:''}
-        </div>
-        <div class="estado-btns">
-          <button class="btn-estado ${est==='red'?'sel-red':''}"    onclick="setEstado('p_${t.id}','red')">Pendiente</button>
-          <button class="btn-estado ${est==='yellow'?'sel-yellow':''}" onclick="setEstado('p_${t.id}','yellow')">En proceso</button>
-          <button class="btn-estado ${est==='green'?'sel-green':''}"  onclick="setEstado('p_${t.id}','green')">Completada</button>
-        </div>
-        <textarea class="meta-nota" rows="1" placeholder="Nota (opcional)..." onchange="setNota('p_${t.id}',this.value)">${nota}</textarea>
-      </div>`;
+      const k='p_'+t.id;
+      const e=est[k]||'';
+      const nota=notas[k]||'';
+      const p=e==='green'?100:e==='yellow'?50:e==='red'?0:null;
+      h+=tareaItemHtml(k,t.desc,e,nota,e?p:null);
     });
-    html+='</div>';
+    document.getElementById('c-tp-lista').innerHTML=h;
+  } else {
+    tpWrap.classList.add('hidden');
   }
-  document.getElementById('emp-metas-container').innerHTML=html;
-  const calif=state.califs[f]?.[currentUser];
-  if(calif?.mensaje){document.getElementById('emp-alerta').classList.remove('hidden');document.getElementById('emp-alerta-texto').textContent=calif.mensaje;}
-  else document.getElementById('emp-alerta').classList.add('hidden');
+
+  // Tareas base agrupadas
+  const grupos={};
+  S.tareas.forEach(t=>{if(!grupos[t.cat])grupos[t.cat]=[];grupos[t.cat].push(t);});
+  let hb='';
+  Object.keys(grupos).forEach(cat=>{
+    hb+=`<div class="card"><div class="cat-lbl">${CATS[cat]}</div>`;
+    grupos[cat].forEach(t=>{
+      const e=est[t.id]||'';
+      const nota=notas[t.id]||'';
+      const p=e==='green'?100:e==='yellow'?50:e==='red'?0:null;
+      hb+=tareaItemHtml(t.id,t.desc,e,nota,e?p:null);
+    });
+    hb+=`</div>`;
+  });
+  document.getElementById('c-tareas-base').innerHTML=hb;
+
+  // Mensaje CEO
+  const cal=S.califs[f]?.[CU];
+  if(cal?.mensaje){
+    document.getElementById('c-msg').classList.remove('hidden');
+    document.getElementById('c-msg-txt').textContent=cal.mensaje;
+  } else {
+    document.getElementById('c-msg').classList.add('hidden');
+  }
 }
 
-function setEstado(id,color){
-  const f=today();
-  if(!state.reportes[f])state.reportes[f]={};
-  if(!state.reportes[f][currentUser])state.reportes[f][currentUser]={estados:{},notas:{}};
-  state.reportes[f][currentUser].estados[id]=color;
-  save();renderMetasHoy();
+function tareaItemHtml(id,desc,est,nota,pct){
+  return `<div class="tarea-item" data-id="${id}">
+    <div class="frow" style="align-items:flex-start">
+      <span class="tarea-desc${est==='green'?' done':''}">${desc}</span>
+      ${pct!==null?`<span class="badge b-${est}" style="flex-shrink:0"><span class="bdot"></span>${pct}%</span>`:''}
+    </div>
+    <div class="tq-wrap">
+      <button class="tq${est==='red'?' on-red':''}"    onclick="setEst('${id}','red')">Pendiente</button>
+      <button class="tq${est==='yellow'?' on-yellow':''}" onclick="setEst('${id}','yellow')">En proceso</button>
+      <button class="tq${est==='green'?' on-green':''}"  onclick="setEst('${id}','green')">Completada</button>
+    </div>
+    <textarea class="tarea-nota" rows="1" placeholder="Nota..." oninput="setNota('${id}',this.value)">${nota}</textarea>
+  </div>`;
+}
+
+function setEst(id,color){
+  const f=hoy();
+  if(!S.rep[f])S.rep[f]={};
+  if(!S.rep[f][CU])S.rep[f][CU]={estados:{},notas:{}};
+  const prev=S.rep[f][CU].estados?.[id];
+  const esNuevaCompletada=color==='green'&&prev!=='green';
+  S.rep[f][CU].estados[id]=color;
+  svDebounce();
+  renderHeroYTareas();
+  // Bug 4 fix: disparar animación DESPUÉS del render usando data-id
+  if(esNuevaCompletada){
+    setTimeout(()=>{
+      const item=document.querySelector(`.tarea-item[data-id="${id}"]`);
+      if(item){
+        item.classList.remove('flash-green');
+        void item.offsetWidth;
+        item.classList.add('flash-green');
+        setTimeout(()=>item.classList.remove('flash-green'),600);
+      }
+      const heroBadge=document.querySelector('.prog-hero .badge');
+      if(heroBadge){
+        heroBadge.classList.remove('badge-bounce');
+        void heroBadge.offsetWidth;
+        heroBadge.classList.add('badge-bounce');
+        setTimeout(()=>heroBadge.classList.remove('badge-bounce'),450);
+      }
+    },30);
+  }
 }
 function setNota(id,val){
-  const f=today();
-  if(!state.reportes[f])state.reportes[f]={};
-  if(!state.reportes[f][currentUser])state.reportes[f][currentUser]={estados:{},notas:{}};
-  state.reportes[f][currentUser].notas[id]=val;
-  save();
+  const f=hoy();
+  if(!S.rep[f])S.rep[f]={};
+  if(!S.rep[f][CU])S.rep[f][CU]={estados:{},notas:{}};
+  S.rep[f][CU].notas[id]=val;svDebounce();
 }
-function guardarMetas(){save();toast('Reporte guardado correctamente');}
-
-function empTab(tab,btn){
-  document.querySelectorAll('#screen-colab .week-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('emp-tab-dia').classList.toggle('hidden',tab!=='dia');
-  document.getElementById('emp-tab-periodo').classList.toggle('hidden',tab!=='periodo');
-  if(tab==='periodo')renderPeriodo();
-}
-
-function renderPeriodo(){
-  const fds=esFDS(currentUser);
-  document.getElementById('emp-periodo-titulo').textContent=fds?'Mi mes':'Mi semana';
-  document.getElementById('emp-periodo-sub').textContent=fds?fmtMonth(currentMonth()):'Últimos 7 días';
-  document.getElementById('emp-p-dias-lbl').textContent=fds?'Días trabajados':'Días activos';
-  if(fds)calcMes(currentUser,'emp');
-  else calcSemana(currentUser,'emp');
+function guardarReporte(){
+  const btn=document.getElementById('btn-guardar');
+  if(btn.disabled)return;
+  btn.disabled=true;
+  btn.innerHTML='<span class="spinner"></span>Guardando...';
+  setTimeout(()=>{
+    sv();
+    btn.disabled=false;
+    btn.textContent='Guardar reporte del día';
+    toast('Reporte guardado correctamente');
+  },1200);
 }
 
-function calcSemana(nombre,prefix){
-  const dias=getLast7();
-  let comp=0,total=0,activos=0,hist='';
-  dias.forEach(d=>{
-    const rep=state.reportes[d]?.[nombre]||{};
-    const est=rep.estados||{};
-    const c=Object.values(est).filter(e=>e==='green').length;
-    const t=state.metas.length;
-    if(Object.keys(est).length)activos++;
-    comp+=c;total+=t;
-    const pct=t?Math.round(c/t*100):0;
-    const s=pct>=75?'green':pct>=40?'yellow':'red';
-    const cf=state.califs[d]?.[nombre];
-    hist+=`<div class="card" style="padding:0.85rem 1rem;cursor:pointer" onclick="${prefix==='ceo'?`verDetalle('${nombre}','semana','${d}')`:''}">
-      <div class="flex-between">
-        <div><div style="font-size:0.82rem;font-weight:600;color:var(--gray-800)">${fmtDate(d)}</div><div class="text-muted">${c}/${t} completadas</div></div>
-        <div style="text-align:right">
-          <span class="badge badge-${s}"><span class="badge-dot"></span>${pct}%</span>
-          ${cf?.sema?`<div style="margin-top:4px"><span class="badge badge-${cf.sema}"><span class="badge-dot"></span>${cf.sema==='green'?'Excelente':cf.sema==='yellow'?'Regular':'Bajo'}</span></div>`:''}
-        </div>
-      </div>
-    </div>`;
-  });
-  const pct=total?Math.round(comp/total*100):0;
-  const sema=pct>=75?'green':pct>=40?'yellow':'red';
-  if(prefix==='emp'){
-    document.getElementById('emp-p-comp').textContent=comp;
-    document.getElementById('emp-p-pct').textContent=pct+'%';
-    document.getElementById('emp-p-dias').textContent=activos;
-    document.getElementById('emp-historial').innerHTML=hist;
-  }
-  return{comp,total,pct,sema,activos,hist};
+function cToggle(){
+  const v1=document.getElementById('c-view-hoy');
+  const v2=document.getElementById('c-view-periodo');
+  const enHoy=!v1.classList.contains('hidden');
+  v1.classList.toggle('hidden',enHoy);
+  v2.classList.toggle('hidden',!enHoy);
+  if(enHoy)renderPeriodoColab();
+  document.querySelector('.ah-right .btn-sm').textContent=enHoy?'Volver a hoy':(esFDS(CU)?'Mi mes':'Mi semana');
 }
 
-function calcMes(nombre,prefix){
-  const mes=currentMonth();
-  const diasMes=getDiasDelMes(mes);
-  const activos=diasMes.filter(d=>state.turnos[d]?.[nombre]===true);
-  let comp=0,total=0,hist='';
-  activos.forEach(d=>{
-    const rep=state.reportes[d]?.[nombre]||{};
-    const est=rep.estados||{};
-    const c=Object.values(est).filter(e=>e==='green').length;
-    const t=state.metas.length;
-    comp+=c;total+=t;
-    const pct=t?Math.round(c/t*100):0;
-    const s=pct>=75?'green':pct>=40?'yellow':'red';
-    const cf=state.califs[d]?.[nombre];
-    hist+=`<div class="card" style="padding:0.85rem 1rem;cursor:pointer" onclick="${prefix==='ceo'?`verDetalle('${nombre}','mes','${d}')`:''}">
-      <div class="flex-between">
-        <div><div style="font-size:0.82rem;font-weight:600;color:var(--gray-800)">${fmtDate(d)}</div><div class="text-muted">${c}/${t} completadas</div></div>
-        <div style="text-align:right">
-          <span class="badge badge-${s}"><span class="badge-dot"></span>${pct}%</span>
-          ${cf?.sema?`<div style="margin-top:4px"><span class="badge badge-${cf.sema}"><span class="badge-dot"></span>${cf.sema==='green'?'Excelente':cf.sema==='yellow'?'Regular':'Bajo'}</span></div>`:''}
-        </div>
-      </div>
-    </div>`;
-  });
-  const pct=total?Math.round(comp/total*100):0;
-  const sema=pct>=75?'green':pct>=40?'yellow':'red';
-  if(prefix==='emp'){
-    document.getElementById('emp-p-comp').textContent=comp;
-    document.getElementById('emp-p-pct').textContent=activos.length?pct+'%':'—';
-    document.getElementById('emp-p-dias').textContent=activos.length;
-    document.getElementById('emp-historial').innerHTML=activos.length?hist:`<div class="card" style="text-align:center;padding:1.5rem"><div class="text-muted">Aún no tienes días trabajados este mes.</div></div>`;
-  }
-  return{comp,total,pct,sema,diasActivos:activos.length,hist};
+function renderPeriodoColab(){
+  const fds=esFDS(CU);
+  document.getElementById('c-per-titulo').textContent=fds?'Mi mes':'Mi semana';
+  document.getElementById('c-per-sub').textContent=fds?fm(mes()):'Últimos 7 días';
+  if(fds) calcMesUI(CU,'c-per-nums','c-per-prog','c-per-hist',false);
+  else calcSemanaUI(CU,'c-per-nums','c-per-prog','c-per-hist',false);
 }
 
-// CEO
+// ─── CEO ───
 function renderCeo(){
-  document.getElementById('ceo-hoy-sub').textContent=fmtDate(today());
-  document.getElementById('ceo-ingrid-sub').textContent=fmtMonth(currentMonth());
-  document.getElementById('ceo-isabella-sub').textContent=fmtMonth(currentMonth());
-  renderHoyTodos();
+  document.getElementById('ceo-hoy-fecha').textContent=`${diaSemana(hoy())} ${fd(hoy())}`;
+  document.getElementById('ingrid-sub').textContent=fm(mes());
+  document.getElementById('isabella-sub').textContent=fm(mes());
+  document.getElementById('m-fecha').value=hoy();
+  renderCardsHoy();
 }
 
-function renderHoyTodos(){
-  const f=today();
-  const todos=['Marlon','Ingrid','Isabella'];
-  let html='';
-  todos.forEach(emp=>{
-    const presente = esFDS(emp) ? state.turnos[f]?.[emp]===true : true;
-    const rep=state.reportes[f]?.[emp]||{};
+// ─── ANÁLISIS EDA ───
+let chartTendM=null,chartTendFDS=null,chartCats=null;
+let _edaHash=null;
+function _getEdaHash(){
+  return hoy()+'_'+Object.keys(S.rep).length+'_'+Object.keys(S.turnos).length+'_'+mes();
+}
+function renderAnalisis(){
+  const hash=_getEdaHash();
+  if(hash===_edaHash)return;
+  _edaHash=hash;
+  document.getElementById('eda-sub').textContent=
+    `Semana del ${fd(last7()[0])} al ${fd(last7()[6])} · Mes: ${fm(mes())}`;
+  _renderTendenciaMarlon();
+  _renderTendenciaFDS();
+  _renderCategorias();
+  _renderConsistencia();
+  _renderResumen();
+}
+function _lineOpts(showLegend){
+  return{responsive:true,maintainAspectRatio:false,
+    plugins:{
+      legend:{display:showLegend,labels:{color:'#5c5549',font:{size:11,family:"'DM Sans',sans-serif"},boxWidth:12,padding:12}},
+      tooltip:{callbacks:{label:c=>`${c.parsed.y}%`},backgroundColor:'#0c0c0b',titleColor:'#eddeb0',bodyColor:'#faf9f6',padding:10,cornerRadius:8}
+    },
+    scales:{
+      y:{min:0,max:100,ticks:{callback:v=>v+'%',color:'#9a9186',font:{size:11,family:"'DM Sans',sans-serif"}},grid:{color:'rgba(154,145,134,.15)'},border:{display:false}},
+      x:{ticks:{color:'#5c5549',font:{size:11,family:"'DM Sans',sans-serif"}},grid:{display:false},border:{display:false}}
+    }};
+}
+function _renderTendenciaMarlon(){
+  const dias=last7().filter(d=>esLaborable('Marlon',d));
+  const labels=dias.map(d=>diaSemana(d).slice(0,3));
+  const vals=dias.map(d=>{
+    const rep=S.rep[d]?.['Marlon']||{};
     const est=rep.estados||{};
-    const tot=state.metas.length;
-    const comp=Object.values(est).filter(e=>e==='green').length;
-    const proc=Object.values(est).filter(e=>e==='yellow').length;
-    const pct=tot?Math.round(comp/tot*100):0;
-    const sema=pct>=75?'green':pct>=40?'yellow':'red';
-    const cf=state.califs[f]?.[emp];
-    if(!presente){
-      html+=`<div class="card" style="opacity:0.45;pointer-events:none">
-        <div style="display:flex;align-items:center;gap:0.9rem;padding:0.4rem 0">
-          <div class="colab-avatar" style="opacity:0.5">${initials(emp)}</div>
-          <div class="colab-info">
-            <div class="colab-name">${emp}</div>
-            <div class="colab-prog">No trabaja hoy</div>
-          </div>
-          <span class="badge badge-gray"><span class="badge-dot"></span>Ausente</span>
-        </div>
-      </div>`;
-    } else {
-      html+=`<div class="card" style="cursor:pointer" onclick="verDetalle('${emp}','hoy')">
-        <div class="colab-row" style="border:none;padding:0.4rem 0">
-          <div class="colab-avatar">${initials(emp)}</div>
-          <div class="colab-info">
-            <div class="colab-name">${emp}</div>
-            <div class="colab-prog">${comp} completadas · ${proc} en proceso · ${tot-comp-proc} pendientes</div>
-            <div class="progress-wrap" style="margin-top:5px"><div class="progress-bar" style="width:${pct}%"></div></div>
-          </div>
-          <div style="text-align:right;flex-shrink:0">
-            <div class="colab-pct">${pct}%</div>
-            <span class="badge badge-${sema}" style="margin-top:4px"><span class="badge-dot"></span>${sema==='green'?'Bien':sema==='yellow'?'Regular':'Bajo'}</span>
-            ${cf?.sema?`<div style="margin-top:3px"><span style="font-size:0.7rem;color:var(--gray-400)">Calif. guardada</span></div>`:''}
-          </div>
-        </div>
-      </div>`;
-    }
+    const tp=S.tp[d]?.['Marlon']||[];
+    const tot=S.tareas.length+tp.length;
+    return tot?Math.round(Object.values(est).filter(e=>e==='green').length/tot*100):0;
   });
-  document.getElementById('ceo-hoy-lista').innerHTML=html;
+  if(chartTendM){chartTendM.destroy();chartTendM=null;}
+  const ctx=document.getElementById('chart-tendencia-m');
+  if(!ctx)return;
+  chartTendM=new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Eficacia',data:vals,borderColor:'#b8943a',backgroundColor:'rgba(184,148,58,.1)',borderWidth:2.5,pointBackgroundColor:'#b8943a',pointRadius:4,tension:.35,fill:true}]},options:_lineOpts(false)});
 }
-
-
-
-function renderMarlonSemana(){
-  const r=calcSemana('Marlon','ceo');
-  const semas=[];
-  getLast7().forEach(d=>{const cf=state.califs[d]?.['Marlon'];if(cf?.sema)semas.push(cf.sema);});
-  const g=semas.filter(s=>s==='green').length,y=semas.filter(s=>s==='yellow').length,rr=semas.filter(s=>s==='red').length;
-  document.getElementById('marlon-semana').innerHTML=`
-    <div class="card">
-      <div class="flex-between" style="margin-bottom:0.75rem">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="colab-avatar">${initials('Marlon')}</div>
-          <div><div style="font-weight:600">Marlon</div><div class="text-muted">${r.comp}/${r.total} tareas completadas</div></div>
-        </div>
-        <span class="badge badge-${r.sema}"><span class="badge-dot"></span>${r.pct}%</span>
-      </div>
-      <div class="progress-wrap"><div class="progress-bar" style="width:${r.pct}%"></div></div>
-      <div style="display:flex;gap:8px;margin-top:0.5rem">
-        ${g?`<span class="badge badge-green"><span class="badge-dot"></span>${g} Excelente</span>`:''}
-        ${y?`<span class="badge badge-yellow"><span class="badge-dot"></span>${y} Regular</span>`:''}
-        ${rr?`<span class="badge badge-red"><span class="badge-dot"></span>${rr} Bajo</span>`:''}
-        ${!semas.length?`<span class="text-muted">Sin calificaciones aún</span>`:''}
-      </div>
-    </div>
-    <div style="margin-top:0.5rem">${r.hist}</div>`;
-}
-
-function numFinDeSemana(fecha){
-  // Devuelve 1,2,3 o 4 según la semana del mes a la que pertenece el día
-  const dia=parseInt(fecha.split('-')[2]);
-  if(dia<=7)return 1;
-  if(dia<=14)return 2;
-  if(dia<=21)return 3;
-  return 4;
-}
-
-function renderColabMesIndividual(emp,containerId){
-  const mes=currentMonth();
-  const diasMes=getDiasDelMes(mes);
-  const diasActivos=diasMes.filter(d=>state.turnos[d]?.[emp]===true);
-
-  // Resumen global
-  let totalComp=0,totalMetas=0,semas=[];
-  diasActivos.forEach(d=>{
-    const rep=state.reportes[d]?.[emp]||{};
-    const est=rep.estados||{};
-    totalComp+=Object.values(est).filter(e=>e==='green').length;
-    totalMetas+=state.metas.length;
-    const cf=state.califs[d]?.[emp];
-    if(cf?.sema)semas.push(cf.sema);
-  });
-  const pct=totalMetas?Math.round(totalComp/totalMetas*100):0;
-  const semaGlobal=pct>=75?'green':pct>=40?'yellow':'red';
-  const g=semas.filter(s=>s==='green').length;
-  const y=semas.filter(s=>s==='yellow').length;
-  const rr=semas.filter(s=>s==='red').length;
-
-  // Agrupar días por fin de semana (1,2,3,4)
-  const grupos={};
-  diasActivos.forEach(d=>{
-    const n=numFinDeSemana(d);
-    if(!grupos[n])grupos[n]=[];
-    grupos[n].push(d);
-  });
-
-  // Construir historial agrupado
-  let histHtml='';
-  [1,2,3,4].forEach(n=>{
-    if(!grupos[n])return;
-    grupos[n].forEach(d=>{
-      const rep=state.reportes[d]?.[emp]||{};
-      const est=rep.estados||{};
-      const comp=Object.values(est).filter(e=>e==='green').length;
-      const tot=state.metas.length;
-      const p=tot?Math.round(comp/tot*100):0;
-      const s=p>=75?'green':p>=40?'yellow':'red';
-      const cf=state.califs[d]?.[emp];
-      const diaSemana=new Date(d+'T12:00:00').toLocaleDateString('es-CO',{weekday:'long'});
-      const diaCap=diaSemana.charAt(0).toUpperCase()+diaSemana.slice(1);
-      histHtml+=`<div class="card" style="padding:0.85rem 1rem;cursor:pointer" onclick="verDetalle('${emp}','${emp.toLowerCase()}','${d}')">
-        <div class="flex-between">
-          <div>
-            <div style="font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:2px">Fin de semana ${n}</div>
-            <div style="font-size:0.82rem;font-weight:600;color:var(--gray-800)">${diaCap} ${fmtDate(d)}</div>
-            <div class="text-muted">${comp}/${tot} tareas completadas</div>
-          </div>
-          <div style="text-align:right">
-            <span class="badge badge-${s}"><span class="badge-dot"></span>${p}%</span>
-            ${cf?.sema?`<div style="margin-top:4px"><span class="badge badge-${cf.sema}"><span class="badge-dot"></span>${cf.sema==='green'?'Excelente':cf.sema==='yellow'?'Regular':'Bajo'}</span></div>`:''}
-          </div>
-        </div>
-      </div>`;
-    });
-  });
-
-  const html=`
-  <div class="resumen-grid">
-    <div class="resumen-item"><div class="resumen-num">${totalComp}</div><div class="resumen-lbl">Completadas</div></div>
-    <div class="resumen-item"><div class="resumen-num">${diasActivos.length?pct+'%':'—'}</div><div class="resumen-lbl">Eficacia</div></div>
-    <div class="resumen-item"><div class="resumen-num">${diasActivos.length}</div><div class="resumen-lbl">Días trabajados</div></div>
-  </div>
-  ${diasActivos.length?`<div class="progress-wrap"><div class="progress-bar" style="width:${pct}%"></div></div>`:''}
-  <div style="display:flex;gap:8px;margin-bottom:0.75rem;flex-wrap:wrap">
-    ${g?`<span class="badge badge-green"><span class="badge-dot"></span>${g} Excelente</span>`:''}
-    ${y?`<span class="badge badge-yellow"><span class="badge-dot"></span>${y} Regular</span>`:''}
-    ${rr?`<span class="badge badge-red"><span class="badge-dot"></span>${rr} Bajo</span>`:''}
-    ${!diasActivos.length?'<span class="text-muted">Aún no ha trabajado este mes</span>':''}
-  </div>
-  ${diasActivos.length?histHtml:''}`;
-
-  document.getElementById(containerId).innerHTML=html;
-}
-
-// DETALLE
-function verDetalle(emp,origen,fecha){
-  currentDet=emp;currentSema=null;prevTab=origen||'hoy';detFecha=fecha||today();
-  document.getElementById('det-nombre').textContent=emp;
-  document.getElementById('det-fecha').textContent=fmtDate(detFecha);
-  const rep=state.reportes[detFecha]?.[emp]||{};
-  const estados=rep.estados||{};const notas=rep.notas||{};
-  const calif=state.califs[detFecha]?.[emp];
-  const grupos={};
-  state.metas.forEach(m=>{if(!grupos[m.cat])grupos[m.cat]=[];grupos[m.cat].push(m);});
-  let html='';
-  Object.keys(grupos).forEach(cat=>{
-    html+=`<div class="card-cat" style="margin-bottom:4px">${CATS[cat]}</div>`;
-    grupos[cat].forEach(m=>{
-      const est=estados[m.id]||'';
-      const nota=notas[m.id]||'';
-      const lbl=est==='green'?'Completada':est==='yellow'?'En proceso':est==='red'?'Pendiente':'Sin reportar';
-      html+=`<div style="display:flex;align-items:flex-start;gap:8px;padding:0.5rem 0;border-bottom:1px solid var(--gray-100)">
-        <span class="badge badge-${est||'gray'}" style="${!est?'opacity:0.4':''}"><span class="badge-dot"></span>${lbl}</span>
-        <div><div style="font-size:0.85rem;color:var(--gray-800)">${m.desc}</div>
-        ${nota?`<div style="font-size:0.78rem;color:var(--gray-400);margin-top:2px;font-style:italic">${nota}</div>`:''}
-        </div>
-      </div>`;
-    });
-    html+='<div style="height:8px"></div>';
-  });
-  // Tareas personalizadas del CEO en el detalle
-  const tp2=state.tareasPers?.[detFecha]?.[emp]||[];
-  if(tp2.length){
-    html+='<div style="margin-top:8px"><div class="card-cat" style="margin-bottom:4px;display:flex;align-items:center;gap:6px">Tareas personalizadas <span style="background:var(--gold-light);color:var(--gold-dark);font-size:0.68rem;font-weight:600;padding:1px 7px;border-radius:10px">del Ceo</span></div>';
-    tp2.forEach(t=>{
-      const estKey='p_'+t.id;
-      const est=estados[estKey]||'';
-      const nota=notas[estKey]||'';
-      const lbl=est==='green'?'Completada':est==='yellow'?'En proceso':est==='red'?'Pendiente':'Sin reportar';
-      html+=`<div style="display:flex;align-items:flex-start;gap:8px;padding:0.5rem 0;border-bottom:1px solid var(--gray-100)">
-        <span class="badge badge-${est||'gray'}" style="${!est?'opacity:0.4':''}"><span class="badge-dot"></span>${lbl}</span>
-        <div><div style="font-size:0.85rem;color:var(--gray-800)">${t.desc}</div>
-        ${nota?`<div style="font-size:0.78rem;color:var(--gray-400);margin-top:2px;font-style:italic">${nota}</div>`:''}
-        </div>
-      </div>`;
-    });
-    html+='</div>';
-  }
-  document.getElementById('det-metas').innerHTML=html;
-  document.querySelectorAll('.sema-btn').forEach(b=>b.classList.remove('active'));
-  if(calif?.sema){currentSema=calif.sema;document.querySelector('.sema-btn-'+calif.sema)?.classList.add('active');document.getElementById('sema-lbl').textContent=SEMA_LABELS[calif.sema];}
-  else document.getElementById('sema-lbl').textContent='';
-  document.getElementById('ceo-mensaje').value=calif?.mensaje||'';
-  ['hoy','marlon','ingrid','isabella','config'].forEach(t=>{const el=document.getElementById('ceo-tab-'+t);if(el)el.classList.add('hidden');});
-  document.getElementById('pers-fecha').value=detFecha;
-  document.getElementById('pers-desc').value='';
-  renderPersList();
-  document.getElementById('ceo-tab-detalle').classList.remove('hidden');
-}
-
-// ── TAREAS PERSONALIZADAS ──
-function asignarTareaPers(){
-  const fecha=document.getElementById('pers-fecha').value;
-  const desc=document.getElementById('pers-desc').value.trim();
-  if(!fecha){toast('Selecciona una fecha');return;}
-  if(!desc){toast('Escribe la descripción de la tarea');return;}
-  if(!state.tareasPers[fecha])state.tareasPers[fecha]={};
-  if(!state.tareasPers[fecha][currentDet])state.tareasPers[fecha][currentDet]=[];
-  state.tareasPers[fecha][currentDet].push({id:state.nextIdPers++,desc,fecha});
-  save();
-  document.getElementById('pers-desc').value='';
-  renderPersList();
-  toast('Tarea asignada a '+currentDet);
-}
-
-function eliminarTareaPers(id,fecha){
-  if(!state.tareasPers[fecha]?.[currentDet])return;
-  state.tareasPers[fecha][currentDet]=state.tareasPers[fecha][currentDet].filter(t=>t.id!==id);
-  save();renderPersList();toast('Tarea eliminada');
-}
-
-function renderPersList(){
-  // Mostrar tareas personalizadas futuras y de hoy para este colaborador
-  const hoy=today();
-  let html='';
-  // Ordenar fechas
-  const fechas=Object.keys(state.tareasPers||{})
-    .filter(f=>state.tareasPers[f]?.[currentDet]?.length && f>=hoy)
-    .sort();
-  if(!fechas.length){
-    document.getElementById('pers-lista').innerHTML='<div class="text-muted" style="font-size:0.82rem;margin-top:0.5rem">No hay tareas personalizadas pendientes.</div>';
+function _renderTendenciaFDS(){
+  const m=mes();
+  const diasMes=diasDelMes(m);
+  const ingridDias=diasMes.filter(d=>S.turnos[d]?.['Ingrid']===true);
+  const isabellaDias=diasMes.filter(d=>S.turnos[d]?.['Isabella']===true);
+  const allDias=[...new Set([...ingridDias,...isabellaDias])].sort();
+  if(chartTendFDS){chartTendFDS.destroy();chartTendFDS=null;}
+  const ctx=document.getElementById('chart-tendencia-fds');
+  if(!ctx)return;
+  if(!allDias.length){
+    chartTendFDS=new Chart(ctx,{type:'bar',data:{labels:['Sin datos aún'],datasets:[{data:[0],backgroundColor:'rgba(154,145,134,.2)',borderRadius:8}]},options:{plugins:{legend:{display:false}},scales:{y:{display:false},x:{ticks:{color:'#9a9186'}}}}});
     return;
   }
-  fechas.forEach(f=>{
-    const tareas=state.tareasPers[f][currentDet];
-    html+=`<div style="margin-top:0.6rem">
-      <div class="card-cat" style="margin-bottom:4px">${f===hoy?'Hoy':fmtDate(f)}</div>`;
-    tareas.forEach(t=>{
-      html+=`<div class="flex-between" style="padding:0.4rem 0;border-bottom:1px solid var(--gray-100)">
-        <span style="font-size:0.85rem;color:var(--gray-800);flex:1;padding-right:8px">${t.desc}</span>
-        <button onclick="eliminarTareaPers(${t.id},'${f}')" style="background:none;border:none;color:var(--red);font-size:0.78rem;cursor:pointer;font-family:var(--font-body);flex-shrink:0">✕</button>
+  function getPct(emp,d){
+    const rep=S.rep[d]?.[emp]||{};
+    const est=rep.estados||{};
+    const tp=S.tp[d]?.[emp]||[];
+    const tot=S.tareas.length+tp.length;
+    return tot?Math.round(Object.values(est).filter(e=>e==='green').length/tot*100):null;
+  }
+  const labels=allDias.map(d=>`FS${finSemNum(d)}·${diaSemana(d).slice(0,3)}`);
+  chartTendFDS=new Chart(ctx,{type:'line',data:{labels,datasets:[
+    {label:'Ingrid',data:allDias.map(d=>ingridDias.includes(d)?getPct('Ingrid',d):null),borderColor:'#2a7a4a',backgroundColor:'rgba(42,122,74,.1)',borderWidth:2.5,pointBackgroundColor:'#2a7a4a',pointRadius:4,tension:.35,fill:false,spanGaps:false},
+    {label:'Isabella',data:allDias.map(d=>isabellaDias.includes(d)?getPct('Isabella',d):null),borderColor:'#2060a0',backgroundColor:'rgba(32,96,160,.1)',borderWidth:2.5,pointBackgroundColor:'#2060a0',pointRadius:4,tension:.35,fill:false,spanGaps:false}
+  ]},options:{..._lineOpts(true),plugins:{legend:{display:true,labels:{color:'#5c5549',font:{size:11,family:"'DM Sans',sans-serif"},boxWidth:12,padding:12}},tooltip:{callbacks:{label:c=>`${c.parsed.y}%`},backgroundColor:'#0c0c0b',titleColor:'#eddeb0',bodyColor:'#faf9f6',padding:10,cornerRadius:8}}}});
+}
+function _renderCategorias(){
+  const dias=last7();
+  const cats=Object.keys(CATS);
+  const vals=cats.map(cat=>{
+    let comp=0,total=0;
+    dias.forEach(d=>{
+      ['Marlon','Ingrid','Isabella'].forEach(emp=>{
+        if(!esLaborable(emp,d))return;
+        const est=S.rep[d]?.[emp]?.estados||{};
+        S.tareas.filter(t=>t.cat===cat).forEach(t=>{total++;if(est[t.id]==='green')comp++;});
+      });
+    });
+    return total?Math.round(comp/total*100):0;
+  });
+  const coloresCat=['#b8943a','#b07a10','#2a7a4a','#2060a0'];
+  if(chartCats){chartCats.destroy();chartCats=null;}
+  const ctx=document.getElementById('chart-cats');
+  if(!ctx)return;
+  chartCats=new Chart(ctx,{type:'bar',data:{labels:cats.map(k=>CATS[k]),datasets:[{data:vals,backgroundColor:coloresCat.map(c=>c+'28'),borderColor:coloresCat,borderWidth:2,borderRadius:6,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.parsed.x}%`},backgroundColor:'#0c0c0b',titleColor:'#eddeb0',bodyColor:'#faf9f6',padding:10,cornerRadius:8}},
+      scales:{x:{min:0,max:100,ticks:{callback:v=>v+'%',color:'#9a9186',font:{size:11,family:"'DM Sans',sans-serif"}},grid:{color:'rgba(154,145,134,.15)'},border:{display:false}},y:{ticks:{color:'#5c5549',font:{size:11,family:"'DM Sans',sans-serif"}},grid:{display:false},border:{display:false}}}}});
+}
+function _renderConsistencia(){
+  const colores={Marlon:'#b8943a',Ingrid:'#2a7a4a',Isabella:'#2060a0'};
+  let h='';
+  ['Marlon','Ingrid','Isabella'].forEach(emp=>{
+    let diasLab,diasRep,etiqueta;
+    if(emp==='Marlon'){
+      diasLab=last7().filter(d=>esLaborable(emp,d)).length;
+      diasRep=last7().filter(d=>esLaborable(emp,d)&&Object.keys(S.rep[d]?.[emp]?.estados||{}).length>0).length;
+      etiqueta='esta semana';
+    } else {
+      diasLab=diasDelMes(mes()).filter(d=>S.turnos[d]?.[emp]===true).length;
+      diasRep=diasDelMes(mes()).filter(d=>S.turnos[d]?.[emp]===true&&Object.keys(S.rep[d]?.[emp]?.estados||{}).length>0).length;
+      etiqueta='este mes';
+    }
+    const pct=diasLab?Math.round(diasRep/diasLab*100):0;
+    const sema=pct>=80?'green':pct>=50?'yellow':'red';
+    h+=`<div style="margin-bottom:.85rem">
+      <div class="frow" style="margin-bottom:.35rem">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="width:32px;height:32px;border-radius:50%;background:${colores[emp]}22;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:.85rem;font-weight:700;color:${colores[emp]}">${ini(emp)}</div>
+          <div><div style="font-weight:600;font-size:.88rem;color:var(--g800)">${emp}</div><div class="txt-muted">${diasRep} de ${diasLab} días reportados ${etiqueta}</div></div>
+        </div>
+        <span class="badge b-${sema}"><span class="bdot"></span>${pct}%</span>
+      </div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:${pct}%;background:${colores[emp]}"></div></div>
+    </div>`;
+  });
+  document.getElementById('eda-consistencia').innerHTML=h;
+}
+function _renderResumen(){
+  const eficacias=['Marlon','Ingrid','Isabella'].map(emp=>{
+    let dias,comp=0,total=0;
+    if(emp==='Marlon') dias=last7().filter(d=>esLaborable(emp,d));
+    else dias=diasDelMes(mes()).filter(d=>S.turnos[d]?.[emp]===true);
+    dias.forEach(d=>{
+      const est=S.rep[d]?.[emp]?.estados||{};
+      const tp=S.tp[d]?.[emp]||[];
+      comp+=Object.values(est).filter(e=>e==='green').length;
+      total+=S.tareas.length+tp.length;
+    });
+    return{emp,pct:total?Math.round(comp/total*100):0,dias:dias.length};
+  });
+  eficacias.sort((a,b)=>b.pct-a.pct);
+  const lider=eficacias[0],bajo=eficacias[eficacias.length-1];
+  const catVals=Object.keys(CATS).map(cat=>{
+    let comp=0,total=0;
+    last7().forEach(d=>{
+      ['Marlon','Ingrid','Isabella'].forEach(emp=>{
+        if(!esLaborable(emp,d))return;
+        const est=S.rep[d]?.[emp]?.estados||{};
+        S.tareas.filter(t=>t.cat===cat).forEach(t=>{total++;if(est[t.id]==='green')comp++;});
+      });
+    });
+    return{cat,pct:total?Math.round(comp/total*100):100,label:CATS[cat],total};
+  }).sort((a,b)=>a.pct-b.pct);
+  const catDebil=catVals[0];
+  const diasM=last7().filter(d=>esLaborable('Marlon',d));
+  const mid=Math.floor(diasM.length/2);
+  function avgM(dias){let c=0,t=0;dias.forEach(d=>{const est=S.rep[d]?.['Marlon']?.estados||{};const tp=S.tp[d]?.['Marlon']||[];c+=Object.values(est).filter(e=>e==='green').length;t+=S.tareas.length+tp.length;});return t?Math.round(c/t*100):0;}
+  const tend=avgM(diasM.slice(mid))-avgM(diasM.slice(0,mid));
+  const lineas=[];
+  if(lider.pct>0) lineas.push(`${lider.emp} lidera el equipo esta semana con ${lider.pct}% de eficacia.`);
+  else lineas.push('El equipo aún no tiene reportes suficientes para el análisis.');
+  if(bajo.pct<50&&bajo.pct<lider.pct) lineas.push(`${bajo.emp} requiere atención — ${bajo.pct}% de eficacia, por debajo del objetivo.`);
+  if(tend>10) lineas.push(`Marlon muestra tendencia positiva esta semana, mejorando ${tend} puntos.`);
+  else if(tend<-10) lineas.push(`Marlon muestra tendencia a la baja esta semana, bajando ${Math.abs(tend)} puntos.`);
+  if(catDebil.total>0&&catDebil.pct<50) lineas.push(`La categoría más débil es "${catDebil.label}" con ${catDebil.pct}% de cumplimiento.`);
+  const fdsActivas=eficacias.filter(e=>FDS.includes(e.emp)&&e.dias>0);
+  if(fdsActivas.length) lineas.push(`${fdsActivas.map(e=>e.emp).join(' e ')} ${fdsActivas.length>1?'han':'ha'} trabajado este mes con turnos variables de fin de semana.`);
+  document.getElementById('eda-resumen').innerHTML=lineas.map(l=>`<div style="padding:.25rem 0;border-bottom:1px solid rgba(255,255,255,.08)">${l}</div>`).join('');
+}
+
+// ─── ALERTAS DE INACTIVIDAD ───
+const HORAS_ALERTA = 3;
+const HORA_APERTURA = 9; // hora de apertura del local (configurable)
+
+function horasDesdeUltimoReporte(emp){
+  // Busca la última vez que el colaborador registró algo hoy
+  const f=hoy();
+  const rep=S.rep[f]?.[emp];
+  if(!rep||!rep.estados||!Object.keys(rep.estados).length) return null; // nunca reportó hoy
+  // No tenemos timestamp exacto, usamos la hora actual vs hora de inicio de turno estimada
+  // Si tiene al menos un estado guardado asumimos que reportó
+  return 0; // ya reportó
+}
+
+function calcularAlertasHoy(){
+  const f=hoy();
+  const ahora=new Date();
+  const horaActual=ahora.getHours()+ahora.getMinutes()/60;
+  const alertas=[];
+  ['Marlon','Ingrid','Isabella'].forEach(emp=>{
+    if(!esLaborable(emp,f))return;
+    const rep=S.rep[f]?.[emp];
+    const estados=rep?.estados||{};
+    const tieneReporte=Object.keys(estados).length>0;
+    // Si son más de las HORAS_ALERTA desde apertura (9am) y no ha reportado nada
+    const horaApertura=HORA_APERTURA;
+    const horasSinReporte=horaActual-horaApertura;
+    if(!tieneReporte && horasSinReporte>=HORAS_ALERTA){
+      alertas.push({
+        emp,
+        horas:Math.floor(horasSinReporte),
+        minutos:Math.round((horasSinReporte%1)*60)
+      });
+    }
+  });
+  return alertas;
+}
+
+function renderAlertas(){
+  const alertas=calcularAlertasHoy();
+  const el=document.getElementById('ceo-alertas');
+  if(!el)return;
+  if(!alertas.length){el.innerHTML='';return;}
+  let h='';
+  const f=hoy();
+  alertas.forEach(a=>{
+    const rep=S.rep[f]?.[a.emp];
+    const comp=Object.values(rep?.estados||{}).filter(e=>e==='green').length;
+    const tot=S.tareas.length+(S.tp[f]?.[a.emp]?.length||0);
+    h+=`<div class="alerta-card">
+      <div class="alerta-icon">⚠</div>
+      <div class="alerta-body">
+        <div class="alerta-nombre">${a.emp} — sin reporte</div>
+        <div class="alerta-txt">Lleva más de ${a.horas}h${a.minutos>0?' '+a.minutos+'min':''} sin registrar progreso hoy. Tiene ${comp}/${tot} tareas completadas.</div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML=h;
+}
+
+function renderCardsHoy(){
+  renderAlertas();
+  const f=hoy();
+  let h='';
+  ['Marlon','Ingrid','Isabella'].forEach(emp=>{
+    const presente=esLaborable(emp,f);
+    if(!presente){
+      const razon=emp==='Marlon'?'No trabaja los fines de semana':'No trabaja hoy';
+      h+=`<div class="ccard ausente">
+        <div class="cc-top">
+          <div class="cc-av">${ini(emp)}</div>
+          <div class="cc-info"><div class="cc-name">${emp}</div><div class="cc-sub">${razon}</div></div>
+          <span class="badge b-gray"><span class="bdot"></span>Ausente</span>
+        </div>
+      </div>`;
+      return;
+    }
+    const rep=S.rep[f]?.[emp]||{};
+    const est=rep.estados||{};
+    const tp=S.tp[f]?.[emp]||[];
+    const total=S.tareas.length+tp.length;
+    const comp=Object.values(est).filter(e=>e==='green').length;
+    const proc=Object.values(est).filter(e=>e==='yellow').length;
+    const pct=total?Math.round(comp/total*100):0;
+    const sema=pct>=75?'green':pct>=40?'yellow':'red';
+    const cal=S.califs[f]?.[emp];
+    h+=`<div class="ccard activo" onclick="verDetalle('${emp}','hoy')">
+      <div class="cc-top">
+        <div class="cc-av">${ini(emp)}</div>
+        <div class="cc-info">
+          <div class="cc-name">${emp}</div>
+          <div class="cc-sub">${comp} completadas · ${proc} en proceso · ${total-comp-proc} pendientes</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div class="cc-pct">${pct}%</div>
+          <span class="badge b-${sema}"><span class="bdot"></span>${sema==='green'?'Bien':sema==='yellow'?'Regular':'Bajo'}</span>
+          ${cal?.sema?`<div style="margin-top:3px"><span style="font-size:.68rem;color:var(--g400)">Calif. ✓</span></div>`:''}
+        </div>
+      </div>
+      <div class="prog-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+    </div>`;
+  });
+  document.getElementById('ceo-cards').innerHTML=h;
+}
+
+function verDetalle(emp,origen,fecha){
+  CD=emp;CS=null;PREV=origen||'hoy';DF=fecha||hoy();
+  document.getElementById('det-nombre').textContent=emp;
+  document.getElementById('det-fecha').textContent=`${diaSemana(DF)} ${fd(DF)}`;
+
+  const rep=S.rep[DF]?.[emp]||{};
+  const est=rep.estados||{};
+  const notas=rep.notas||{};
+  const cal=S.califs[DF]?.[emp];
+  const tp=S.tp[DF]?.[emp]||[];
+
+  // Construir lista tareas
+  const grupos={};
+  S.tareas.forEach(t=>{if(!grupos[t.cat])grupos[t.cat]=[];grupos[t.cat].push(t);});
+  let h='';
+
+  // Tareas personalizadas al tope si hay
+  if(tp.length){
+    h+=`<div style="margin-bottom:8px"><div class="cat-lbl" style="display:flex;align-items:center;gap:5px">Del Ceo <span class="badge b-gold" style="font-size:.65rem">personalizada</span></div>`;
+    tp.forEach(t=>{
+      const k='p_'+t.id;
+      const e=est[k]||'';
+      const nota=notas[k]||'';
+      const lbl=e==='green'?'Completada':e==='yellow'?'En proceso':e==='red'?'Pendiente':'Sin reportar';
+      h+=`<div style="display:flex;align-items:flex-start;gap:8px;padding:.45rem 0;border-bottom:1px solid var(--g100)">
+        <span class="badge b-${e||'gray'}" style="${!e?'opacity:.4':''}"><span class="bdot"></span>${lbl}</span>
+        <div style="font-size:.85rem;color:var(--g800)">${t.desc}${nota?`<div style="font-size:.76rem;color:var(--g400);margin-top:2px;font-style:italic">${nota}</div>`:''}</div>
       </div>`;
     });
-    html+='</div>';
+    h+='</div><div class="divider"></div>';
+  }
+
+  Object.keys(grupos).forEach(cat=>{
+    h+=`<div class="cat-lbl">${CATS[cat]}</div>`;
+    grupos[cat].forEach(t=>{
+      const e=est[t.id]||'';
+      const nota=notas[t.id]||'';
+      const lbl=e==='green'?'Completada':e==='yellow'?'En proceso':e==='red'?'Pendiente':'Sin reportar';
+      h+=`<div style="display:flex;align-items:flex-start;gap:8px;padding:.45rem 0;border-bottom:1px solid var(--g100)">
+        <span class="badge b-${e||'gray'}" style="${!e?'opacity:.4':''}"><span class="bdot"></span>${lbl}</span>
+        <div style="font-size:.85rem;color:var(--g800)">${t.desc}${nota?`<div style="font-size:.76rem;color:var(--g400);margin-top:2px;font-style:italic">${nota}</div>`:''}</div>
+      </div>`;
+    });
+    h+='<div style="height:6px"></div>';
   });
-  document.getElementById('pers-lista').innerHTML=html;
+  document.getElementById('det-tareas').innerHTML=h;
+
+  // Semáforo previo
+  document.querySelectorAll('.sema-c').forEach(b=>b.classList.remove('on'));
+  if(cal?.sema){CS=cal.sema;document.querySelector('.sc-'+cal.sema)?.classList.add('on');document.getElementById('sema-lbl').textContent=SEMA[cal.sema];}
+  else document.getElementById('sema-lbl').textContent='';
+  document.getElementById('ceo-msg').value=cal?.mensaje||'';
+
+  ['hoy','marlon','ingrid','isabella','analisis','config'].forEach(t=>{const el=document.getElementById('ct-'+t);if(el)el.classList.add('hidden');});
+  document.getElementById('ct-detalle').classList.remove('hidden');
+  document.getElementById('fab-btn').classList.add('hidden');
 }
 
 function volverCeo(){
-  document.getElementById('ceo-tab-detalle').classList.add('hidden');
-  const mapa={hoy:'ceo-tab-hoy',marlon:'ceo-tab-marlon',ingrid:'ceo-tab-ingrid',isabella:'ceo-tab-isabella'};
-  document.getElementById(mapa[prevTab]||'ceo-tab-hoy').classList.remove('hidden');
-  const tabs=document.querySelectorAll('#screen-ceo .week-tab');
-  const idx={hoy:0,marlon:1,ingrid:2,isabella:3,config:4};
-  tabs.forEach(b=>b.classList.remove('active'));
-  if(tabs[idx[prevTab]]!==undefined)tabs[idx[prevTab]].classList.add('active');
-  if(prevTab==='hoy')renderHoyTodos();
-  if(prevTab==='marlon')renderMarlonSemana();
-  if(prevTab==='ingrid')renderColabMesIndividual('Ingrid','ingrid-mes');
-  if(prevTab==='isabella')renderColabMesIndividual('Isabella','isabella-mes');
+  document.getElementById('ct-detalle').classList.add('hidden');
+  document.getElementById('fab-btn').classList.remove('hidden');
+  const mapa={hoy:'ct-hoy',marlon:'ct-marlon',ingrid:'ct-ingrid',isabella:'ct-isabella'};
+  document.getElementById(mapa[PREV]||'ct-hoy').classList.remove('hidden');
+  const tabs=document.querySelectorAll('.ctab');
+  tabs.forEach(b=>b.classList.remove('on'));
+  // Activar tab correcto buscando por onclick dinámicamente
+  tabs.forEach(b=>{
+    const oc=b.getAttribute('onclick')||'';
+    if(oc.includes("'"+PREV+"'"))b.classList.add('on');
+  });
+  if(PREV==='hoy')renderCardsHoy();
+  if(PREV==='marlon'){renderMarlonSemana();renderProximas('Marlon','m-proximas');}
+  if(PREV==='ingrid'){renderMesIndividual('Ingrid','i-nums','i-prog','i-hist');renderProximas('Ingrid','i-proximas');}
+  if(PREV==='isabella'){renderMesIndividual('Isabella','isa-nums','isa-prog','isa-hist');renderProximas('Isabella','isa-proximas');}
 }
 
-function setSema(color,btn){
-  currentSema=color;
-  document.querySelectorAll('.sema-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('sema-lbl').textContent=SEMA_LABELS[color];
+function setSema(c,btn){
+  CS=c;
+  document.querySelectorAll('.sema-c').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('sema-lbl').textContent=SEMA[c];
 }
 function guardarCalif(){
-  if(!currentSema){toast('Selecciona un semáforo primero');return;}
-  if(!state.califs[detFecha])state.califs[detFecha]={};
-  state.califs[detFecha][currentDet]={sema:currentSema,mensaje:document.getElementById('ceo-mensaje').value.trim()};
-  save();toast('Calificación guardada para '+currentDet);
+  if(!CS){toast('Selecciona un semáforo');return;}
+  if(!S.califs[DF])S.califs[DF]={};
+  S.califs[DF][CD]={sema:CS,mensaje:document.getElementById('ceo-msg').value.trim()};
+  sv();toast('Calificación guardada para '+CD);
 }
 
 function ceoTab(tab,btn){
-  document.querySelectorAll('#screen-ceo .week-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  ['hoy','marlon','ingrid','isabella','config','detalle'].forEach(t=>{const el=document.getElementById('ceo-tab-'+t);if(el)el.classList.toggle('hidden',t!==tab);});
-  if(tab==='hoy')renderHoyTodos();
-  if(tab==='marlon')renderMarlonSemana();
-  if(tab==='ingrid'){document.getElementById('ceo-ingrid-sub').textContent=fmtMonth(currentMonth());renderColabMesIndividual('Ingrid','ingrid-mes');}
-  if(tab==='isabella'){document.getElementById('ceo-isabella-sub').textContent=fmtMonth(currentMonth());renderColabMesIndividual('Isabella','isabella-mes');}
-  if(tab==='config')renderConfigMetas();
+  document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  ['hoy','marlon','ingrid','isabella','analisis','config','detalle'].forEach(t=>{const el=document.getElementById('ct-'+t);if(el)el.classList.toggle('hidden',t!==tab);});
+  const fab=document.getElementById('fab-btn');
+  fab.classList.toggle('hidden',tab==='detalle');
+  if(tab==='hoy')renderCardsHoy();
+  if(tab==='marlon'){renderMarlonSemana();renderProximas('Marlon','m-proximas');}
+  if(tab==='ingrid'){document.getElementById('ingrid-sub').textContent=fm(mes());renderMesIndividual('Ingrid','i-nums','i-prog','i-hist');renderProximas('Ingrid','i-proximas');}
+  if(tab==='isabella'){document.getElementById('isabella-sub').textContent=fm(mes());renderMesIndividual('Isabella','isa-nums','isa-prog','isa-hist');renderProximas('Isabella','isa-proximas');}
+  if(tab==='analisis')renderAnalisis();
+  if(tab==='config')renderConfig();
 }
 
-// CONFIG
-function renderConfigMetas(){
+// ─── SEMANA MARLON ───
+function renderMarlonSemana(){
+  calcSemanaUI('Marlon','m-nums','m-prog','m-hist',true);
+}
+
+function calcSemanaUI(emp,numsId,progId,histId,esCeo){
+  const dias=last7();
+  let comp=0,total=0,activos=0,semas=[],h='';
+  dias.forEach(d=>{
+    // Excluir días no laborables (Marlon no trabaja sábado/domingo)
+    if(!esLaborable(emp,d)){
+      if(esCeo){
+        h+=`<div class="hist-item" style="opacity:.4;cursor:default;pointer-events:none">
+          <div class="frow">
+            <div><div class="hi-fecha">${diaSemana(d)} ${fd(d)}</div><div class="hi-sub" style="font-style:italic">No laborable</div></div>
+            <span class="badge b-gray"><span class="bdot"></span>Libre</span>
+          </div>
+        </div>`;
+      }
+      return;
+    }
+    const rep=S.rep[d]?.[emp]||{};
+    const est=rep.estados||{};
+    const tp=S.tp[d]?.[emp]||[];
+    const tot=S.tareas.length+tp.length;
+    const c=Object.values(est).filter(e=>e==='green').length;
+    if(Object.keys(est).length)activos++;
+    comp+=c;total+=tot;
+    const p=tot?Math.round(c/tot*100):0;
+    const s=p>=75?'green':p>=40?'yellow':'red';
+    const cal=S.califs[d]?.[emp];
+    if(cal?.sema)semas.push(cal.sema);
+    const onclick=esCeo?`onclick="verDetalle('${emp}','marlon','${d}')"`:''
+    h+=`<div class="hist-item" ${onclick}>
+      <div class="frow">
+        <div><div class="hi-fecha">${diaSemana(d)} ${fd(d)}</div><div class="hi-sub">${c}/${tot} tareas completadas</div></div>
+        <div style="text-align:right">
+          <span class="badge b-${s}"><span class="bdot"></span>${p}%</span>
+          ${cal?.sema?`<div style="margin-top:3px"><span class="badge b-${cal.sema}"><span class="bdot"></span>${cal.sema==='green'?'Excelente':cal.sema==='yellow'?'Regular':'Bajo'}</span></div>`:''}
+        </div>
+      </div>
+    </div>`;
+  });
+  const pct=total?Math.round(comp/total*100):0;
+  const sema=pct>=75?'green':pct>=40?'yellow':'red';
+  const g=semas.filter(s=>s==='green').length,y=semas.filter(s=>s==='yellow').length,r=semas.filter(s=>s==='red').length;
+  document.getElementById(numsId).innerHTML=`
+    <div class="num-box"><div class="num-n">${comp}</div><div class="num-l">Completadas</div></div>
+    <div class="num-box"><div class="num-n">${pct}%</div><div class="num-l">Eficacia</div></div>
+    <div class="num-box"><div class="num-n">${activos}</div><div class="num-l">Días activos</div></div>`;
+  document.getElementById(progId).style.width=pct+'%';
+  document.getElementById(histId).innerHTML=`
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.75rem">
+      ${g?`<span class="badge b-green"><span class="bdot"></span>${g} Excelente</span>`:''}
+      ${y?`<span class="badge b-yellow"><span class="bdot"></span>${y} Regular</span>`:''}
+      ${r?`<span class="badge b-red"><span class="bdot"></span>${r} Bajo</span>`:''}
+      ${!semas.length?'<span class="txt-muted">Sin calificaciones aún</span>':''}
+    </div>${h}`;
+}
+
+// ─── MES FDS ───
+function renderMesIndividual(emp,numsId,progId,histId){
+  calcMesUI(emp,numsId,progId,histId,true);
+}
+
+function calcMesUI(emp,numsId,progId,histId,esCeo){
+  const m=mes();
+  const diasM=diasDelMes(m);
+  const activos=diasM.filter(d=>S.turnos[d]?.[emp]===true);
+  let comp=0,total=0,semas=[],h='';
+  activos.forEach(d=>{
+    const rep=S.rep[d]?.[emp]||{};
+    const est=rep.estados||{};
+    const tp=S.tp[d]?.[emp]||[];
+    const tot=S.tareas.length+tp.length;
+    const c=Object.values(est).filter(e=>e==='green').length;
+    comp+=c;total+=tot;
+    const p=tot?Math.round(c/tot*100):0;
+    const s=p>=75?'green':p>=40?'yellow':'red';
+    const cal=S.califs[d]?.[emp];
+    if(cal?.sema)semas.push(cal.sema);
+    const n=finSemNum(d);
+    const onclick=esCeo?`onclick="verDetalle('${emp}','${emp.toLowerCase()}','${d}')"`:''
+    h+=`<div class="hist-item" ${onclick}>
+      <div class="frow">
+        <div>
+          <div class="hi-label">Fin de semana ${n}</div>
+          <div class="hi-fecha">${diaSemana(d)} ${fd(d)}</div>
+          <div class="hi-sub">${c}/${tot} tareas completadas</div>
+        </div>
+        <div style="text-align:right">
+          <span class="badge b-${s}"><span class="bdot"></span>${p}%</span>
+          ${cal?.sema?`<div style="margin-top:3px"><span class="badge b-${cal.sema}"><span class="bdot"></span>${cal.sema==='green'?'Excelente':cal.sema==='yellow'?'Regular':'Bajo'}</span></div>`:''}
+        </div>
+      </div>
+    </div>`;
+  });
+  const pct=total?Math.round(comp/total*100):0;
+  const g=semas.filter(s=>s==='green').length,y=semas.filter(s=>s==='yellow').length,r=semas.filter(s=>s==='red').length;
+  document.getElementById(numsId).innerHTML=`
+    <div class="num-box"><div class="num-n">${comp}</div><div class="num-l">Completadas</div></div>
+    <div class="num-box"><div class="num-n">${activos.length?pct+'%':'—'}</div><div class="num-l">Eficacia</div></div>
+    <div class="num-box"><div class="num-n">${activos.length}</div><div class="num-l">Días trabajados</div></div>`;
+  document.getElementById(progId).style.width=pct+'%';
+  document.getElementById(histId).innerHTML=activos.length?`
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.75rem">
+      ${g?`<span class="badge b-green"><span class="bdot"></span>${g} Excelente</span>`:''}
+      ${y?`<span class="badge b-yellow"><span class="bdot"></span>${y} Regular</span>`:''}
+      ${r?`<span class="badge b-red"><span class="bdot"></span>${r} Bajo</span>`:''}
+      ${!semas.length?'<span class="txt-muted">Sin calificaciones aún</span>':''}
+    </div>${h}`:`<div class="card" style="text-align:center;padding:1.5rem"><div class="txt-muted">Aún no ha trabajado este mes</div></div>`;
+}
+
+// ─── CONFIG TAREAS BASE ───
+function renderConfig(){
   const grupos={};
-  state.metas.forEach(m=>{if(!grupos[m.cat])grupos[m.cat]=[];grupos[m.cat].push(m);});
-  let html='';
+  S.tareas.forEach(t=>{if(!grupos[t.cat])grupos[t.cat]=[];grupos[t.cat].push(t);});
+  let h='';
   Object.keys(grupos).forEach(cat=>{
-    html+=`<div class="card"><div class="card-cat">${CATS[cat]}</div>`;
-    grupos[cat].forEach(m=>{
-      html+=`<div class="flex-between" style="padding:0.5rem 0;border-bottom:1px solid var(--gray-100)">
-        <span style="font-size:0.88rem;color:var(--gray-800);flex:1;padding-right:8px">${m.desc}</span>
-        <button onclick="eliminarMeta(${m.id})" style="background:none;border:none;color:var(--red);font-size:0.78rem;cursor:pointer;font-family:var(--font-body);padding:2px 6px;border-radius:4px">✕</button>
+    h+=`<div class="card"><div class="cat-lbl">${CATS[cat]}</div>`;
+    grupos[cat].forEach(t=>{
+      h+=`<div class="frow" style="padding:.45rem 0;border-bottom:1px solid var(--g100)">
+        <span style="font-size:.86rem;color:var(--g800);flex:1;padding-right:8px">${t.desc}</span>
+        <button onclick="elimBase(${t.id})" style="background:none;border:none;color:var(--red);font-size:.78rem;cursor:pointer;font-family:var(--fb);padding:2px 6px">✕</button>
       </div>`;
     });
-    html+=`</div>`;
+    h+=`</div>`;
   });
-  document.getElementById('config-metas-lista').innerHTML=html;
+  document.getElementById('cfg-lista').innerHTML=h;
 }
-function eliminarMeta(id){state.metas=state.metas.filter(m=>m.id!==id);save();renderConfigMetas();toast('Tarea eliminada');}
-function agregarMeta(){
-  const cat=document.getElementById('nueva-cat').value;
-  const desc=document.getElementById('nueva-desc').value.trim();
-  if(!desc){toast('Escribe la descripción de la tarea');return;}
-  state.metas.push({id:state.nextId++,cat,desc});
-  document.getElementById('nueva-desc').value='';
-  save();renderConfigMetas();toast('Tarea agregada correctamente');
+function elimBase(id){S.tareas=S.tareas.filter(t=>t.id!==id);sv();renderConfig();toast('Tarea eliminada');}
+function agregarTareaBase(){
+  const cat=document.getElementById('cfg-cat').value;
+  const desc=document.getElementById('cfg-desc').value.trim();
+  if(!desc){toast('Escribe la descripción');return;}
+  S.tareas.push({id:S.nid++,cat,desc});
+  document.getElementById('cfg-desc').value='';
+  sv();renderConfig();toast('Tarea agregada');
 }
 
-// UTILS
-function getLast7(){const dias=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);dias.push(d.toISOString().slice(0,10));}return dias;}
-function getDiasDelMes(ym){
+// ─── TAREA RÁPIDA (FAB) ───
+function abrirModal(){
+  document.getElementById('m-fecha').value=hoy();
+  document.getElementById('m-desc').value='';
+  document.getElementById('m-colab').value='';
+  document.getElementById('modal').classList.remove('hidden');
+}
+function cerrarModal(){document.getElementById('modal').classList.add('hidden');}
+function guardarTareaRapida(){
+  const colab=document.getElementById('m-colab').value;
+  const fecha=document.getElementById('m-fecha').value;
+  const desc=document.getElementById('m-desc').value.trim();
+  if(!colab){toast('Elige un colaborador');return;}
+  if(!fecha){toast('Selecciona una fecha');return;}
+  if(!desc){toast('Escribe la tarea');return;}
+  if(!S.tp[fecha])S.tp[fecha]={};
+  if(!S.tp[fecha][colab])S.tp[fecha][colab]=[];
+  S.tp[fecha][colab].push({id:S.nid++,desc});
+  sv();cerrarModal();
+  toast(`Tarea asignada a ${colab}`);
+  if(document.getElementById('ct-hoy')&&!document.getElementById('ct-hoy').classList.contains('hidden'))renderCardsHoy();
+}
+
+// ─── PRÓXIMAS TAREAS ───
+function renderProximas(emp, containerId){
+  const manana=new Date();manana.setDate(manana.getDate()+1);
+  const mananaStr=manana.toISOString().slice(0,10);
+  // Recopilar fechas futuras con tareas personalizadas para este colaborador
+  const fechasFuturas=Object.keys(S.tp||{})
+    .filter(f=>f>=mananaStr && S.tp[f]?.[emp]?.length)
+    .sort();
+  const el=document.getElementById(containerId);
+  if(!el)return;
+  if(!fechasFuturas.length){
+    el.innerHTML='';return;
+  }
+  let h=`<div class="card" style="margin-top:.85rem">
+    <div class="frow" style="margin-bottom:.75rem">
+      <span class="card-t">Próximas tareas programadas</span>
+      <span class="badge b-blue"><span class="bdot"></span>${fechasFuturas.reduce((a,f)=>a+(S.tp[f][emp]?.length||0),0)} pendientes</span>
+    </div>`;
+  fechasFuturas.forEach(f=>{
+    const tareas=S.tp[f][emp];
+    h+=`<div style="margin-bottom:.6rem">
+      <div class="cat-lbl">${diaSemana(f)} ${fd(f)}</div>`;
+    tareas.forEach(t=>{
+      h+=`<div class="frow" style="padding:.4rem 0;border-bottom:1px solid var(--g100)">
+        <span style="font-size:.85rem;color:var(--g800);flex:1;padding-right:8px">${t.desc}</span>
+        <button onclick="eliminarTP('${emp}','${f}',${t.id},'${containerId}')" style="background:none;border:none;color:var(--red);font-size:.78rem;cursor:pointer;font-family:var(--fb);padding:2px 6px;flex-shrink:0">✕</button>
+      </div>`;
+    });
+    h+='</div>';
+  });
+  h+='</div>';
+  el.innerHTML=h;
+}
+
+function eliminarTP(emp,fecha,id,containerId){
+  if(!S.tp[fecha]?.[emp])return;
+  S.tp[fecha][emp]=S.tp[fecha][emp].filter(t=>t.id!==id);
+  if(!S.tp[fecha][emp].length)delete S.tp[fecha][emp];
+  sv();
+  renderProximas(emp,containerId);
+  toast('Tarea eliminada');
+}
+
+// ─── UTILS ───
+// ─── ARRANQUE: restaurar sesión si existe ───
+(function(){
+  limpiarDatosAntiguos();
+  if(!restaurarSesion()){
+    showS('s-login');
+  }
+})();
+
+// Cache de arrays de fechas (se invalida si cambia el día)
+let _cacheDay=null, _cacheLast7=null, _cacheMes=null, _cacheDiasMes=null;
+function _checkCache(){
+  const d=hoy(),m=mes();
+  if(_cacheDay!==d){_cacheDay=d;_cacheLast7=null;_cacheDiasMes=null;}
+  if(_cacheMes!==m){_cacheMes=m;_cacheDiasMes=null;}
+}
+function last7(){
+  _checkCache();
+  if(_cacheLast7)return _cacheLast7;
+  const d=[];
+  for(let i=6;i>=0;i--){const x=new Date();x.setDate(x.getDate()-i);d.push(x.toISOString().slice(0,10));}
+  _cacheLast7=d;return d;
+}
+function diasDelMes(ym){
+  _checkCache();
+  if(_cacheDiasMes)return _cacheDiasMes;
   const[y,m]=ym.split('-').map(Number);
   const ultimo=new Date(y,m,0).getDate();
-  const hoy=new Date();const dias=[];
-  for(let d=1;d<=ultimo;d++){
-    const f=`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    if(new Date(f+'T12:00:00')<=hoy)dias.push(f);
+  const hoyD=new Date();const d=[];
+  for(let i=1;i<=ultimo;i++){
+    const f=`${y}-${String(m).padStart(2,'0')}-${String(i).padStart(2,'0')}`;
+    if(new Date(f+'T12:00:00')<=hoyD)d.push(f);
   }
-  return dias;
+  _cacheDiasMes=d;return d;
 }
 </script>
 </body>
