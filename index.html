@@ -219,78 +219,424 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .modal-chip.on{background:var(--black);border-color:var(--black);color:var(--white)}
 .modal-chip.on-red{background:var(--red);border-color:var(--red);color:var(--white)}
 .modal-sec-lbl{font-size:.68rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--g400);margin-bottom:.45rem;display:block}
-/* ── CONFIG REDISEÑADO ── */
-.cfg-tabs{display:flex;border:1.5px solid var(--g100);border-radius:var(--rs);overflow:hidden;margin-bottom:1rem}
-.cfg-tab-btn{flex:1;padding:.55rem;background:var(--white);border:none;font-family:var(--fb);font-size:.8rem;font-weight:500;color:var(--g600);cursor:pointer;transition:all .15s}
-.cfg-tab-btn.on{background:var(--black);color:var(--white)}
-.cfg-cat-block{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:.65rem;overflow:hidden}
-.cfg-cat-hd{display:flex;align-items:center;gap:.65rem;padding:.78rem 1rem;cursor:pointer;user-select:none}
-.cfg-cat-ico{font-size:1.05rem;flex-shrink:0}
-.cfg-cat-nm{font-weight:600;font-size:.88rem;color:var(--g800);flex:1}
-.cfg-cat-cnt{font-size:.73rem;color:var(--g400);font-weight:500;flex-shrink:0}
-.cfg-cat-arr{font-size:.7rem;color:var(--g300);transition:transform .2s;flex-shrink:0}
-.cfg-cat-block.open .cfg-cat-arr{transform:rotate(180deg)}
-.cfg-cat-body{border-top:1px solid var(--g100);display:none}
-.cfg-cat-block.open .cfg-cat-body{display:block}
-.cfg-task-row{display:flex;align-items:center;gap:.6rem;padding:.52rem 1rem;border-bottom:1px solid var(--g100)}
+/* ══ CONFIG ══ */
+.cfg-sec{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:.85rem}
+.cfg-sec-hd{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem .75rem;border-bottom:1px solid var(--g100)}
+.cfg-sec-ttl{font-family:var(--ff);font-size:.95rem;font-weight:700;color:var(--g800)}
+.cfg-sec-cnt{font-size:.72rem;color:var(--g400);font-weight:500}
+/* Quick-add bar */
+.cfg-qadd{display:flex;gap:5px;padding:.65rem 1rem;background:linear-gradient(160deg,#faf8f3,#f5f1e8);border-bottom:1px solid #e8dfc5}
+.cfg-qadd-inp{flex:1;border:1.5px solid var(--g200);border-radius:var(--rs);padding:.45rem .7rem;font-family:var(--fb);font-size:.83rem;color:var(--g800);background:var(--white);outline:none;transition:border-color .15s}
+.cfg-qadd-inp:focus{border-color:var(--gold)}
+.cfg-qadd-btn{background:var(--gold);border:none;border-radius:var(--rs);padding:.45rem .85rem;color:var(--white);font-family:var(--fb);font-size:.82rem;font-weight:700;cursor:pointer;flex-shrink:0;transition:background .15s}
+.cfg-qadd-btn:hover{background:#9a7218}
+/* Category pills in config */
+.cfg-cat-pills{display:flex;gap:4px;padding:.5rem 1rem;background:var(--cream);border-bottom:1px solid var(--g100);flex-wrap:wrap}
+.cfg-cat-pill{padding:.3rem .65rem;border-radius:20px;font-size:.73rem;font-weight:600;cursor:pointer;border:1.5px solid var(--g200);color:var(--g600);background:var(--white);transition:all .13s;-webkit-tap-highlight-color:transparent}
+.cfg-cat-pill.on{background:var(--black);border-color:var(--black);color:var(--white)}
+/* Category sections */
+.cfg-cat-sec{border-bottom:1px solid var(--g100)}
+.cfg-cat-sec:last-child{border-bottom:none}
+.cfg-cat-toggle{display:flex;align-items:center;gap:.6rem;padding:.62rem 1rem;cursor:pointer;background:none;border:none;width:100%;font-family:var(--fb);-webkit-tap-highlight-color:transparent;transition:background .12s}
+.cfg-cat-toggle:hover{background:var(--cream)}
+.cfg-cat-ico{font-size:1rem;flex-shrink:0}
+.cfg-cat-nm{font-weight:600;font-size:.85rem;color:var(--g800);flex:1;text-align:left}
+.cfg-cat-cnt{font-size:.7rem;color:var(--g400);font-weight:500;flex-shrink:0}
+.cfg-cat-arr{font-size:.65rem;color:var(--g400);transition:transform .2s;flex-shrink:0;margin-left:4px}
+/* Task rows */
+.cfg-task-row{display:flex;align-items:center;gap:.55rem;padding:.48rem 1rem .48rem 2.6rem;border-bottom:1px solid var(--g100);transition:background .1s}
 .cfg-task-row:last-child{border-bottom:none}
+.cfg-task-row:hover{background:var(--cream)}
 .cfg-task-txt{flex:1;font-size:.84rem;color:var(--g800);line-height:1.4}
-.cfg-task-del{background:none;border:none;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--g300);transition:all .15s;flex-shrink:0;font-size:.9rem}
-.cfg-task-del:hover{background:var(--red-bg);color:var(--red)}
-.cfg-add-row{display:flex;gap:6px;padding:.6rem 1rem;background:var(--cream);border-top:1px solid var(--g100)}
+.cfg-task-del{background:none;border:none;width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--g300);transition:all .12s;flex-shrink:0;font-size:.8rem}
+.cfg-task-del:hover{background:#fee2e2;color:var(--red)}
+.cfg-inst-btn{background:none;border:none;font-size:.7rem;color:var(--gold-dk);cursor:pointer;padding:0;font-weight:600;font-family:var(--fb);flex-shrink:0}
+.cfg-inst-btn:hover{text-decoration:underline}
+.cfg-inst-wrap{margin:.2rem 1rem .4rem 2.6rem;padding:.35rem .6rem;background:var(--cream);border-radius:7px;border-left:2.5px solid var(--gold)}
+.cfg-inst-inp{width:100%;border:none;background:transparent;font-family:var(--fb);font-size:.78rem;color:var(--g800);outline:none;resize:none;line-height:1.55}
+/* Próximas — timeline */
+.cfg-prox-empty{padding:1.5rem 1rem;text-align:center;font-size:.82rem;color:var(--g400)}
+.cfg-prox-date{display:flex;align-items:center;gap:.65rem;padding:.55rem 1rem .4rem;background:var(--cream);border-bottom:1px solid var(--g100)}
+.cfg-prox-date-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--g500);flex:1}
+.cfg-prox-task{display:flex;align-items:center;gap:.55rem;padding:.42rem 1rem;border-bottom:1px solid var(--g100)}
+.cfg-prox-task:last-child{border-bottom:none}
+.cfg-prox-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;flex-shrink:0}
+.cfg-prox-txt{flex:1;font-size:.82rem;color:var(--g800)}
+.cfg-prox-del{background:none;border:none;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--g300);transition:all .12s;flex-shrink:0;font-size:.77rem}
+.cfg-prox-del:hover{background:#fee2e2;color:var(--red)}
+.cfg-prox-hora{font-size:.66rem;font-weight:600;padding:.1rem .35rem;border-radius:20px;background:#fef3c7;color:#92400e;flex-shrink:0}
+/* cfg-add-inp alias for compatibility */
 .cfg-add-inp{flex:1;border:1.5px solid var(--g200);border-radius:var(--rs);padding:.42rem .7rem;font-family:var(--fb);font-size:.83rem;color:var(--g800);background:var(--white);outline:none;transition:border-color .15s}
 .cfg-add-inp:focus{border-color:var(--gold)}
 .cfg-add-btn{background:var(--gold);border:none;border-radius:var(--rs);padding:.42rem .9rem;color:var(--white);font-family:var(--fb);font-size:.8rem;font-weight:600;cursor:pointer;flex-shrink:0;transition:background .15s}
-.cfg-add-btn:hover{background:var(--gold-dk)}
-/* Programadas CEO */
-.prog-emp-block{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:.65rem;overflow:hidden}
-.prog-emp-hd{display:flex;align-items:center;gap:.7rem;padding:.78rem 1rem}
-.prog-emp-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:.82rem;font-weight:700;flex-shrink:0}
-.prog-emp-nm{font-weight:600;font-size:.88rem;color:var(--g800);flex:1}
-.prog-emp-cnt{font-size:.73rem;color:var(--g400);font-weight:500}
-.prog-fecha-block{border-top:1px solid var(--g100);padding:.55rem 1rem}
-.prog-fecha-lbl{font-size:.67rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--g400);margin-bottom:.35rem}
-.prog-task-row{display:flex;align-items:center;gap:.5rem;padding:.38rem 0;border-bottom:1px solid var(--g100)}
-.prog-task-row:last-child{border-bottom:none}
-.prog-task-txt{flex:1;font-size:.83rem;color:var(--g800)}
-.prog-task-del{background:none;border:none;width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--g300);transition:all .15s;flex-shrink:0;font-size:.85rem}
-.prog-task-del:hover{background:var(--red-bg);color:var(--red)}
-/* ── PLANTILLAS DE TURNO ── */
-.plantilla-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:.65rem;overflow:hidden}
-.plantilla-hd{display:flex;align-items:center;gap:.7rem;padding:.78rem 1rem}
-.plantilla-ico{width:34px;height:34px;border-radius:10px;background:var(--gold-lt);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.plantilla-nm{font-weight:600;font-size:.88rem;color:var(--g800);flex:1}
-.plantilla-cnt{font-size:.72rem;color:var(--g400);font-weight:500}
-.plantilla-actions{display:flex;gap:6px;flex-shrink:0}
-.plantilla-btn{padding:.35rem .75rem;border-radius:20px;font-size:.74rem;font-weight:600;cursor:pointer;border:1.5px solid;transition:all .15s}
-.plantilla-btn-apply{border-color:var(--gold);color:var(--gold-dk);background:var(--gold-lt)}
-.plantilla-btn-apply:hover{background:var(--gold);color:var(--white)}
-.plantilla-btn-del{border-color:var(--g200);color:var(--g400);background:none}
-.plantilla-btn-del:hover{border-color:var(--red);color:var(--red);background:var(--red-bg)}
-.plantilla-items{border-top:1px solid var(--g100);padding:.5rem 1rem}
-.plantilla-item-row{display:flex;align-items:center;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--g100);font-size:.82rem;color:var(--g700)}
-.plantilla-item-row:last-child{border-bottom:none}
-.plantilla-cat-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-/* Crear plantilla */
-.nueva-plantilla-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);padding:.85rem 1rem;margin-bottom:.65rem}
-/* Checkboxes de selección de tareas para plantilla */
-.np-check-row{display:flex;align-items:center;gap:.6rem;padding:.42rem .55rem;border-radius:var(--rs);cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent;margin-bottom:2px}
-.np-check-row:hover{background:var(--cream)}
-.np-check-row.on{background:var(--gold-lt)}
-.np-check-box{width:20px;height:20px;border-radius:5px;border:2px solid var(--g200);background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
-.np-check-box.checked{background:var(--gold);border-color:var(--gold)}
-.np-check-lbl{font-size:.83rem;color:var(--g700);line-height:1.4;flex:1}
-/* Apply modal */
-.apply-overlay{position:fixed;inset:0;background:rgba(12,12,11,.5);z-index:400;display:flex;align-items:flex-end;justify-content:center}
-.apply-sheet{background:var(--white);border-radius:var(--r) var(--r) 0 0;padding:1.2rem 1.3rem 2rem;width:100%;max-width:540px}
-/* Instrucciones en tarea base ── */
-.tarea-inst-btn{background:none;border:none;width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.78rem;color:var(--g400);transition:all .15s;flex-shrink:0}
-.tarea-inst-btn:hover{background:var(--cream);color:var(--gold-dk)}
-.tarea-inst-btn.active{color:var(--gold-dk);background:var(--gold-lt)}
-.tarea-inst-box{margin-top:.35rem;padding:.5rem .7rem;background:var(--cream);border-radius:var(--rs);font-size:.78rem;color:var(--g600);line-height:1.55;border-left:2px solid var(--gold-lt)}
-.cfg-inst-wrap{padding:.4rem 1rem .55rem;background:var(--cream)}
-.cfg-inst-inp{width:100%;border:1.5px solid var(--g200);border-radius:var(--rs);padding:.4rem .65rem;font-family:var(--fb);font-size:.8rem;color:var(--g800);background:var(--white);outline:none;resize:none;transition:border-color .15s}
-.cfg-inst-inp:focus{border-color:var(--gold)}
+.cfg-add-btn:hover{background:#9a7218}
+/* ══ TAREAS: CALENDARIO + PANEL DÍA ══ */
+
+/* Pill selector de colaborador */
+.tar-pills{display:flex;gap:5px;margin-bottom:.9rem;background:var(--white);
+  border-radius:var(--r);box-shadow:var(--sh);padding:.45rem .5rem}
+.tar-pill{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:.38rem .5rem;border-radius:18px;border:none;background:none;
+  font-family:var(--fb);font-size:.78rem;font-weight:600;color:var(--g500);
+  cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.tar-pill.on{background:var(--black);color:var(--white)}
+.tar-pill-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;opacity:.85}
+.tar-pill.on .tar-pill-dot{opacity:1;box-shadow:0 0 0 2px rgba(255,255,255,.3)}
+
+/* Calendario */
+.cal-wrap{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);
+  overflow:hidden;margin-bottom:.85rem}
+.cal-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.1rem .65rem}
+.cal-hdr-left{display:flex;flex-direction:column;gap:2px}
+.cal-mes-lbl{font-family:var(--ff);font-size:1.1rem;font-weight:700;
+  color:var(--g800);text-transform:capitalize;letter-spacing:-.02em}
+.cal-mes-sub{font-size:.71rem;color:var(--g400);font-weight:500}
+.cal-nav-btns{display:flex;gap:4px}
+.cal-nav-btn{background:var(--g100);border:none;width:32px;height:32px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--g600);font-size:1rem;transition:all .15s}
+.cal-nav-btn:hover{background:var(--g200);color:var(--g800)}
+/* Grid */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);
+  padding:0 .35rem .65rem;gap:1.5px}
+.cal-dow{font-size:.58rem;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--g400);text-align:center;
+  padding:.1rem 0 .55rem}
+.cal-dow.fin{color:#c49a3c}
+/* Celdas */
+.cal-cell{display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;padding:.3rem 0 .22rem;cursor:pointer;
+  border-radius:11px;border:2px solid transparent;
+  transition:background .13s,border-color .13s,transform .1s;
+  min-height:52px;-webkit-tap-highlight-color:transparent;
+  gap:2px;position:relative}
+.cal-cell:active{transform:scale(.88)}
+.cal-cell.cal-off{opacity:0;pointer-events:none}
+.cal-cell.cal-no-work{opacity:.15;cursor:default;pointer-events:none}
+/* Estados de celda */
+.cal-cell.cal-hoy{border-color:var(--black) !important;background:var(--cream)}
+.cal-cell.cal-sel{border-color:var(--gold) !important;
+  background:var(--gold-lt);box-shadow:0 2px 10px rgba(184,148,58,.2)}
+/* Número */
+.cal-num{width:27px;height:27px;display:flex;align-items:center;
+  justify-content:center;font-size:.84rem;font-weight:600;color:var(--g700);
+  border-radius:50%;transition:all .12s;flex-shrink:0}
+.cal-cell.cal-hoy .cal-num{background:var(--black);color:var(--white);font-weight:800}
+.cal-cell.cal-sel .cal-num{color:var(--gold-dk);font-weight:800}
+/* Tints de días pasados */
+.cal-cell.cp-good{background:#e8f5ee}
+.cal-cell.cp-good .cal-num{color:#166534;font-weight:700}
+.cal-cell.cp-mid{background:#fef3c7}
+.cal-cell.cp-mid .cal-num{color:#92400e;font-weight:700}
+.cal-cell.cp-bad{background:#fee2e2}
+.cal-cell.cp-bad .cal-num{color:#991b1b;font-weight:700}
+.cal-cell.cp-empty{background:#f3f4f6}
+.cal-cell.cp-empty .cal-num{color:var(--g400)}
+/* Puntos indicadores */
+.cal-dots{display:flex;gap:2px;min-height:5px;align-items:center;
+  justify-content:center;margin-top:1px}
+.cal-dot{width:4.5px;height:4.5px;border-radius:50%;flex-shrink:0}
+.cal-badge{font-size:.55rem;font-weight:800;background:var(--gold);
+  color:var(--white);border-radius:7px;padding:1px 5px;line-height:1.3;
+  min-width:14px;text-align:center}
+/* Leyenda */
+.cal-legend{display:flex;gap:.5rem;flex-wrap:wrap;
+  padding:.05rem .5rem .75rem;align-items:center}
+.cal-leg-item{display:flex;align-items:center;gap:3px;
+  font-size:.67rem;color:var(--g400)}
+.cal-leg-box{width:9px;height:9px;border-radius:3px;border:1px solid rgba(0,0,0,.07)}
+
+/* ══ PANEL DÍA ══ */
+.dia-panel{background:var(--white);border-radius:var(--r);
+  box-shadow:0 6px 24px rgba(12,12,11,.09),0 1px 4px rgba(12,12,11,.05);
+  overflow:hidden;animation:diaIn .22s cubic-bezier(.22,.6,.2,1)}
+@keyframes diaIn{from{opacity:0;transform:translateY(18px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}}
+/* Header */
+.dia-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 1rem .7rem}
+.dia-hd-left{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.dia-hd-fecha{font-family:var(--ff);font-size:1rem;font-weight:700;
+  color:var(--g800);text-transform:capitalize}
+.dia-hd-sub{font-size:.72rem;color:var(--g500)}
+.dia-hd-pct{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.dia-pct-num{font-family:var(--ff);font-size:1.45rem;font-weight:800;line-height:1}
+.dia-pct-lbl{font-size:.58rem;color:var(--g400);font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em}
+.dia-close{background:none;border:none;width:30px;height:30px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--g400);font-size:.85rem;transition:all .15s}
+.dia-close:hover{background:var(--cream);color:var(--g800)}
+/* Barra progreso */
+.dia-pbar{height:3px;background:var(--g100);margin:0 1rem .65rem;
+  border-radius:6px;overflow:hidden}
+.dia-pbar-fill{height:100%;border-radius:6px;
+  transition:width .6s cubic-bezier(.4,0,.2,1)}
+/* Secciones */
+.dia-sec{border-top:1px solid var(--g100)}
+.dia-sec-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--g400);padding:.58rem 1rem .25rem;
+  display:block}
+/* Filas de tarea */
+.dia-task{display:flex;align-items:flex-start;gap:.55rem;
+  padding:.4rem 1rem;border-bottom:1px solid var(--g100)}
+.dia-task:last-child{border-bottom:none}
+.dia-task-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;
+  margin-top:.42rem}
+.dia-task-body{flex:1;min-width:0}
+.dia-task-txt{font-size:.84rem;color:var(--g800);line-height:1.4}
+.dia-task-txt.done{color:var(--g400);text-decoration:line-through}
+.dia-task-del{background:none;border:none;width:24px;height:24px;
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--g300);transition:all .12s;flex-shrink:0;font-size:.75rem}
+.dia-task-del:hover{background:#fee2e2;color:var(--red)}
+/* Deadline chip */
+.dl-chip{display:inline-flex;align-items:center;gap:3px;font-size:.66rem;
+  font-weight:600;padding:.1rem .4rem;border-radius:20px;margin-top:2px;line-height:1.4}
+.dl-chip.ok{background:#dcfce7;color:#166534}
+.dl-chip.warn{background:#fef3c7;color:#92400e}
+.dl-chip.overdue{background:#fee2e2;color:#991b1b;
+  animation:urgente-pulse 1.3s ease-in-out infinite}
+/* Instrucción expandible */
+.dia-inst-btn{background:none;border:none;font-size:.68rem;color:var(--gold-dk);
+  cursor:pointer;padding:0;margin-top:3px;font-weight:600;font-family:var(--fb)}
+.dia-inst-btn:hover{text-decoration:underline}
+.dia-inst-box{margin-top:5px;padding:.35rem .6rem;background:var(--cream);
+  border-radius:7px;font-size:.75rem;color:var(--g600);
+  border-left:2.5px solid var(--gold);line-height:1.55}
+/* Cabecera de categoría */
+.dia-cat-hd{padding:.18rem 1rem .12rem;background:var(--g100);font-size:.63rem;
+  font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.06em}
+/* ── Formulario asignación ── */
+.dia-assign{padding:.8rem 1rem .9rem;
+  background:linear-gradient(160deg,#faf8f3 0%,#f5f1e8 100%);
+  border-top:1.5px solid #e8dfc5}
+.dia-assign-row{display:flex;gap:6px;margin-bottom:.4rem}
+.dia-assign-inp{flex:1;border:1.5px solid var(--g200);border-radius:var(--rs);
+  padding:.5rem .7rem;font-family:var(--fb);font-size:.84rem;color:var(--g800);
+  background:var(--white);outline:none;transition:border-color .15s;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.04)}
+.dia-assign-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,148,58,.12)}
+.dia-assign-btn{background:var(--gold);border:none;border-radius:var(--rs);
+  padding:.5rem 1rem;color:var(--white);font-family:var(--fb);font-size:.82rem;
+  font-weight:700;cursor:pointer;flex-shrink:0;transition:background .15s;
+  box-shadow:0 2px 6px rgba(184,148,58,.3)}
+.dia-assign-btn:hover{background:#9a7218}
+/* Fila de opciones */
+.dia-opts{display:flex;gap:.65rem;align-items:center;flex-wrap:wrap}
+.dia-opt-time{display:flex;align-items:center;gap:5px;font-size:.74rem;
+  color:var(--g500);cursor:default}
+.dia-opt-time input[type=time]{border:1.5px solid var(--g200);border-radius:var(--rs);
+  padding:.3rem .45rem;font-family:var(--fb);font-size:.77rem;color:var(--g800);
+  background:var(--white);outline:none;width:95px}
+.dia-opt-time input[type=time]:focus{border-color:var(--gold)}
+.dia-opt-urg{display:flex;align-items:center;gap:4px;font-size:.74rem;
+  color:var(--g600);cursor:pointer}
+.dia-opt-urg input{accent-color:var(--red);cursor:pointer;width:15px;height:15px}
+/* Chips de grupo rápido */
+.dia-grupo-chip{padding:.3rem .65rem;border-radius:20px;font-size:.72rem;
+  font-weight:600;cursor:pointer;border:1.5px solid #e8dfc5;
+  color:var(--gold-dk);background:#fdf6e3;transition:all .12s}
+.dia-grupo-chip:hover{background:var(--gold);color:var(--white);border-color:var(--gold)}
+
+/* ── Barra de acciones rápidas CEO ── */
+.dia-quick-bar{display:flex;gap:6px;padding:.6rem 1rem;background:var(--cream);
+  border-bottom:1px solid var(--g200);flex-wrap:wrap;align-items:center}
+.dia-quick-lbl{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--g400);margin-right:2px;white-space:nowrap}
+.dia-qbtn{display:inline-flex;align-items:center;gap:4px;padding:.34rem .75rem;
+  border-radius:20px;font-family:var(--fb);font-size:.72rem;font-weight:600;
+  cursor:pointer;border:1.5px solid;transition:all .14s;white-space:nowrap;
+  box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dia-qbtn-dupl{background:#f0fdf4;border-color:#bbf7d0;color:#166534}
+.dia-qbtn-dupl:hover{background:#dcfce7;border-color:#86efac;transform:translateY(-1px)}
+.dia-qbtn-auto{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+.dia-qbtn-auto:hover{background:#dbeafe;border-color:#93c5fd;transform:translateY(-1px)}
+.dia-qbtn-tmpl{background:#fdf4ff;border-color:#e9d5ff;color:#7e22ce}
+.dia-qbtn-tmpl:hover{background:#f3e8ff;border-color:#d8b4fe;transform:translateY(-1px)}
+/* Modal plantilla */
+.tmpl-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:900;
+  display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .15s}
+.tmpl-modal{background:var(--white);border-radius:var(--r) var(--r) 0 0;
+  width:100%;max-width:480px;padding:1.2rem 1.2rem 1.6rem;box-shadow:0 -4px 24px rgba(0,0,0,.15)}
+.tmpl-modal-title{font-size:.92rem;font-weight:700;color:var(--g800);margin-bottom:.85rem;
+  display:flex;justify-content:space-between;align-items:center}
+.tmpl-modal-close{background:none;border:none;font-size:1.1rem;cursor:pointer;color:var(--g400);padding:0}
+.tmpl-empty{text-align:center;color:var(--g400);font-size:.8rem;padding:1.2rem 0}
+
+/* ══ SOLICITUDES DEL EQUIPO ══ */
+.sol-btn-wrap{margin-bottom:.85rem}
+.sol-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;
+  padding:.58rem 1rem;border-radius:var(--rs);border:1.5px solid #c7d2fe;
+  background:#eef2ff;font-family:var(--fb);font-size:.78rem;font-weight:600;
+  color:#4338ca;cursor:pointer;transition:all .14s}
+.sol-btn:hover{background:#e0e7ff;border-color:#a5b4fc;transform:translateY(-1px)}
+/* Modal solicitud (colaborador) */
+.sol-modal-body{padding:.85rem 0 0}
+.sol-tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:.85rem}
+.sol-tipo-btn{padding:.55rem .4rem;border-radius:var(--rs);border:1.5px solid var(--g200);
+  background:none;font-family:var(--fb);font-size:.72rem;font-weight:600;cursor:pointer;
+  text-align:center;transition:all .13s;color:var(--g600)}
+.sol-tipo-btn.on{border-color:currentColor}
+.sol-tipo-btn[data-tipo="insumo"].on{background:#fff7ed;border-color:#fdba74;color:#c2410c}
+.sol-tipo-btn[data-tipo="mejora"].on{background:#f0fdf4;border-color:#86efac;color:#166534}
+.sol-tipo-btn[data-tipo="bloqueo"].on{background:#fef2f2;border-color:#fca5a5;color:#dc2626}
+.sol-inp{width:100%;border:1.5px solid var(--g200);border-radius:var(--rs);
+  padding:.65rem .85rem;font-family:var(--fb);font-size:.84rem;resize:none;
+  background:var(--cream);outline:none;box-sizing:border-box}
+.sol-inp:focus{border-color:var(--gold);background:var(--white);
+  box-shadow:0 0 0 3px rgba(184,148,58,.1)}
+/* Card solicitud en vista CEO */
+.sol-card{background:var(--white);border-radius:var(--rs);box-shadow:var(--sh);
+  margin-bottom:.5rem;overflow:hidden;border-left:3px solid var(--g200)}
+.sol-card[data-tipo="insumo"]{border-left-color:#fb923c}
+.sol-card[data-tipo="mejora"]{border-left-color:#4ade80}
+.sol-card[data-tipo="bloqueo"]{border-left-color:#f87171}
+.sol-card-body{padding:.65rem .9rem .5rem}
+.sol-card-top{display:flex;align-items:center;gap:6px;margin-bottom:4px;flex-wrap:wrap}
+.sol-card-emp{font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--g400)}
+.sol-tipo-chip{font-size:.63rem;font-weight:700;padding:.1rem .38rem;border-radius:20px}
+.sol-tipo-chip.insumo{background:#fff7ed;color:#c2410c}
+.sol-tipo-chip.mejora{background:#f0fdf4;color:#166534}
+.sol-tipo-chip.bloqueo{background:#fef2f2;color:#dc2626}
+.sol-prio-chip{font-size:.6rem;font-weight:700;padding:.1rem .35rem;border-radius:20px}
+.sol-prio-chip.alta{background:#fee2e2;color:#991b1b}
+.sol-prio-chip.media{background:#fef3c7;color:#92400e}
+.sol-prio-chip.baja{background:#f0f9ff;color:#0369a1}
+.sol-card-txt{font-size:.84rem;color:var(--g800);font-weight:500;margin-bottom:.45rem}
+.sol-card-sub{font-size:.7rem;color:var(--g400);margin-bottom:.55rem}
+.sol-card-tarea{font-size:.78rem;font-style:italic;color:var(--g600);
+  background:var(--cream);border-radius:var(--rs);padding:.38rem .6rem;
+  margin-bottom:.5rem;border-left:3px solid var(--gold)}
+.sol-card-actions{display:flex;gap:6px;padding:.45rem .9rem .6rem;
+  background:var(--cream);border-top:1px solid var(--g100)}
+.sol-act-btn{padding:.3rem .7rem;border-radius:20px;font-family:var(--fb);
+  font-size:.68rem;font-weight:600;cursor:pointer;border:1.5px solid;transition:all .12s}
+.sol-act-btn.convert{background:#eef2ff;border-color:#a5b4fc;color:#4338ca}
+.sol-act-btn.convert:hover{background:#e0e7ff}
+.sol-act-btn.resolve{background:#f0fdf4;border-color:#86efac;color:#166534}
+.sol-act-btn.resolve:hover{background:#dcfce7}
+.sol-act-btn.del{background:none;border-color:var(--g200);color:var(--g400)}
+.sol-badge-wrap{display:flex;gap:4px;align-items:center;margin-left:auto}
+/* CEO backlog — Pendientes estratégicos */
+.ceo-bl-sec{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);
+  margin-bottom:.85rem;overflow:hidden}
+.ceo-bl-hd{padding:.7rem 1rem .6rem;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:1px solid var(--g100)}
+.ceo-bl-ttl{font-family:var(--ff);font-size:.88rem;font-weight:600;color:var(--g800)}
+.ceo-bl-cnt{font-size:.7rem;color:var(--g400);font-weight:500}
+.ceo-bl-item{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem 1rem;
+  border-bottom:1px solid var(--g100);transition:background .12s}
+.ceo-bl-item:last-child{border-bottom:none}
+.ceo-bl-item:hover{background:#fafbfc}
+.ceo-bl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ceo-bl-body{flex:1;min-width:0}
+.ceo-bl-txt{font-size:.83rem;color:var(--g800);line-height:1.4;display:block}
+.ceo-bl-done .ceo-bl-txt{text-decoration:line-through;color:var(--g400)}
+.ceo-bl-meta{font-size:.66rem;color:var(--g400);margin-top:3px}
+.ceo-bl-del{background:none;border:none;color:var(--g300);font-size:.8rem;
+  cursor:pointer;padding:4px 6px;transition:color .12s;flex-shrink:0;margin-top:1px}
+.ceo-bl-del:hover{color:var(--red)}
+/* Botón de completado — grande y claro */
+.ceo-bl-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--g200);
+  background:var(--white);cursor:pointer;flex-shrink:0;transition:all .18s;
+  display:flex;align-items:center;justify-content:center;font-size:.75rem;
+  box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.ceo-bl-check:hover:not(.done){border-color:#4ade80;background:#f0fdf4;color:#166534}
+.ceo-bl-check.done{background:var(--green);border-color:var(--green);
+  color:var(--white);box-shadow:0 2px 6px rgba(34,197,94,.3)}
+.ceo-bl-add{display:flex;gap:6px;padding:.6rem .9rem;background:var(--cream);
+  border-top:1px solid var(--g100)}
+.ceo-bl-inp{flex:1;border:1.5px solid var(--g200);border-radius:var(--rs);
+  padding:.42rem .7rem;font-family:var(--fb);font-size:.8rem;background:var(--white);outline:none}
+.ceo-bl-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,148,58,.1)}
+/* KPI gestión operativa */
+.kpi-op-row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.85rem}
+.kpi-op-box{background:var(--white);border-radius:var(--rs);box-shadow:var(--sh);
+  padding:.65rem .8rem}
+.kpi-op-n{font-family:var(--ff);font-size:1.5rem;font-weight:700;color:var(--g800);line-height:1}
+.kpi-op-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--g400);margin-top:2px}
+
+/* ══ Notificación solicitud en CEO (badge en tab) ══ */
+.ctab-badge{display:inline-flex;align-items:center;justify-content:center;
+  background:var(--red);color:var(--white);border-radius:20px;
+  font-size:.58rem;font-weight:700;min-width:14px;height:14px;
+  padding:0 4px;margin-left:4px;line-height:1}
+
+/* ── Planificar semana ── */
+.plan-btn{display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;padding:.58rem 1rem;border-radius:var(--rs);border:1.5px solid var(--g200);
+  background:var(--white);font-family:var(--fb);font-size:.78rem;font-weight:600;
+  color:var(--g700);cursor:pointer;transition:all .14s;box-shadow:0 1px 3px rgba(0,0,0,.05);
+  margin-bottom:.85rem}
+.plan-btn:hover{border-color:var(--gold);color:var(--gold);box-shadow:0 2px 8px rgba(184,148,58,.15);
+  transform:translateY(-1px)}
+/* Modal planificar semana */
+.plan-modal{background:var(--white);border-radius:var(--r) var(--r) 0 0;
+  width:100%;max-width:480px;padding:1.1rem 1.1rem 1.5rem;
+  box-shadow:0 -6px 32px rgba(0,0,0,.14);max-height:82vh;overflow-y:auto}
+.plan-modal-title{display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1rem}
+.plan-modal-ttl{font-size:.95rem;font-weight:700;color:var(--g800)}
+.plan-day-row{padding:.65rem .9rem;border-radius:var(--rs);margin-bottom:.38rem;
+  border:1.5px solid}
+.plan-day-row.skip{background:#f9fafb;border-color:var(--g200)}
+.plan-day-row.apply{background:linear-gradient(135deg,#fafbff,#f0f4ff);border-color:#c7d2fe}
+.plan-day-row.empty{background:var(--cream);border-color:var(--g200)}
+.plan-day-lbl{font-size:.8rem;font-weight:700;color:var(--g800);margin-bottom:3px}
+.plan-day-sub{font-size:.7rem;color:var(--g500);display:flex;flex-wrap:wrap;gap:4px;
+  align-items:center}
+.plan-day-chip{padding:.1rem .38rem;border-radius:20px;font-size:.63rem;font-weight:600}
+.plan-day-chip.tmpl{background:#ede9fe;color:#5b21b6}
+.plan-day-chip.auto{background:#dcfce7;color:#166534}
+.plan-day-chip.skip-lbl{background:#f3f4f6;color:var(--g500)}
+.plan-footer{display:flex;gap:8px;margin-top:1rem}
+.plan-footer-btn{flex:1;padding:.62rem;border-radius:var(--rs);font-family:var(--fb);
+  font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:all .13s}
+.plan-footer-btn.cancel{background:var(--cream);color:var(--g600)}
+.plan-footer-btn.apply{background:var(--black);color:var(--white)}
+.plan-footer-btn.apply:hover{background:#222}
+
+/* ── Rendimiento chip (dentro del quick-bar) ── */
+.dia-rend-chip{display:inline-flex;align-items:center;gap:3px;padding:.18rem .48rem;
+  border-radius:20px;font-size:.63rem;font-weight:700;border:1.5px solid;margin-left:4px;
+  white-space:nowrap;transition:background .2s}
+.dia-rend-chip.rc-extra{background:#dcfce7;border-color:#86efac;color:#166534}
+.dia-rend-chip.rc-normal{background:#f0f9ff;border-color:#bae6fd;color:#0369a1}
+.dia-rend-chip.rc-alivio{background:#fef9c3;border-color:#fde047;color:#854d0e}
+.dia-rend-chip.rc-nodata{background:var(--cream);border-color:var(--g200);color:var(--g400)}
+
+/* ── Badge "Reprogramada" ── */
+.repr-badge{display:inline-flex;align-items:center;gap:3px;padding:.12rem .42rem;
+  border-radius:20px;font-size:.6rem;font-weight:700;letter-spacing:.03em;
+  background:#fff7ed;border:1.5px solid #fed7aa;color:#c2410c;
+  vertical-align:middle;white-space:nowrap;margin-left:4px}
+.repr-badge::before{content:'↩';font-size:.7rem}
+
+/* ── Sugerencia de plantilla ── */
+.dia-suggest-banner{display:flex;align-items:center;justify-content:space-between;
+  gap:8px;padding:.52rem 1rem;background:linear-gradient(135deg,#fffbeb,#fef3c7);
+  border-bottom:1.5px solid #fde68a}
+.dia-suggest-content{display:flex;align-items:center;gap:.5rem;flex:1;min-width:0}
+.dia-suggest-ico{font-size:1.05rem;flex-shrink:0}
+.dia-suggest-ttl{font-size:.58rem;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:#92400e;line-height:1.2}
+.dia-suggest-nm{font-size:.8rem;font-weight:700;color:#78350f;margin-top:1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dia-suggest-dias{display:flex;gap:3px;flex-wrap:wrap;margin-top:3px}
+.dia-suggest-dia{font-size:.58rem;font-weight:600;padding:.1rem .38rem;
+  border-radius:20px;background:#fde68a;color:#92400e}
+
+/* ── autoAsignar toggle en config ── */
+.cfg-auto-tog{display:inline-flex;align-items:center;gap:3px;padding:.2rem .45rem;
+  border-radius:20px;font-size:.63rem;font-weight:700;cursor:pointer;border:1.5px solid;
+  transition:all .12s;white-space:nowrap;flex-shrink:0}
+.cfg-auto-tog.on{background:#dcfce7;border-color:#86efac;color:#166534}
+.cfg-auto-tog.off{background:var(--cream);border-color:var(--g200);color:var(--g400)}
+
 /* ── DETALLE HEADER ── */
 .det-hero{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);padding:1rem 1.1rem .9rem;margin-bottom:.85rem}
 
@@ -312,8 +658,9 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .num-l{font-size:.68rem;color:var(--g400);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
 
 /* ── TABS (CEO) ── */
-.ctabs{display:flex;gap:5px;margin-bottom:1rem;flex-wrap:wrap}
-.ctab{padding:.62rem 1rem;border-radius:20px;border:1.5px solid var(--g200);background:none;font-family:var(--fb);font-size:.76rem;font-weight:500;cursor:pointer;color:var(--g600);transition:all .15s;min-height:44px;display:inline-flex;align-items:center}
+.ctabs{display:flex;gap:6px;margin-bottom:1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:3px}
+.ctabs::-webkit-scrollbar{display:none}
+.ctab{padding:.52rem .9rem;border-radius:20px;border:1.5px solid var(--g200);background:none;font-family:var(--fb);font-size:.76rem;font-weight:500;cursor:pointer;color:var(--g600);transition:all .15s;min-height:38px;display:inline-flex;align-items:center;white-space:nowrap;flex-shrink:0}
 .ctab.on{background:var(--black);border-color:var(--black);color:var(--white)}
 
 /* ── TOAST ── */
@@ -445,6 +792,52 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .eda-insight:last-child{border-bottom:none}
 .eda-idot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.38rem}
 .streak-badge{display:inline-flex;align-items:center;gap:3px;font-size:.66rem;font-weight:600;color:var(--gold-dk);background:var(--gold-lt);padding:1px 8px;border-radius:20px;margin-left:6px;vertical-align:middle}
+
+/* ══ Motor de Retos ══ */
+.retos-wrap{margin-bottom:.85rem}
+.retos-header{background:linear-gradient(135deg,#1a1a2e 0%,#0f3460 100%);
+  border-radius:var(--r) var(--r) 0 0;padding:.8rem 1rem;
+  display:flex;align-items:center;justify-content:space-between}
+.retos-title{font-family:var(--ff);font-size:.95rem;font-weight:700;color:#f0d060;
+  letter-spacing:.02em}
+.retos-sub{font-size:.67rem;color:rgba(240,208,96,.65);margin-top:2px}
+.retos-ia-chip{background:rgba(240,208,96,.18);border:1px solid rgba(240,208,96,.35);
+  border-radius:4px;padding:2px 7px;font-size:.6rem;font-weight:700;
+  color:#f0d060;letter-spacing:.1em;text-transform:uppercase}
+.reto-lista{background:var(--white);border-radius:0 0 var(--r) var(--r);
+  box-shadow:var(--sh);overflow:hidden}
+.reto-card{padding:.75rem 1rem;border-bottom:1px solid var(--g100);
+  display:flex;align-items:flex-start;gap:.75rem;transition:background .12s}
+.reto-card:last-child{border-bottom:none}
+.reto-card.done{opacity:.5}
+.reto-card:hover{background:#f9f8f6}
+.reto-check-btn{width:26px;height:26px;border-radius:50%;border:2px solid var(--g200);
+  background:var(--white);cursor:pointer;flex-shrink:0;transition:all .18s;
+  display:flex;align-items:center;justify-content:center;font-size:.72rem;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);margin-top:2px}
+.reto-check-btn:hover:not(.done){border-color:#f0d060;background:#fffbeb;color:#92400e}
+.reto-check-btn.done{background:linear-gradient(135deg,#f0d060,#d97706);
+  border-color:#d97706;color:#78350f;box-shadow:0 2px 6px rgba(217,119,6,.35)}
+.reto-body{flex:1;min-width:0}
+.reto-tipo-chip{display:inline-flex;align-items:center;gap:3px;font-size:.62rem;
+  font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;
+  border-radius:4px;margin-bottom:.35rem}
+.reto-tipo-conversion{background:#f3e8ff;color:#7c3aed}
+.reto-tipo-ticket{background:#fef3c7;color:#d97706}
+.reto-tipo-experiencia{background:#dbeafe;color:#2563eb}
+.reto-tipo-tendencia{background:#fee2e2;color:#dc2626}
+.reto-tipo-evento{background:#d1fae5;color:#059669}
+.reto-desc{font-size:.81rem;color:var(--g800);line-height:1.4;display:block}
+.reto-card.done .reto-desc{text-decoration:line-through;color:var(--g400)}
+.reto-obj{font-size:.66rem;color:var(--g400);margin-top:.25rem}
+.reto-prio-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:7px}
+.retos-vacio{padding:1rem;text-align:center;font-size:.8rem;color:var(--g400)}
+.retos-generar-btn{width:100%;padding:.6rem;background:var(--cream);border:none;
+  border-top:1px solid var(--g100);font-size:.76rem;color:var(--g500);
+  cursor:pointer;transition:background .12s;font-family:var(--fb)}
+.retos-generar-btn:hover{background:var(--g100);color:var(--g700)}
+.reto-evento-tag{font-size:.62rem;font-weight:600;color:#059669;
+  background:#d1fae5;padding:1px 6px;border-radius:3px;margin-left:4px}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
@@ -518,6 +911,16 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
         </div>
       </div>
 
+      <!-- Reportar necesidad -->
+      <div class="sol-btn-wrap">
+        <button class="sol-btn" onclick="abrirSolicitudModal()">
+          📣 Reportar necesidad al CEO
+        </button>
+      </div>
+
+      <!-- 🏆 Retos del día — Motor de sugerencias -->
+      <div id="c-retos-wrap" class="hidden retos-wrap"></div>
+
       <!-- Tareas base por categoría -->
       <div id="c-tareas-base"></div>
 
@@ -554,9 +957,11 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
   <div class="ac">
     <div class="ctabs">
       <button class="ctab on" onclick="ceoTab('hoy',this)">Hoy</button>
+      <button class="ctab" onclick="ceoTab('tareas',this)">Tareas</button>
+      <button class="ctab" id="tab-solicitudes" onclick="ceoTab('solicitudes',this)">Solicitudes<span class="ctab-badge hidden" id="sol-badge"></span></button>
       <button class="ctab" onclick="ceoTab('equipo',this)">Equipo</button>
       <button class="ctab" onclick="ceoTab('analisis',this)">Análisis</button>
-      <button class="ctab" onclick="ceoTab('config',this)">Tareas</button>
+      <button class="ctab" onclick="ceoTab('config',this)">Config</button>
     </div>
 
     <!-- HOY -->
@@ -564,6 +969,30 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
       <div class="txt-muted" style="margin-bottom:.75rem" id="ceo-hoy-fecha"></div>
       <div id="ceo-alertas" class="alerta-wrap"></div>
       <div class="colab-grid" id="ceo-cards"></div>
+    </div>
+
+    <!-- TAREAS: calendario mensual + asignación -->
+    <div id="ct-tareas" class="hidden">
+      <!-- Planificar semana -->
+      <button class="plan-btn" onclick="planificarSemana()">
+        📅 Planificar semana automática
+      </button>
+      <!-- Pill selector colaborador -->
+      <div class="tar-pills">
+        <button class="tar-pill on" id="tarcol-Marlon" onclick="tarSelColab('Marlon')">
+          <span class="tar-pill-dot" style="background:#b8943a"></span>Marlon
+        </button>
+        <button class="tar-pill" id="tarcol-Ingrid" onclick="tarSelColab('Ingrid')">
+          <span class="tar-pill-dot" style="background:#2a7a4a"></span>Ingrid
+        </button>
+        <button class="tar-pill" id="tarcol-Isabella" onclick="tarSelColab('Isabella')">
+          <span class="tar-pill-dot" style="background:#2060a0"></span>Isabella
+        </button>
+      </div>
+      <!-- Calendario premium -->
+      <div id="tar-cal"></div>
+      <!-- Panel día -->
+      <div id="tar-dia-panel"></div>
     </div>
 
     <!-- DETALLE colaborador -->
@@ -697,20 +1126,30 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
         <div class="card-t" style="margin-bottom:.75rem">Consistencia del equipo</div>
         <div id="eda-consistencia"></div>
       </div>
+
+      <!-- Bloque 5: Retos — motor de sugerencias -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div id="eda-kpi-retos"></div>
+      </div>
+
+      <!-- Bloque 6: Gestión operativa CEO (solicitudes) -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div id="eda-kpi-op"></div>
+      </div>
+    </div>
+
+    <!-- SOLICITUDES DEL EQUIPO + BACKLOG CEO -->
+    <div id="ct-solicitudes" class="hidden">
+      <div id="sol-panel-solicitudes"></div>
+      <div id="sol-panel-backlog"></div>
     </div>
 
     <!-- CONFIG TAREAS BASE -->
     <div id="ct-config" class="hidden">
-      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem">Gestión de tareas</div>
-      <div class="txt-muted" style="margin-bottom:1rem">Base del equipo y asignaciones personalizadas</div>
-      <div class="cfg-tabs">
-        <button class="cfg-tab-btn on" id="cfg-tab-base" onclick="cfgTab('base')">Tareas base</button>
-        <button class="cfg-tab-btn" id="cfg-tab-plant" onclick="cfgTab('plant')">Plantillas</button>
-        <button class="cfg-tab-btn" id="cfg-tab-prog" onclick="cfgTab('prog')">Programadas</button>
-      </div>
+      <!-- Sección 1: Tareas base -->
       <div id="cfg-panel-base"></div>
-      <div id="cfg-panel-plant" class="hidden"></div>
-      <div id="cfg-panel-prog" class="hidden"></div>
+      <!-- Sección 2: Próximas asignaciones -->
+      <div id="cfg-panel-prog"></div>
     </div>
   </div>
 
@@ -848,29 +1287,142 @@ const TODOS_EMP=['Marlon','Ingrid','Isabella'];
 // 2. STATE — Estado, persistencia y API de acceso
 // ═══════════════════════════════════════════════════════════════
 const _TAREAS_DEFAULT=[
-  {id:1,cat:'ventas',desc:'Atender a todos los clientes con amabilidad'},
-  {id:2,cat:'ventas',desc:'Ofrecer productos adicionales a cada cliente'},
-  {id:3,cat:'orden',desc:'Mantener vitrinas limpias y ordenadas'},
-  {id:4,cat:'orden',desc:'Limpiar el local al inicio y cierre del turno'},
-  {id:5,cat:'redes',desc:'Tomar al menos 1 foto o video para contenido'},
-  {id:6,cat:'inventario',desc:'Verificar stock de los perfumes más vendidos'},
-  {id:7,cat:'inventario',desc:'Reportar productos agotados o por agotarse'}
+  {id:1,cat:'ventas',desc:'Atender a todos los clientes con amabilidad',autoAsignar:true,prioridad:'alta',frecuencia:'diaria'},
+  {id:2,cat:'ventas',desc:'Ofrecer productos adicionales a cada cliente',autoAsignar:true,prioridad:'media',frecuencia:'diaria'},
+  {id:3,cat:'orden',desc:'Mantener vitrinas limpias y ordenadas',autoAsignar:true,prioridad:'alta',frecuencia:'diaria'},
+  {id:4,cat:'orden',desc:'Limpiar el local al inicio y cierre del turno',autoAsignar:true,prioridad:'alta',frecuencia:'diaria'},
+  {id:5,cat:'redes',desc:'Tomar al menos 1 foto o video para contenido',autoAsignar:false,prioridad:'media',frecuencia:'diaria'},
+  {id:6,cat:'inventario',desc:'Verificar stock de los perfumes más vendidos',autoAsignar:false,prioridad:'media',frecuencia:'semanal'},
+  {id:7,cat:'inventario',desc:'Reportar productos agotados o por agotarse',autoAsignar:false,prioridad:'alta',frecuencia:'semanal'}
 ];
 let S=JSON.parse(localStorage.getItem('pp_v5')||'null')||{};
 // Sanitizar claves faltantes (compatibilidad con versiones anteriores del localStorage)
 if(!Array.isArray(S.tareas)||!S.tareas.length)S.tareas=_TAREAS_DEFAULT.map(t=>({...t}));
+// Migrar campos nuevos en tareas base existentes
+S.tareas.forEach(t=>{
+  if(t.autoAsignar===undefined) t.autoAsignar=false;
+  if(!t.prioridad) t.prioridad='media';
+  if(!t.frecuencia) t.frecuencia='diaria';
+});
 if(!S.rep||typeof S.rep!=='object')S.rep={};
 if(!S.califs||typeof S.califs!=='object')S.califs={};
 if(!S.turnos||typeof S.turnos!=='object')S.turnos={};
 if(!S.tp||typeof S.tp!=='object')S.tp={};
-if(!Array.isArray(S.plantillas))S.plantillas=[];
+// Plantillas inteligentes con días aplicables
+const _PLANTILLAS_DEFAULT=[
+  {nombre:'Turno apertura',dias_aplicables:['lunes','martes','miercoles','jueves','viernes'],
+    tareas:[
+      {texto:'Abrir local y verificar caja',categoria:'orden',urgente:true},
+      {texto:'Limpiar vitrinas de entrada',categoria:'orden',hora:'09:30'},
+      {texto:'Revisar stock del día',categoria:'inventario'}
+    ]},
+  {nombre:'Turno fin de semana',dias_aplicables:['sabado','domingo'],
+    tareas:[
+      {texto:'Preparar destacados de fin de semana',categoria:'ventas'},
+      {texto:'Tomar contenido para redes sociales',categoria:'redes',hora:'12:00'},
+      {texto:'Conteo de productos en vitrina',categoria:'inventario'}
+    ]}
+];
+if(!Array.isArray(S.plantillas)||!S.plantillas.length)
+  S.plantillas=_PLANTILLAS_DEFAULT.map(p=>({...p,tareas:[...p.tareas]}));
 if(typeof S.nid!=='number'||isNaN(S.nid))S.nid=100;
+if(typeof S._lastReaDate!=='string')S._lastReaDate='';
+if(!Array.isArray(S.solicitudes))S.solicitudes=[];
+if(!Array.isArray(S.tarCEO))S.tarCEO=[];
+if(!Array.isArray(S.retos))S.retos=[];
+
+// ════════════════════════════════════════════════════════════════
+// MOTOR DE RETOS — constantes
+// ════════════════════════════════════════════════════════════════
+const _RETO_TIPOS={
+  conversion: {ico:'🎯',lbl:'Conversión',   cls:'conversion'},
+  ticket:     {ico:'💰',lbl:'Ticket',        cls:'ticket'},
+  experiencia:{ico:'✨',lbl:'Experiencia',   cls:'experiencia'},
+  tendencia:  {ico:'🔥',lbl:'Tendencia',     cls:'tendencia'},
+  evento:     {ico:'🎉',lbl:'Evento',        cls:'evento'},
+};
+
+const _EVENTOS_ESPECIALES=[
+  {nombre:'San Valentín',        fecha_anual:'02-14',dias_preparacion:10},
+  {nombre:'Día de la Mujer',     fecha_anual:'03-08',dias_preparacion:7},
+  {nombre:'Semana Santa',        fecha_anual:'04-10',dias_preparacion:7},
+  {nombre:'Día de la Madre',     fecha_anual:'05-10',dias_preparacion:8},
+  {nombre:'Día del Padre',       fecha_anual:'06-17',dias_preparacion:7},
+  {nombre:'Día de la Amistad',   fecha_anual:'07-30',dias_preparacion:5},
+  {nombre:'Regreso a Clases',    fecha_anual:'08-28',dias_preparacion:5},
+  {nombre:'Halloween',           fecha_anual:'10-31',dias_preparacion:6},
+  {nombre:'Día de los Muertos',  fecha_anual:'11-02',dias_preparacion:3},
+  {nombre:'Temporada Navideña',  fecha_anual:'12-08',dias_preparacion:5},
+  {nombre:'Navidad',             fecha_anual:'12-25',dias_preparacion:12},
+  {nombre:'Año Nuevo',           fecha_anual:'01-01',dias_preparacion:7},
+];
+
+const _RETOS_TEMPLATES={
+  conversion:[
+    {desc:'Convierte 3 clientes en vitrina en compradores — usa técnica: fragancia + historia',obj:3,prio:'alta'},
+    {desc:'Cierra 2 ventas de perfumes masculinos con presentación "huele y lleva"',obj:2,prio:'media'},
+    {desc:'Transforma 4 consultas informales en ventas con demo rápida',obj:4,prio:'alta'},
+    {desc:'Recupera 2 clientes indecisos con oferta del día antes de que salgan',obj:2,prio:'media'},
+  ],
+  ticket:[
+    {desc:'Sube el ticket promedio ofreciendo 1 complemento por cada compra (loción, mini)',obj:1,prio:'media'},
+    {desc:'Vende 2 kits o combos durante el turno — "precio especial hoy"',obj:2,prio:'alta'},
+    {desc:'Ofrece loción o crema corporal como pareja a cada perfume vendido',obj:3,prio:'media'},
+    {desc:'Presenta la opción de tamaño grande vs pequeño — sube al grande a 2 clientes',obj:2,prio:'baja'},
+  ],
+  experiencia:[
+    {desc:'Invita a 5 clientes a vivir la "experiencia fragancia del día" — muestra y cuenta la historia',obj:5,prio:'media'},
+    {desc:'Personaliza la recomendación según estilo de vida: trabajo, salida nocturna, casual',obj:3,prio:'alta'},
+    {desc:'Cierra con storytelling: cuenta origen o inspiración de 3 fragancias vendidas',obj:3,prio:'media'},
+    {desc:'Aplica técnica "capas de aroma": sugiere body wash + perfume a 2 clientes',obj:2,prio:'alta'},
+  ],
+  tendencia:[
+    {desc:'Destaca y vende 3 fragancias nicho de la colección premium',obj:3,prio:'alta'},
+    {desc:'Presenta colección unisex — 2 ventas de fragancias sin género definido',obj:2,prio:'media'},
+    {desc:'Impulsa fragancias de hogar: vende 2 difusores o velas aromáticas',obj:2,prio:'media'},
+    {desc:'Promueve fragancias acuáticas o verdes — tendencia frescura 2025',obj:2,prio:'baja'},
+  ],
+  evento:[
+    {desc:'Prepara vitrina temática para el evento — 80% de productos del evento visibles',obj:1,prio:'alta'},
+    {desc:'Ofrece mensaje de regalo personalizado en cada compra del evento',obj:5,prio:'alta'},
+    {desc:'Vende 3 kits regalo temáticos — presenta la caja como "el regalo perfecto"',obj:3,prio:'alta'},
+    {desc:'Menciona la promoción especial del evento a cada cliente que entra',obj:8,prio:'media'},
+  ],
+};
 
 let CU=null, CR=null, CD=null, CS=null, PREV='hoy', DF=null;
 
 function sv(){localStorage.setItem('pp_v5',JSON.stringify(S));}
 let _svTimer=null;
 function svDebounce(){clearTimeout(_svTimer);_svTimer=setTimeout(()=>sv(),400);}
+
+/* Ordena tareas por prioridad: urgente (0) > reprogramada (1) > normal (2).
+   Estable: dentro de cada nivel conserva el orden original. */
+function _sortTareas(arr){
+  const score=t=>t.urgente?0:t.reprogramada?1:2;
+  return [...arr].sort((a,b)=>score(a)-score(b));
+}
+
+/* ── Rendimiento promedio de los últimos 7 días laborables con datos ──
+   Devuelve un número 0-100, o null si no hay historial suficiente.      */
+function rendimientoReciente(emp){
+  const dias=last7().filter(d=>esLaborable(emp,d));
+  let sum=0, n=0;
+  dias.forEach(d=>{
+    const ef=calcEficacia(emp,d);
+    if(ef.total>0){sum+=ef.pct;n++;}
+  });
+  return n>0 ? Math.round(sum/n) : null;
+}
+
+/* Determina el modo de carga:
+   'alivio' (<60%) | 'normal' (60-85%) | 'extra' (>85%) | 'normal' (sin datos) */
+function modoAutoAsignar(pct){
+  if(pct===null)  return 'normal';
+  if(pct<60)      return 'alivio';
+  if(pct>85)      return 'extra';
+  return 'normal';
+}
 
 function limpiarDatosAntiguos(){
   const limite=new Date();
@@ -959,7 +1511,7 @@ function esLaborable(emp,fecha){
 function turnoOn(n){return esFDS(n)?!!(S.turnos[hoy()]?.[n]):true;}
 
 // ── UI general ──
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200);}
+function toast(m,delay=2200){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),delay);}
 function showS(id){
   ['s-login','s-colab','s-ceo'].forEach(s=>{
     const el=document.getElementById(s);
@@ -1000,7 +1552,20 @@ function tareaItemHtml(id,desc,est,nota,opts){
       <span class="tarea-desc${est==='green'?' done':''}">${desc}</span>
     </div>`;
   } else {
-    metaInner=`<span class="tarea-desc${est==='green'?' done':''}">${desc}</span>${badgeHtml}`;
+    const hora=opts?.hora||'';
+    let dlHtml='';
+    if(hora){
+      const ahora=new Date();
+      const hm=ahora.getHours()*60+ahora.getMinutes();
+      const [hh,mm]=(hora||'').split(':').map(Number);
+      const dl=hh*60+(mm||0);
+      const diff=dl-hm;
+      const dlCls=diff<0?'overdue':diff<=60?'warn':'ok';
+      const dlLbl=diff<0?`⚠ Venció ${hora}`:diff<=60?`⏱ ${hora} (${diff}min)`:`⏰ Límite ${hora}`;
+      dlHtml=est!=='green'?`<br><span class="dl-chip ${dlCls}">${dlLbl}</span>`:'';
+    }
+    const reprInline=opts?.reprogramada?`<span class="repr-badge">↩ Reprogramada</span>`:'';
+    metaInner=`<span class="tarea-desc${est==='green'?' done':''}">${desc}${reprInline}</span>${hora?dlHtml:''}${badgeHtml}`;
   }
 
   const inst=opts?.inst||'';
@@ -1219,6 +1784,179 @@ function renderColab(){
   renderHeroYTareas();
 }
 
+// ════════════════════════════════════════════════════════════════
+// MOTOR DE RETOS — funciones core
+// ════════════════════════════════════════════════════════════════
+
+/**
+ * Detecta si hay un evento especial cercano a la fecha dada.
+ * Retorna {nombre, diasRestantes} o null.
+ */
+function _eventoCercano(fecha){
+  const d0=new Date(fecha+'T12:00:00');
+  const anio=d0.getFullYear();
+  let closest=null, minDiff=Infinity;
+  _EVENTOS_ESPECIALES.forEach(ev=>{
+    // Probar año actual y siguiente (para eventos de fin de año)
+    [anio,anio+1].forEach(y=>{
+      const evFecha=`${y}-${ev.fecha_anual}`;
+      const dEv=new Date(evFecha+'T12:00:00');
+      const diff=Math.round((dEv-d0)/(1000*60*60*24));
+      if(diff>=0&&diff<=ev.dias_preparacion&&diff<minDiff){
+        minDiff=diff;
+        closest={nombre:ev.nombre,diasRestantes:diff,fecha:evFecha};
+      }
+    });
+  });
+  return closest;
+}
+
+/**
+ * Genera retos sugeridos para (fecha, emp).
+ * Solo genera una vez por fecha+colaborador (idempotente).
+ */
+function generarRetos(fecha, emp){
+  if(!S.retos) S.retos=[];
+  // Idempotente: si ya existen retos del sistema para esta fecha+emp, salir
+  const yaExisten=S.retos.filter(r=>r.fecha===fecha&&r.colaborador===emp&&r.sugerido_por_sistema);
+  if(yaExisten.length) return;
+
+  const dow=new Date(fecha+'T12:00:00').getDay(); // 0=dom…6=sab
+  const esFinDeSemana=(dow===0||dow===6);
+  // Índice determinista basado en día para elegir templates sin aleatoriedad pura
+  const idx=dow; // 0-6 → selección rotativa
+
+  const rend=rendimientoReciente(emp);
+  const modo=modoAutoAsignar(rend);
+  const evCercano=_eventoCercano(fecha);
+
+  const seleccionados=[];
+
+  // 1) Evento especial cercano → 1-2 retos de evento
+  if(evCercano){
+    const tmpl=_RETOS_TEMPLATES.evento;
+    seleccionados.push({...tmpl[idx%tmpl.length],tipo:'evento',_ev:evCercano.nombre});
+    if(evCercano.diasRestantes<=2)
+      seleccionados.push({...tmpl[(idx+1)%tmpl.length],tipo:'evento',_ev:evCercano.nombre});
+  }
+
+  // 2) Según rendimiento y día
+  if(modo==='alivio'){
+    // Carga ligera: solo alta prioridad de experiencia
+    const e=_RETOS_TEMPLATES.experiencia;
+    seleccionados.push({...e[idx%e.length],tipo:'experiencia'});
+    const c=_RETOS_TEMPLATES.conversion.filter(r=>r.prio!=='alta');
+    if(c.length) seleccionados.push({...c[idx%c.length],tipo:'conversion'});
+  } else if(modo==='extra'){
+    // Alto rendimiento: exigir más
+    const t=_RETOS_TEMPLATES.ticket;
+    const tr=_RETOS_TEMPLATES.tendencia;
+    const cv=_RETOS_TEMPLATES.conversion;
+    seleccionados.push({...t[idx%t.length],tipo:'ticket'});
+    seleccionados.push({...tr[idx%tr.length],tipo:'tendencia'});
+    if(!evCercano) seleccionados.push({...cv[idx%cv.length],tipo:'conversion'});
+  } else {
+    // Normal
+    if(esFinDeSemana){
+      const t=_RETOS_TEMPLATES.ticket;
+      const tr=_RETOS_TEMPLATES.tendencia;
+      seleccionados.push({...t[idx%t.length],tipo:'ticket'});
+      seleccionados.push({...tr[(idx+1)%tr.length],tipo:'tendencia'});
+    } else {
+      const cv=_RETOS_TEMPLATES.conversion;
+      const e=_RETOS_TEMPLATES.experiencia;
+      seleccionados.push({...cv[idx%cv.length],tipo:'conversion'});
+      seleccionados.push({...e[(idx+1)%e.length],tipo:'experiencia'});
+    }
+  }
+
+  // Deduplicar por descripción y limitar a 5
+  const seen=new Set();
+  const final=seleccionados.filter(r=>{
+    if(!r.desc||seen.has(r.desc)) return false;
+    seen.add(r.desc); return true;
+  }).slice(0,5);
+
+  if(!final.length) return;
+
+  final.forEach(r=>{
+    S.retos.push({
+      id:S.nid++,
+      tipo:r.tipo,
+      descripcion:r.desc,
+      objetivo_numerico:r.obj||1,
+      prioridad:r.prio||'media',
+      fecha,
+      colaborador:emp,
+      sugerido_por_sistema:true,
+      hecho:false,
+      fecha_completado:null,
+      evento_nombre:r._ev||null,
+    });
+  });
+  sv();
+}
+
+/** Marcar/desmarcar reto como completado */
+function marcarReto(id){
+  const r=(S.retos||[]).find(x=>x.id===id);
+  if(!r) return;
+  r.hecho=!r.hecho;
+  r.fecha_completado=r.hecho?hoy():null;
+  sv();
+  _edaHash=''; // invalidar cache EDA
+  _renderRetosColab();
+}
+
+function _renderRetosColab(){
+  const el=document.getElementById('c-retos-wrap');
+  if(!el) return;
+  const f=hoy();
+  const retosHoy=(S.retos||[]).filter(r=>r.fecha===f&&r.colaborador===CU&&r.sugerido_por_sistema);
+
+  if(!retosHoy.length){
+    el.classList.add('hidden');
+    return;
+  }
+  el.classList.remove('hidden');
+
+  const evCercano=_eventoCercano(f);
+  const evTag=evCercano?`<span class="reto-evento-tag">🎉 ${evCercano.nombre} en ${evCercano.diasRestantes}d</span>`:'';
+
+  const rend=rendimientoReciente(CU);
+  const modo=modoAutoAsignar(rend);
+  const modoInfo={alivio:'🟡 Modo alivio',normal:'',extra:'🟢 Alto rendimiento'}[modo]||'';
+
+  let h=`<div class="retos-header">
+    <div>
+      <div class="retos-title">🏆 Retos del día${evTag}</div>
+      <div class="retos-sub">Desafíos personalizados para maximizar ventas${modoInfo?' · '+modoInfo:''}</div>
+    </div>
+    <span class="retos-ia-chip">IA</span>
+  </div>
+  <div class="reto-lista">`;
+
+  retosHoy.forEach(r=>{
+    const tipo=_RETO_TIPOS[r.tipo]||{ico:'•',lbl:r.tipo,cls:r.tipo};
+    const prioColor={alta:'var(--red)',media:'var(--yellow)',baja:'#60a5fa'}[r.prioridad]||'var(--g300)';
+    const checkIco=r.hecho?'✓':'';
+    h+=`<div class="reto-card${r.hecho?' done':''}">
+      <button class="reto-check-btn${r.hecho?' done':''}" onclick="marcarReto(${r.id})"
+        title="${r.hecho?'Marcar como pendiente':'Marcar como completado'}">${checkIco}</button>
+      <div class="reto-prio-dot" style="background:${r.hecho?'var(--g200)':prioColor}"></div>
+      <div class="reto-body">
+        <span class="reto-tipo-chip reto-tipo-${tipo.cls}">${tipo.ico} ${tipo.lbl}</span>
+        <span class="reto-desc">${r.descripcion}</span>
+        <div class="reto-obj">🎯 Objetivo: ${r.objetivo_numerico} ${r.objetivo_numerico===1?'acción':'acciones'}
+          ${r.evento_nombre?` · 🎉 ${r.evento_nombre}`:''}</div>
+      </div>
+    </div>`;
+  });
+
+  h+=`</div>`;
+  el.innerHTML=h;
+}
+
 function renderHeroYTareas(){
   const f=hoy();
   const est=getEstados(f,CU);
@@ -1249,8 +1987,9 @@ function renderHeroYTareas(){
   const tpWrap=document.getElementById('c-tp-wrap');
   if(tp.length){
     tpWrap.classList.remove('hidden');
-    const urgentes=tp.filter(t=>t.urgente);
-    const normales=tp.filter(t=>!t.urgente);
+    const tpSorted=_sortTareas(tp);
+    const urgentes=tpSorted.filter(t=>t.urgente);
+    const normales=tpSorted.filter(t=>!t.urgente);
     const cardHeader=document.querySelector('#c-tp-card .frow');
     if(cardHeader){
       cardHeader.innerHTML=urgentes.length
@@ -1260,12 +1999,12 @@ function renderHeroYTareas(){
     let h='';
     urgentes.forEach(t=>{
       const k='p_'+t.id;
-      h+=tareaItemHtml(k,t.desc,est[k]||'',notas[k]||'',{urgente:true});
+      h+=tareaItemHtml(k,t.desc,est[k]||'',notas[k]||'',{urgente:true,hora:t.hora||'',reprogramada:t.reprogramada||false});
     });
     if(urgentes.length&&normales.length) h+='<div class="divider" style="margin:.4rem 0"></div>';
     normales.forEach(t=>{
       const k='p_'+t.id;
-      h+=tareaItemHtml(k,t.desc,est[k]||'',notas[k]||'');
+      h+=tareaItemHtml(k,t.desc,est[k]||'',notas[k]||'',{hora:t.hora||'',reprogramada:t.reprogramada||false});
     });
     document.getElementById('c-tp-lista').innerHTML=h;
   } else {
@@ -1284,6 +2023,10 @@ function renderHeroYTareas(){
     hb+=`</div>`;
   });
   document.getElementById('c-tareas-base').innerHTML=hb;
+
+  // ── Retos del día ── generarRetos es idempotente
+  generarRetos(f, CU);
+  _renderRetosColab();
 
   // ── Evaluación del CEO ──
   const cal=getCalif(f,CU);
@@ -1438,6 +2181,7 @@ function cerrarCelebracion(){
 
 // ── 7a. Dashboard (Hoy) ──
 function renderCeo(){
+  _actualizarSolBadge();
   document.getElementById('ceo-hoy-fecha').textContent=`${diaSemana(hoy())} ${fd(hoy())}`;
   document.getElementById('m-fecha').value=hoy();
   renderCardsHoy();
@@ -1498,15 +2242,16 @@ function verDetalle(emp,origen,fecha){
   let h='';
   // Tareas personalizadas al tope
   if(tp.length){
-    const tpUrg=tp.filter(t=>t.urgente);
-    const tpNorm=tp.filter(t=>!t.urgente);
+    const tpSortedD=_sortTareas(tp);
+    const tpUrg=tpSortedD.filter(t=>t.urgente);
+    const tpNorm=tpSortedD.filter(t=>!t.urgente);
     h+=`<div style="margin-bottom:8px">
       <div class="cat-lbl" style="display:flex;align-items:center;gap:5px;margin-bottom:4px">
         Del Ceo <span class="badge b-gold" style="font-size:.65rem">personalizada</span>
         ${tpUrg.length?`<span class="urgente-badge">⚡ ${tpUrg.length} urgente${tpUrg.length>1?'s':''}</span>`:''}
       </div>
       ${tpUrg.map(t=>tareaDetalleHtml(t.desc,est['p_'+t.id]||'',notas['p_'+t.id]||'',{urgente:true})).join('')}
-      ${tpNorm.map(t=>tareaDetalleHtml(t.desc,est['p_'+t.id]||'',notas['p_'+t.id]||'')).join('')}
+      ${tpNorm.map(t=>tareaDetalleHtml(t.desc,est['p_'+t.id]||'',notas['p_'+t.id]||'',{reprogramada:t.reprogramada||false})).join('')}
     </div><div class="divider"></div>`;
   }
 
@@ -1529,17 +2274,18 @@ function verDetalle(emp,origen,fecha){
   document.getElementById('ceo-msg').value=cal?.mensaje||'';
   const savedEl=document.getElementById('rating-saved');if(savedEl)savedEl.classList.remove('on');
 
-  ['hoy','equipo','analisis','config'].forEach(t=>{const el=document.getElementById('ct-'+t);if(el)el.classList.add('hidden');});
+  ['hoy','tareas','equipo','analisis','config'].forEach(t=>{const el=document.getElementById('ct-'+t);if(el)el.classList.add('hidden');});
   document.getElementById('ct-detalle').classList.remove('hidden');
-  document.getElementById('fab-btn').classList.add('hidden');
+  document.getElementById('fab-btn')?.classList.add('hidden');
 }
 
 function volverCeo(){
   document.getElementById('ct-detalle').classList.add('hidden');
-  document.getElementById('fab-btn').classList.remove('hidden');
   const esEquipo=PREV==='marlon'||PREV==='ingrid'||PREV==='isabella';
   const tabTarget=esEquipo?'ct-equipo':(PREV==='hoy'?'ct-hoy':('ct-'+PREV));
   document.getElementById(tabTarget||'ct-hoy').classList.remove('hidden');
+  // FAB solo visible en Hoy
+  document.getElementById('fab-btn')?.classList.toggle('hidden',PREV!=='hoy');
   // Resaltar el tab activo
   document.querySelectorAll('.ctab').forEach(b=>{
     b.classList.remove('on');
@@ -1548,10 +2294,10 @@ function volverCeo(){
   });
   if(PREV==='hoy')renderCardsHoy();
   if(esEquipo){
-    // Restaurar el colaborador en el selector Equipo
     _equipoEmp=PREV.charAt(0).toUpperCase()+PREV.slice(1);
     renderEquipo(_equipoEmp);
   }
+  if(PREV==='tareas')renderTareas();
 }
 
 // ── Rating cards: helpers ──
@@ -1605,15 +2351,810 @@ function guardarCalif(){_saveCalif();}
 // ── 7c. Tabs CEO ──
 function ceoTab(tab,btn){
   document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  ['hoy','equipo','analisis','config','detalle'].forEach(t=>{
+  if(btn)btn.classList.add('on');
+  ['hoy','tareas','equipo','analisis','config','detalle','solicitudes'].forEach(t=>{
     const el=document.getElementById('ct-'+t);if(el)el.classList.toggle('hidden',t!==tab);
   });
-  document.getElementById('fab-btn').classList.toggle('hidden',tab==='detalle');
+  const fab=document.getElementById('fab-btn');
+  if(fab)fab.classList.toggle('hidden',tab!=='hoy');
   if(tab==='hoy')renderCardsHoy();
+  if(tab==='tareas')renderTareas();
   if(tab==='equipo')renderEquipo(_equipoEmp);
   if(tab==='analisis')renderAnalisis();
   if(tab==='config')renderConfig();
+  if(tab==='solicitudes')renderSolicitudes();
+}
+
+// ══════════════════════════════════════════════════════════════
+// 7c-2. TAB TAREAS — Calendario mensual + asignación inline
+// ══════════════════════════════════════════════════════════════
+let _tarColab='Marlon';
+let _tarMesOff=0;      // 0=mes actual, -1=anterior, +1=siguiente
+let _tarDiaSel=null;   // fecha seleccionada 'YYYY-MM-DD'
+let _tarQCat='ventas'; // categoría activa en quick-assign
+let _cfgTab='base';    // sub-tab activo en Config (fix: era undefined)
+
+function renderTareas(){
+  _tarDiaSel=null;
+  _renderTarCal();
+  document.getElementById('tar-dia-panel').innerHTML='';
+}
+
+function tarSelColab(emp){
+  _tarColab=emp;
+  _tarDiaSel=null;
+  document.querySelectorAll('.tar-pill').forEach(b=>b.classList.remove('on'));
+  document.getElementById('tarcol-'+emp)?.classList.add('on');
+  _renderTarCal();
+  document.getElementById('tar-dia-panel').innerHTML='';
+}
+
+function tarNavMes(dir){
+  _tarMesOff+=dir;
+  _tarDiaSel=null;
+  _renderTarCal();
+  document.getElementById('tar-dia-panel').innerHTML='';
+}
+
+function _renderTarCal(){
+  const emp=_tarColab;
+  const color=EQ_COLORES[emp]||'#b8943a';
+  const base=new Date();base.setDate(1);base.setMonth(base.getMonth()+_tarMesOff);
+  const yr=base.getFullYear(),mn=base.getMonth();
+  const ms=(mn+1).toString().padStart(2,'0');
+  const mid=`${yr}-${ms}`;
+  const hoyStr=hoy();
+  const p1=new Date(yr,mn,1),pN=new Date(yr,mn+1,0);
+  let sd=p1.getDay()-1;if(sd<0)sd=6;
+  const rows=Math.ceil((sd+pN.getDate())/7);
+  const mNom=p1.toLocaleDateString('es-CO',{month:'long',year:'numeric'});
+
+  // Stats del mes — cache calcEficacia para reusar en el grid (evita doble cómputo)
+  const _efCache=new Map();
+  let mComp=0,mTot=0,mTp=0;
+  for(let d=1;d<=pN.getDate();d++){
+    const ds=`${mid}-${d.toString().padStart(2,'0')}`;
+    const ef=calcEficacia(emp,ds);_efCache.set(ds,ef);
+    mTot+=ef.total;mComp+=ef.comp;
+    mTp+=(S.tp[ds]?.[emp]||[]).length;
+  }
+  const mPct=mTot>0?Math.round(mComp/mTot*100):null;
+
+  // Sub text
+  let subTxt=mPct!==null?`${mPct}% completado este mes`:'Sin datos este mes';
+  if(mTp>0)subTxt+=` · ${mTp} tarea${mTp>1?'s':''} asignada${mTp>1?'s':''}`;
+
+  let h=`<div class="cal-wrap">
+    <div class="cal-hdr">
+      <div class="cal-hdr-left">
+        <span class="cal-mes-lbl">${mNom}</span>
+        <span class="cal-mes-sub">${subTxt}</span>
+      </div>
+      <div class="cal-nav-btns">
+        <button class="cal-nav-btn" onclick="tarNavMes(-1)">‹</button>
+        <button class="cal-nav-btn" onclick="tarNavMes(1)">›</button>
+      </div>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-dow">L</div><div class="cal-dow">M</div><div class="cal-dow">X</div>
+      <div class="cal-dow">J</div><div class="cal-dow">V</div>
+      <div class="cal-dow cal-dow-fin">S</div><div class="cal-dow cal-dow-fin">D</div>`;
+
+  for(let i=0;i<rows*7;i++){
+    const d=i-sd+1;
+    if(d<1||d>pN.getDate()){h+=`<div class="cal-cell cal-off"></div>`;continue;}
+    const ds=`${mid}-${d.toString().padStart(2,'0')}`;
+    const isHoy=ds===hoyStr,isSel=ds===_tarDiaSel,isPast=ds<hoyStr,isFut=ds>hoyStr;
+    const dow=new Date(yr,mn,d).getDay();
+    const isFin=dow===0||dow===6;
+    let works=true;
+    if(esFDS(emp)){works=!!(S.turnos[ds]?.[emp]===true)&&isFin;}else{works=!isFin;}
+
+    const tp=(S.tp[ds]?.[emp])||[];
+    let pcls='',dots='';
+
+    if(works){
+      if(isPast){
+        const ef=_efCache.get(ds)||calcEficacia(emp,ds); // use cache
+        if(ef.total>0){const p=Math.round(ef.comp/ef.total*100);pcls=p>=75?'cp-good':p>=40?'cp-mid':'cp-bad';}
+        else pcls='cp-empty';
+      }
+      if(tp.length>0){
+        dots=isFut?`<span class="cal-badge">${tp.length}</span>`:`<div class="cal-dot" style="background:${color}"></div>`;
+      }
+    }
+
+    const cls=[pcls,!works?'cal-no-work':'',isHoy?'cal-hoy':'',isSel?'cal-sel':''].filter(Boolean).join(' ');
+    h+=`<div class="cal-cell ${cls}" onclick="tarSelDia('${ds}')">
+      <div class="cal-num">${d}</div>
+      <div class="cal-dots">${dots}</div>
+    </div>`;
+  }
+  h+=`</div></div>`;
+
+  // Leyenda
+  h+=`<div class="cal-legend">
+    <span class="cal-leg-item"><span class="cal-leg-box" style="background:#eaf7ef"></span>Bien</span>
+    <span class="cal-leg-item"><span class="cal-leg-box" style="background:#fef9e4"></span>Regular</span>
+    <span class="cal-leg-item"><span class="cal-leg-box" style="background:#fdecea"></span>Bajo</span>
+    <span class="cal-leg-item"><span class="cal-badge" style="font-size:.55rem">2</span>Asignadas</span>
+  </div>`;
+
+  document.getElementById('tar-cal').innerHTML=h;
+}
+
+function tarSelDia(fecha){
+  _tarDiaSel=fecha;
+  _renderTarCal();
+  _renderTarDiaPanel(fecha);
+  // Scroll al panel
+  setTimeout(()=>document.getElementById('tar-dia-panel')?.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+}
+
+function _renderTarDiaPanel(fecha){
+  const emp  = _tarColab;
+  const color= EQ_COLORES[emp]||'#b8943a';
+  const hoy0 = hoy();
+  const isPast = fecha < hoy0;
+  const isHoy  = fecha === hoy0;
+  const isFut  = fecha > hoy0;
+  const fLbl   = `${diaSemana(fecha)} ${fd(fecha)}`;
+
+  /* estados y tareas */
+  const ef  = calcEficacia(emp, fecha);
+  const pct = ef.total > 0 ? Math.round(ef.comp/ef.total*100) : null;
+  const pCol= pct===null?'var(--g300)': pct>=75?'var(--green)': pct>=40?'var(--yellow)':'var(--red)';
+  const tp  = (S.tp[fecha]?.[emp]) || [];
+  const est = getEstados(fecha, emp);
+
+  /* grupos de tareas base */
+  const grp = {};
+  S.tareas.forEach(t=>{ if(!grp[t.cat]) grp[t.cat]=[]; grp[t.cat].push(t); });
+  const ORD = ['ventas','orden','redes','inventario'];
+
+  /* deadline chip */
+  const now   = new Date();
+  const nowMin= now.getHours()*60 + now.getMinutes();
+  function dlC(hr){
+    if(!hr) return '';
+    const [hh,mm]=(hr||'').split(':').map(Number);
+    const dl=hh*60+(mm||0), df=dl-nowMin;
+    if(isPast) return `<span class="dl-chip ok">⏰ ${hr}</span>`;
+    if(df<0)   return `<span class="dl-chip overdue">⚠ Venció ${hr}</span>`;
+    if(df<=60) return `<span class="dl-chip warn">⏱ ${hr} · ${df}min</span>`;
+    return `<span class="dl-chip ok">⏰ hasta ${hr}</span>`;
+  }
+
+  /* ─ header ─ */
+  let sub = isFut
+    ? (tp.length ? `${tp.length} tarea${tp.length>1?'s':''} asignada${tp.length>1?'s':''}` : 'Toca + para asignar')
+    : (ef.total>0 ? `${ef.comp} de ${ef.total} completadas` : 'Sin registro de tareas');
+
+  let h = `<div class="dia-panel">
+  <div class="dia-hd">
+    <div class="dia-hd-left">
+      <span class="dia-hd-fecha">${fLbl}</span>
+      <span class="dia-hd-sub">${sub}</span>
+    </div>
+    <div class="dia-hd-pct">`;
+  if(pct!==null) h+=`<div style="text-align:center">
+    <div class="dia-pct-num" style="color:${pCol}">${pct}%</div>
+    <div class="dia-pct-lbl">hecho</div>
+  </div>`;
+  h+=`<button class="dia-close" onclick="tarCerrarDia()">✕</button>
+    </div>
+  </div>`;
+
+  /* progress bar */
+  if(pct!==null) h+=`<div class="dia-pbar"><div class="dia-pbar-fill" style="width:${pct}%;background:${pCol}"></div></div>`;
+
+  /* ── BARRA DE ACCIONES RÁPIDAS (solo CEO) ── */
+  if(S.rol==='ceo'){
+    const _rend=rendimientoReciente(emp);
+    const _modo=modoAutoAsignar(_rend);
+    const _rendChipCls={alivio:'rc-alivio',normal:'rc-normal',extra:'rc-extra'}[_modo]||'rc-nodata';
+    const _rendChipTxt=_rend!==null
+      ?({alivio:`🟡 ${_rend}% · Carga ligera`,normal:`📊 ${_rend}% · Normal`,extra:`🟢 ${_rend}% · Carga extra`})[_modo]
+      :'📊 Sin historial';
+    h+=`<div class="dia-quick-bar">
+      <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;width:100%;margin-bottom:.35rem">
+        <span class="dia-quick-lbl">Acciones</span>
+        <span class="dia-rend-chip ${_rendChipCls}" title="Rendimiento promedio últimos 7 días">${_rendChipTxt}</span>
+      </div>
+      <button class="dia-qbtn dia-qbtn-dupl" onclick="tarDuplicarDiaAnterior('${fecha}')" title="Copia las tareas del día anterior a este día">
+        📋 Duplicar día anterior
+      </button>
+      <button class="dia-qbtn dia-qbtn-auto" onclick="tarAutoAsignar('${fecha}')" title="Auto-asigna tareas base marcadas con ⚡">
+        ⚡ Auto asignar
+      </button>
+      <button class="dia-qbtn dia-qbtn-tmpl" onclick="tarAplicarPlantilla('${fecha}')" title="Aplicar una plantilla de tareas guardada">
+        📐 Aplicar plantilla
+      </button>
+    </div>`;
+    /* ── SUGERENCIA DE PLANTILLA (solo días futuros/hoy) ── */
+    if(isHoy||isFut){
+      const _sug=_tmplSugerida(fecha);
+      if(_sug){
+        const _sidx=(S.plantillas||[]).indexOf(_sug);
+        const _diasChips=(_sug.dias_aplicables||[]).slice(0,4)
+          .map(d=>`<span class="dia-suggest-dia">${d}</span>`).join('');
+        h+=`<div class="dia-suggest-banner">
+          <div class="dia-suggest-content">
+            <span class="dia-suggest-ico">💡</span>
+            <div style="min-width:0">
+              <div class="dia-suggest-ttl">Plantilla sugerida</div>
+              <div class="dia-suggest-nm">${_sug.nombre}</div>
+              <div class="dia-suggest-dias">${_diasChips}</div>
+            </div>
+          </div>
+          <button class="dia-qbtn dia-qbtn-tmpl" style="padding:.28rem .65rem;font-size:.7rem;flex-shrink:0"
+            onclick="_tmplAplicar('${fecha}',${_sidx})">Aplicar</button>
+        </div>`;
+      }
+    }
+  }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     DÍAS FUTUROS / HOY
+     Flujo: form primero → personalizadas → base colapsada
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  if(!isPast){
+    /* FORMULARIO DE ASIGNACIÓN — primero y prominente */
+    h+=`<div class="dia-assign">
+      <div style="font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:.45rem">
+        + Asignar tarea a ${emp}
+      </div>
+      <div class="dia-assign-row">
+        <input class="dia-assign-inp" id="tar-assign-inp" type="text"
+          placeholder="Descripción de la tarea…" maxlength="80"
+          onkeydown="if(event.key==='Enter')tarAsignar('${fecha}')">
+        <button class="dia-assign-btn" onclick="tarAsignar('${fecha}')">Asignar</button>
+      </div>
+      <div class="dia-opts">
+        <label class="dia-opt-time" title="Hora límite opcional">
+          <span style="font-size:.8rem">⏰</span>
+          <input type="time" id="tar-hora-inp">
+          <span style="font-size:.72rem;color:var(--g400)">Hora límite</span>
+        </label>
+        <label class="dia-opt-urg">
+          <input type="checkbox" id="tar-urg-chk">
+          <span>⚡ Urgente</span>
+        </label>
+      </div>`;
+
+    /* chips de grupo */
+    const hayG = ORD.some(c=>(grp[c]||[]).length>0);
+    if(hayG){
+      h+=`<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:.45rem;padding-top:.45rem;border-top:1px solid var(--g200)">
+        <span style="font-size:.68rem;color:var(--g400);align-self:center;font-weight:600">Grupo rápido:</span>`;
+      ORD.forEach(c=>{
+        if(!(grp[c]||[]).length) return;
+        const m=CFG_CAT_META[c]||{ico:'•',nm:c};
+        h+=`<button class="dia-grupo-chip" onclick="tarAsignarGrupo('${fecha}','${c}')">${m.ico} ${m.nm}</button>`;
+      });
+      h+=`</div>`;
+    }
+    h+=`</div>`;
+
+    /* TAREAS PERSONALIZADAS YA ASIGNADAS */
+    if(tp.length){
+      const tpSortedF=_sortTareas(tp);
+      const urg=tpSortedF.filter(t=>t.urgente), norm=tpSortedF.filter(t=>!t.urgente);
+      h+=`<div class="dia-sec"><span class="dia-sec-lbl">📌 Asignadas (${tp.length})</span>`;
+      tpSortedF.forEach(t=>{
+        const k='p_'+t.id, e=est[k]||'', dn=e==='green';
+        const dc=dn?'var(--green)':e==='yellow'?'var(--yellow)':'var(--g200)';
+        const reprBadge=t.reprogramada
+          ?`<span class="repr-badge">Reprogramada${t.reprogramadaDe?' · '+fd(t.reprogramadaDe):''}</span>`:'';
+        h+=`<div class="dia-task">
+          <div class="dia-task-dot" style="background:${dc}${t.urgente?';box-shadow:0 0 0 2px #ff6b6b40':''}"></div>
+          <div class="dia-task-body">
+            ${t.urgente?'<span class="urgente-badge" style="font-size:.62rem;display:inline-flex;margin-bottom:2px">⚡ Urgente</span><br>':''}
+            <div class="dia-task-txt${dn?' done':''}">${t.desc}${reprBadge}</div>
+            ${dlC(t.hora||'')}
+          </div>
+          <button class="dia-task-del" onclick="tarElimTP('${fecha}',${t.id})">✕</button>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    /* TAREAS BASE — colapsadas como referencia */
+    const baseTot = S.tareas.length;
+    if(baseTot>0){
+      const panelId='dbase-'+fecha.replace(/-/g,'');
+      h+=`<div class="dia-sec">
+        <button onclick="tarToggleBase('${panelId}')" id="dbase-btn-${panelId}"
+          style="display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;
+                 cursor:pointer;padding:.55rem 1rem .45rem;font-family:var(--fb)">
+          <span class="dia-sec-lbl" style="padding:0;margin:0;font-size:.63rem">📋 Tareas base (${baseTot})</span>
+          <span id="dbase-ico-${panelId}" style="font-size:.7rem;color:var(--g400);transition:transform .2s">▼</span>
+        </button>
+        <div id="${panelId}" style="display:none">`;
+      ORD.forEach(cat=>{
+        const ls=grp[cat]||[]; if(!ls.length) return;
+        const m=CFG_CAT_META[cat]||{ico:'•',nm:cat};
+        h+=`<div class="dia-cat-hd">${m.ico} ${m.nm}</div>`;
+        ls.forEach(t=>{
+          const instH = t.inst
+            ? `<button class="dia-inst-btn" onclick="tarToggleInst('${t.id}')" id="dpib-${t.id}">ℹ️ ¿Cómo hacerlo?</button>
+               <div class="dia-inst-box" id="dpi-${t.id}" style="display:none">${t.inst}</div>`
+            : '';
+          h+=`<div class="dia-task">
+            <div class="dia-task-dot" style="background:var(--g200)"></div>
+            <div class="dia-task-body">
+              <div class="dia-task-txt" style="color:var(--g500)">${t.desc}</div>${instH}
+            </div>
+          </div>`;
+        });
+      });
+      h+=`</div></div>`;
+    }
+  }
+
+  /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     DÍAS PASADOS / HOY CON DATOS
+     Flujo: personalizadas → base con estado
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+  if(isPast||(isHoy&&ef.total>0)){
+
+    /* TAREAS PERSONALIZADAS */
+    if(tp.length){
+      const tpSortedP=_sortTareas(tp);
+      const urg=tpSortedP.filter(t=>t.urgente), norm=tpSortedP.filter(t=>!t.urgente);
+      h+=`<div class="dia-sec"><span class="dia-sec-lbl">📌 Del CEO (${tp.length})</span>`;
+      tpSortedP.forEach(t=>{
+        const k='p_'+t.id, e=est[k]||'', dn=e==='green';
+        const dc=dn?'var(--green)':e==='yellow'?'var(--yellow)':'var(--g200)';
+        const delBtn=!isPast?`<button class="dia-task-del" onclick="tarElimTP('${fecha}',${t.id})">✕</button>`:'';
+        const reprBadge2=t.reprogramada
+          ?`<span class="repr-badge">Reprogramada${t.reprogramadaDe?' · '+fd(t.reprogramadaDe):''}</span>`:'';
+        h+=`<div class="dia-task">
+          <div class="dia-task-dot" style="background:${dc}${t.urgente?';box-shadow:0 0 0 2px #ff6b6b40':''}"></div>
+          <div class="dia-task-body">
+            ${t.urgente?'<span class="urgente-badge" style="font-size:.62rem;display:inline-flex;margin-bottom:2px">⚡ Urgente</span><br>':''}
+            <div class="dia-task-txt${dn?' done':''}">${t.desc}${reprBadge2}</div>
+            ${dlC(t.hora||'')}
+          </div>${delBtn}
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    /* TAREAS BASE CON ESTADO */
+    if(S.tareas.length){
+      h+=`<div class="dia-sec"><span class="dia-sec-lbl">📋 Tareas base</span>`;
+      ORD.forEach(cat=>{
+        const ls=grp[cat]||[]; if(!ls.length) return;
+        const m=CFG_CAT_META[cat]||{ico:'•',nm:cat};
+        h+=`<div class="dia-cat-hd">${m.ico} ${m.nm}</div>`;
+        ls.forEach(t=>{
+          const e=est[t.id]||'', dn=e==='green';
+          const dc=dn?'var(--green)':e==='yellow'?'var(--yellow)':'var(--g200)';
+          const instH = t.inst
+            ? `<button class="dia-inst-btn" onclick="tarToggleInst('${t.id}')" id="dpib-${t.id}">ℹ️ ¿Cómo hacerlo?</button>
+               <div class="dia-inst-box" id="dpi-${t.id}" style="display:none">${t.inst}</div>`
+            : '';
+          h+=`<div class="dia-task">
+            <div class="dia-task-dot" style="background:${dc}"></div>
+            <div class="dia-task-body">
+              <div class="dia-task-txt${dn?' done':''}">${t.desc}</div>${instH}
+            </div>
+          </div>`;
+        });
+      });
+      h+=`</div>`;
+    }
+  }
+
+  h+=`</div>`;
+  document.getElementById('tar-dia-panel').innerHTML=h;
+}
+
+function tarCerrarDia(){
+  _tarDiaSel=null;
+  _renderTarCal();
+  document.getElementById('tar-dia-panel').innerHTML='';
+}
+
+function tarToggleBase(panelId){
+  const el=document.getElementById(panelId);
+  const ico=document.getElementById('dbase-ico-'+panelId);
+  if(!el) return;
+  const open=el.style.display!=='none';
+  el.style.display=open?'none':'block';
+  if(ico) ico.style.transform=open?'':'rotate(180deg)';
+}
+
+function tarSetCat(cat){
+  _tarQCat=cat;
+  if(_tarDiaSel) _renderTarDiaPanel(_tarDiaSel);
+}
+
+function tarAsignar(fecha){
+  const inp=document.getElementById('tar-assign-inp');
+  if(!inp) return;
+  const desc=inp.value.trim();
+  if(!desc){ inp.focus(); return; }
+  const hora=(document.getElementById('tar-hora-inp')?.value||'').trim()||null;
+  const urgente=document.getElementById('tar-urg-chk')?.checked||false;
+  if(!S.tp[fecha]) S.tp[fecha]={};
+  if(!S.tp[fecha][_tarColab]) S.tp[fecha][_tarColab]=[];
+  const task={id:S.nid++, desc, urgente};
+  if(hora) task.hora=hora;
+  S.tp[fecha][_tarColab].push(task);
+  sv();
+  toast(`✓ Asignada a ${_tarColab}`);
+  _renderTarDiaPanel(fecha);
+  _renderTarCal();
+  if(!document.getElementById('ct-hoy')?.classList.contains('hidden')) renderCardsHoy();
+}
+
+function tarAsignarGrupo(fecha,cat){
+  const lista=S.tareas.filter(t=>t.cat===cat);
+  if(!lista.length){ toast('Sin tareas en esta categoría'); return; }
+  if(!S.tp[fecha]) S.tp[fecha]={};
+  if(!S.tp[fecha][_tarColab]) S.tp[fecha][_tarColab]=[];
+  lista.forEach(t=>S.tp[fecha][_tarColab].push({id:S.nid++,desc:t.desc,urgente:false}));
+  sv();
+  toast(`✓ ${lista.length} tareas asignadas a ${_tarColab}`);
+  _renderTarDiaPanel(fecha);
+  _renderTarCal();
+}
+
+function tarElimTP(fecha,id){
+  if(!S.tp[fecha]?.[_tarColab]) return;
+  S.tp[fecha][_tarColab]=S.tp[fecha][_tarColab].filter(t=>t.id!==id);
+  if(!S.tp[fecha][_tarColab].length) delete S.tp[fecha][_tarColab];
+  sv(); toast('Tarea eliminada');
+  _renderTarDiaPanel(fecha);
+  _renderTarCal();
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ACCIONES RÁPIDAS – HOOKS CEO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Duplica todas las tareas personalizadas del día anterior al día dado */
+function tarDuplicarDiaAnterior(fecha){
+  const emp = _tarColab;
+  // calcular día anterior (calendar day -1)
+  const d = new Date(fecha + 'T00:00:00');
+  d.setDate(d.getDate() - 1);
+  const prev = d.toISOString().slice(0,10);
+  const srcTasks = (S.tp[prev]?.[emp]) || [];
+  if(!srcTasks.length){
+    toast('⚠ El día anterior no tiene tareas para duplicar');
+    return;
+  }
+  if(!S.tp[fecha]) S.tp[fecha] = {};
+  if(!S.tp[fecha][emp]) S.tp[fecha][emp] = [];
+  // clonar cada tarea con nuevo id (sin preservar estado)
+  const clonadas = srcTasks.map(t => {
+    const nt = { id: S.nid++, desc: t.desc };
+    if(t.hora) nt.hora = t.hora;
+    if(t.urgente) nt.urgente = true;
+    return nt;
+  });
+  S.tp[fecha][emp].push(...clonadas);
+  sv();
+  toast(`📋 ${clonadas.length} tarea${clonadas.length>1?'s':''} duplicada${clonadas.length>1?'s':''} desde ${fd(prev)}`);
+  _renderTarDiaPanel(fecha);
+  _renderTarCal();
+}
+
+/* Auto-asigna tareas según rendimiento reciente del colaborador.
+   Modo alivio (<60%) → solo alta prioridad.
+   Modo normal (60-85%) → todas las tareas marcadas con autoAsignar.
+   Modo extra (>85%) → autoAsignar + tareas alta prioridad adicionales. */
+function tarAutoAsignar(fecha){
+  const emp=_tarColab;
+
+  // ── Calcular rendimiento y determinar modo ──
+  const rend=rendimientoReciente(emp);
+  const modo=modoAutoAsignar(rend);
+
+  // ── Seleccionar candidatas según modo ──
+  let candidatas;
+  if(modo==='alivio'){
+    // Carga reducida: solo autoAsignar de alta prioridad
+    candidatas=S.tareas.filter(t=>t.autoAsignar&&t.prioridad==='alta');
+    if(!candidatas.length)
+      candidatas=S.tareas.filter(t=>t.autoAsignar).slice(0,2); // fallback: máx 2
+  } else if(modo==='extra'){
+    // Carga ampliada: autoAsignar + extras de alta prioridad
+    const base=S.tareas.filter(t=>t.autoAsignar===true);
+    const extras=S.tareas.filter(t=>!t.autoAsignar&&t.prioridad==='alta');
+    candidatas=[...base,...extras];
+  } else {
+    candidatas=S.tareas.filter(t=>t.autoAsignar===true);
+  }
+
+  if(!candidatas.length){
+    toast('⚠ Activa "⚡ Auto" en alguna tarea base desde Configuración');
+    return;
+  }
+
+  if(!S.tp[fecha]) S.tp[fecha]={};
+  if(!S.tp[fecha][emp]) S.tp[fecha][emp]=[];
+  const existing=new Set(S.tp[fecha][emp].map(t=>t.desc.toLowerCase().trim()));
+
+  const nuevas=candidatas
+    .filter(t=>!existing.has(t.desc.toLowerCase().trim()))
+    .map(t=>({id:S.nid++,desc:t.desc}));
+
+  if(!nuevas.length){
+    toast('✓ Las tareas automáticas ya están asignadas');
+    return;
+  }
+
+  S.tp[fecha][emp].push(...nuevas);
+  sv();
+
+  // ── Toast con contexto de modo ──
+  const modoEmoji={alivio:'🟡',normal:'⚡',extra:'🟢'};
+  const modoLbl={alivio:'Modo alivio',normal:'Auto asignar',extra:'Modo extra'};
+  const rendStr=rend!==null?` · ${rend}% rend`:'';
+  toast(`${modoEmoji[modo]} ${modoLbl[modo]}${rendStr} — ${nuevas.length} tarea${nuevas.length>1?'s':''}`);
+  _renderTarDiaPanel(fecha);
+  _renderTarCal();
+}
+
+/* Abre modal de selección de plantillas guardadas */
+function tarAplicarPlantilla(fecha){
+  const emp = _tarColab;
+  const plantillas = S.plantillas || [];
+  let body = '';
+  if(!plantillas.length){
+    body = `<div class="tmpl-empty">Aún no hay plantillas guardadas.<br>
+      <span style="font-size:.74rem;color:var(--g400)">Próximamente podrás guardar conjuntos de tareas como plantillas.</span>
+    </div>`;
+  } else {
+    body = plantillas.map((p,i)=>{
+      const diasStr=(p.dias_aplicables||[]).slice(0,4).join(', ')+(p.dias_aplicables?.length>4?'…':'');
+      const tarN=p.tareas?.length||0;
+      const sub=[tarN+' tarea'+(tarN!==1?'s':''), diasStr].filter(Boolean).join(' · ');
+      return `
+      <div style="display:flex;align-items:center;justify-content:space-between;
+        padding:.65rem .9rem;border-radius:var(--rs);background:var(--cream);
+        margin-bottom:.4rem;cursor:pointer;transition:background .12s"
+        onclick="_tmplAplicar('${fecha}',${i});cerrarModal()">
+        <div>
+          <div style="font-size:.84rem;font-weight:600;color:var(--g800)">${p.nombre}</div>
+          <div style="font-size:.72rem;color:var(--g400);margin-top:2px">${sub}</div>
+        </div>
+        <span style="font-size:1rem">▶</span>
+      </div>`;
+    }).join('');
+  }
+  const modal = document.createElement('div');
+  modal.className = 'tmpl-modal-overlay';
+  modal.id = 'tmpl-modal-overlay';
+  modal.innerHTML = `
+    <div class="tmpl-modal">
+      <div class="tmpl-modal-title">
+        📐 Seleccionar plantilla
+        <button class="tmpl-modal-close" onclick="cerrarModal()">✕</button>
+      </div>
+      ${body}
+    </div>`;
+  modal.addEventListener('click', e => { if(e.target===modal) cerrarModal(); });
+  document.body.appendChild(modal);
+}
+
+function cerrarModal(){
+  // Cierra cualquier modal dinámico y el apply-sheet estático
+  ['tmpl-modal-overlay','plan-modal-overlay','sol-modal-overlay'].forEach(id=>{
+    document.getElementById(id)?.remove();
+  });
+  document.getElementById('modal')?.classList.add('hidden');
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PLANIFICAR SEMANA AUTOMÁTICA
+   1. Construye preview por día laborable
+   2. Muestra modal de confirmación
+   3. Aplica el plan aprobado
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function planificarSemana(){
+  const emp  = _tarColab;
+  const hoyStr = hoy();
+
+  // ── Calcular lunes de la semana actual ──
+  const hoyD = new Date(hoyStr+'T12:00:00');
+  const dow   = hoyD.getDay();             // 0=dom, 1=lun … 6=sab
+  const diffLun = dow===0 ? -6 : 1-dow;   // días hasta lunes (negativo=pasado)
+  const lunes = new Date(hoyD);
+  lunes.setDate(hoyD.getDate() + diffLun);
+
+  // ── 7 días: lunes → domingo ──
+  const semana = [];
+  for(let i=0;i<7;i++){
+    const d=new Date(lunes);
+    d.setDate(lunes.getDate()+i);
+    semana.push(d.toISOString().slice(0,10));
+  }
+
+  // ── Filtrar días laborables para este colaborador ──
+  const diasLab = semana.filter(f=>esLaborable(emp,f));
+
+  if(!diasLab.length){
+    toast('⚠ No hay días laborables en la semana para '+emp);
+    return;
+  }
+
+  // ── Tareas auto-asignar ──
+  const rend  = rendimientoReciente(emp);
+  const modo  = modoAutoAsignar(rend);
+  let autoPool;
+  if(modo==='alivio'){
+    autoPool=S.tareas.filter(t=>t.autoAsignar&&t.prioridad==='alta');
+    if(!autoPool.length) autoPool=S.tareas.filter(t=>t.autoAsignar).slice(0,2);
+  } else if(modo==='extra'){
+    const base=S.tareas.filter(t=>t.autoAsignar);
+    const extras=S.tareas.filter(t=>!t.autoAsignar&&t.prioridad==='alta');
+    autoPool=[...base,...extras];
+  } else {
+    autoPool=S.tareas.filter(t=>t.autoAsignar);
+  }
+
+  // ── Construir preview ──
+  const plan = diasLab.map(f=>{
+    const yaExiste = !!(S.tp[f]?.[emp]?.length);
+    const sug      = _tmplSugerida(f);
+    const tieneAuto= autoPool.length>0;
+    return {fecha:f, skip:yaExiste, sug, tieneAuto,
+            totalTmpl: sug?.tareas?.length||0,
+            totalAuto: autoPool.length};
+  });
+
+  const aDias  = plan.filter(p=>!p.skip).length;
+  const sSaltan= plan.filter(p=>p.skip).length;
+
+  // ── Modal preview ──
+  let rowsH='';
+  plan.forEach(p=>{
+    const lbl=`${diaSemana(p.fecha)} ${fd(p.fecha)}`;
+    if(p.skip){
+      rowsH+=`<div class="plan-day-row skip">
+        <div class="plan-day-lbl">${lbl}</div>
+        <div class="plan-day-sub"><span class="plan-day-chip skip-lbl">✓ Ya tiene tareas — se omitirá</span></div>
+      </div>`;
+    } else if(!p.sug && !p.tieneAuto){
+      rowsH+=`<div class="plan-day-row empty">
+        <div class="plan-day-lbl">${lbl}</div>
+        <div class="plan-day-sub" style="color:var(--g400)">Sin plantilla ni tareas auto configuradas</div>
+      </div>`;
+    } else {
+      const chips=[];
+      if(p.sug) chips.push(`<span class="plan-day-chip tmpl">📐 ${p.sug.nombre}</span>`);
+      if(p.tieneAuto) chips.push(`<span class="plan-day-chip auto">⚡ ${p.totalAuto} tarea${p.totalAuto!==1?'s':''} auto</span>`);
+      rowsH+=`<div class="plan-day-row apply">
+        <div class="plan-day-lbl">${lbl}</div>
+        <div class="plan-day-sub">${chips.join('')}</div>
+      </div>`;
+    }
+  });
+
+  const resumen= aDias>0
+    ? `Se planificarán <strong>${aDias} día${aDias!==1?'s':''}</strong>${sSaltan>0?` · ${sSaltan} omitido${sSaltan!==1?'s':''} (ya tienen tareas)`:''}`
+    : `Todos los días ya tienen tareas — nada que planificar`;
+
+  const overlay=document.createElement('div');
+  overlay.className='tmpl-modal-overlay';
+  overlay.id='plan-modal-overlay';
+  overlay.innerHTML=`
+    <div class="plan-modal">
+      <div class="plan-modal-title">
+        <span class="plan-modal-ttl">📅 Vista previa — Semana de ${emp}</span>
+        <button class="tmpl-modal-close" onclick="cerrarModal()">✕</button>
+      </div>
+      <div style="font-size:.74rem;color:var(--g500);margin-bottom:.85rem">${resumen}</div>
+      ${rowsH}
+      <div class="plan-footer">
+        <button class="plan-footer-btn cancel" onclick="cerrarModal()">Cancelar</button>
+        ${aDias>0?`<button class="plan-footer-btn apply" onclick="_aplicarPlanSemana()">Aplicar semana</button>`:''}
+      </div>
+    </div>`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)cerrarModal();});
+  // Guardar plan en closure via data attr
+  overlay.dataset.plan=JSON.stringify(plan);
+  document.body.appendChild(overlay);
+}
+
+/* Aplica el plan construido en planificarSemana */
+function _aplicarPlanSemana(){
+  const overlay=document.getElementById('plan-modal-overlay');
+  if(!overlay) return;
+  const plan=JSON.parse(overlay.dataset.plan||'[]');
+  const emp=_tarColab;
+
+  const rend=rendimientoReciente(emp);
+  const modo=modoAutoAsignar(rend);
+  let autoPool;
+  if(modo==='alivio'){
+    autoPool=S.tareas.filter(t=>t.autoAsignar&&t.prioridad==='alta');
+    if(!autoPool.length) autoPool=S.tareas.filter(t=>t.autoAsignar).slice(0,2);
+  } else if(modo==='extra'){
+    const base=S.tareas.filter(t=>t.autoAsignar);
+    const extras=S.tareas.filter(t=>!t.autoAsignar&&t.prioridad==='alta');
+    autoPool=[...base,...extras];
+  } else {
+    autoPool=S.tareas.filter(t=>t.autoAsignar);
+  }
+
+  let diasPlanificados=0;
+  plan.filter(p=>!p.skip).forEach(p=>{
+    const f=p.fecha;
+    if(!S.tp[f]) S.tp[f]={};
+    if(!S.tp[f][emp]) S.tp[f][emp]=[];
+    const existing=new Set(S.tp[f][emp].map(t=>t.desc.toLowerCase().trim()));
+
+    // 1. Aplicar plantilla sugerida
+    if(p.sug){
+      (p.sug.tareas||[]).forEach(t=>{
+        const txt=(t.texto||t.desc||'').trim();
+        if(!txt||existing.has(txt.toLowerCase())) return;
+        const nt={id:S.nid++,desc:txt};
+        if(t.hora) nt.hora=t.hora;
+        if(t.urgente) nt.urgente=true;
+        S.tp[f][emp].push(nt);
+        existing.add(txt.toLowerCase());
+      });
+    }
+    // 2. Agregar tareas auto-asignar
+    autoPool.forEach(t=>{
+      if(existing.has(t.desc.toLowerCase().trim())) return;
+      S.tp[f][emp].push({id:S.nid++,desc:t.desc});
+      existing.add(t.desc.toLowerCase().trim());
+    });
+
+    if(S.tp[f][emp].length) diasPlanificados++;
+  });
+
+  sv();
+  cerrarModal();
+  _renderTarCal();
+  if(_tarDiaSel) _renderTarDiaPanel(_tarDiaSel);
+  toast(`📅 Semana planificada — ${diasPlanificados} día${diasPlanificados!==1?'s':''}`, 3000);
+}
+
+/* Aplica una plantilla guardada a la fecha/empleado dado — soporta texto y desc */
+function _tmplAplicar(fecha, idx){
+  const emp=_tarColab;
+  const p=(S.plantillas||[])[idx];
+  if(!p) return;
+  if(!S.tp[fecha]) S.tp[fecha]={};
+  if(!S.tp[fecha][emp]) S.tp[fecha][emp]=[];
+  const existing=new Set(S.tp[fecha][emp].map(t=>t.desc.toLowerCase().trim()));
+  const nuevas=(p.tareas||[])
+    .map(t=>({_txt:(t.texto||t.desc||'').trim(),hora:t.hora,urgente:t.urgente}))
+    .filter(t=>t._txt && !existing.has(t._txt.toLowerCase()))
+    .map(t=>{
+      const nt={id:S.nid++,desc:t._txt};
+      if(t.hora) nt.hora=t.hora;
+      if(t.urgente) nt.urgente=true;
+      return nt;
+    });
+  if(!nuevas.length){
+    toast('✓ Las tareas de esta plantilla ya están asignadas');
+    cerrarModal();
+    return;
+  }
+  S.tp[fecha][emp].push(...nuevas);
+  sv();
+  toast(`📐 "${p.nombre}" — ${nuevas.length} tarea${nuevas.length>1?'s':''} aplicada${nuevas.length>1?'s':''}`);
+  _renderTarDiaPanel(fecha);
+  _renderTarCal();
+}
+
+function tarToggleInst(id){
+  const box=document.getElementById('dpi-'+id);
+  const btn=document.getElementById('dpib-'+id);
+  if(!box) return;
+  const vis=box.style.display!=='none';
+  box.style.display=vis?'none':'block';
+  if(btn) btn.textContent=vis?'ℹ️ ¿Cómo hacerlo?':'ℹ️ Ocultar instrucción';
 }
 
 
@@ -1819,7 +3360,9 @@ let _edaHash=null;
 function _getEdaHash(){
   let repHash=0;
   Object.keys(S.rep).forEach(d=>{Object.keys(S.rep[d]||{}).forEach(emp=>{const r=(S.rep[d]||{})[emp];if(r&&r.estados)repHash+=Object.values(r.estados).filter(v=>v).length;});});
-  return hoy()+'_'+repHash+'_'+Object.keys(S.turnos).length+'_'+mes();
+  const _tarDone=(S.tarCEO||[]).filter(t=>t.hecho).length;
+  const _retDone=(S.retos||[]).filter(r=>r.hecho).length;
+  return hoy()+'_'+repHash+'_'+Object.keys(S.turnos).length+'_'+mes()+'_'+(S.solicitudes?.length||0)+'_'+(S.tarCEO?.length||0)+'_'+_tarDone+'_'+(S.retos?.length||0)+'_'+_retDone;
 }
 
 function _lineOpts(showLegend){
@@ -1901,6 +3444,8 @@ function renderAnalisis(){
   const hash=_getEdaHash();
   if(hash===_edaHash)return;
   _edaHash=hash;
+  _renderKPIsRetos();
+  _renderKPIsOperativos();
   document.getElementById('eda-sub').textContent=`Semana del ${fd(last7()[0])} al ${fd(last7()[6])} · Mes: ${fm(mes())}`;
   _renderKPIs();
   _renderTendenciaMarlon();
@@ -2150,69 +3695,112 @@ const CFG_CAT_META={
   inventario:{ico:'📦',nm:'Inventario'}
 };
 
-let _cfgTab='base';
-
-function cfgTab(tab){
-  _cfgTab=tab;
-  ['base','plant','prog'].forEach(t=>{
-    document.getElementById('cfg-tab-'+t)?.classList.toggle('on',t===tab);
-    document.getElementById('cfg-panel-'+t)?.classList.toggle('hidden',t!==tab);
-  });
-  if(tab==='base') _renderCfgBase();
-  else if(tab==='plant') _renderCfgPlant();
-  else _renderCfgProg();
-}
+let _cfgOpenCats={ventas:true,orden:true,redes:true,inventario:true};
+let _quickCat='ventas';
 
 function renderConfig(){
-  if(_cfgTab==='base') _renderCfgBase();
-  else if(_cfgTab==='plant') _renderCfgPlant();
-  else _renderCfgProg();
+  _renderCfgBase();
+  _renderCfgProg();
 }
 
+/* ─────────────────────────────────────────────
+   SECCIÓN 1 — TAREAS BASE
+───────────────────────────────────────────── */
 function _renderCfgBase(){
-  const grupos={};
   const ORDEN=['ventas','orden','redes','inventario'];
-  S.tareas.forEach(t=>{if(!grupos[t.cat])grupos[t.cat]=[];grupos[t.cat].push(t);});
-  let h='';
+  const grp={};
+  S.tareas.forEach(t=>{if(!grp[t.cat])grp[t.cat]=[];grp[t.cat].push(t);});
+  const total=S.tareas.length;
+
+  let h=`<div class="cfg-sec">
+    <div class="cfg-sec-hd">
+      <span class="cfg-sec-ttl">📋 Tareas base</span>
+      <span class="cfg-sec-cnt">${total} tarea${total!==1?'s':''}</span>
+    </div>
+    <!-- Pills de categoría -->
+    <div class="cfg-cat-pills">`;
   ORDEN.forEach(cat=>{
-    const lista=grupos[cat]||[];
-    const meta=CFG_CAT_META[cat]||{ico:'•',nm:cat};
-    h+=`<div class="cfg-cat-block" id="cfgblk-${cat}">
-      <div class="cfg-cat-hd" onclick="toggleCfgCat('${cat}')">
-        <span class="cfg-cat-ico">${meta.ico}</span>
-        <span class="cfg-cat-nm">${meta.nm}</span>
-        <span class="cfg-cat-cnt">${lista.length} tarea${lista.length!==1?'s':''}</span>
-        <span class="cfg-cat-arr">▼</span>
-      </div>
-      <div class="cfg-cat-body" id="cfgbody-${cat}">`;
-    lista.forEach(t=>{
-      const hasInst=!!(t.inst&&t.inst.trim());
-      h+=`<div class="cfg-task-row" id="cfgtask-${t.id}" style="flex-wrap:wrap">
-        <span class="cfg-task-txt">${t.desc}</span>
-        <button class="tarea-inst-btn${hasInst?' active':''}" onclick="toggleCfgInst(${t.id})" title="${hasInst?'Ver/editar instrucción':'Agregar instrucción'}">ℹ️</button>
-        <button class="cfg-task-del" onclick="elimBase(${t.id})" title="Eliminar">✕</button>
-      </div>
-      <div class="cfg-inst-wrap" id="cfginst-${t.id}" style="display:none">
-        <textarea class="cfg-inst-inp" rows="2" placeholder="Instrucción o contexto para el colaborador…" maxlength="200"
-          onblur="guardarInstBase(${t.id},this.value)">${t.inst||''}</textarea>
-      </div>`;
-    });
-    h+=`<div class="cfg-add-row">
-      <input class="cfg-add-inp" id="cadd-${cat}" type="text" placeholder="Nueva tarea..." maxlength="80"
-        onkeydown="if(event.key==='Enter')agregarTareaBase('${cat}')">
-      <button class="cfg-add-btn" onclick="agregarTareaBase('${cat}')">+ Agregar</button>
-    </div></div></div>`;
+    const m=CFG_CAT_META[cat]||{ico:'•',nm:cat};
+    h+=`<button class="cfg-cat-pill${_quickCat===cat?' on':''}" onclick="cfgSetCat('${cat}')">${m.ico} ${m.nm}</button>`;
   });
+  h+=`</div>
+    <!-- Input rápido -->
+    <div class="cfg-qadd">
+      <input class="cfg-qadd-inp" id="qadd-inp" type="text"
+        placeholder="Nueva tarea en ${(CFG_CAT_META[_quickCat]||{nm:_quickCat}).nm}…" maxlength="80"
+        onkeydown="if(event.key==='Enter')quickAddTarea()">
+      <button class="cfg-qadd-btn" onclick="quickAddTarea()">+ Agregar</button>
+    </div>`;
+
+  /* Categorías */
+  ORDEN.forEach(cat=>{
+    const lista=grp[cat]||[];
+    const m=CFG_CAT_META[cat]||{ico:'•',nm:cat};
+    const open=_cfgOpenCats[cat]!==false;
+    h+=`<div class="cfg-cat-sec" id="cfgcat-${cat}">
+      <button class="cfg-cat-toggle" onclick="cfgToggleCat('${cat}')">
+        <span class="cfg-cat-ico">${m.ico}</span>
+        <span class="cfg-cat-nm">${m.nm}</span>
+        <span class="cfg-cat-cnt">${lista.length}</span>
+        <span class="cfg-cat-arr" id="cfarr-${cat}" style="transform:${open?'rotate(180deg)':'rotate(0deg)'}"">▼</span>
+      </button>`;
+    if(open){
+      h+=`<div>`;
+      if(lista.length){
+        lista.forEach(t=>{
+          const hasInst=!!(t.inst&&t.inst.trim());
+          const autoCls=t.autoAsignar?'on':'off';
+          const autoLbl=t.autoAsignar?'⚡ Auto':'⚡ Off';
+          h+=`<div class="cfg-task-row" id="cfgtask-${t.id}">
+            <span class="cfg-task-txt">${t.desc}</span>
+            <button class="cfg-auto-tog ${autoCls}" onclick="cfgToggleAuto(${t.id})"
+              title="Marcar para auto-asignación">${autoLbl}</button>
+            <button class="cfg-inst-btn" onclick="cfgToggleInst(${t.id})"
+              id="cfgib-${t.id}">${hasInst?'ℹ️':'+ nota'}</button>
+            <button class="cfg-task-del" onclick="elimBase(${t.id})" title="Eliminar">✕</button>
+          </div>
+          <div id="cfginst-${t.id}" style="display:${hasInst?'block':'none'}">
+            <div class="cfg-inst-wrap">
+              <textarea class="cfg-inst-inp" rows="2"
+                placeholder="Instrucción para el colaborador (¿cómo hacerlo?)…" maxlength="200"
+                onblur="guardarInstBase(${t.id},this.value)">${t.inst||''}</textarea>
+            </div>
+          </div>`;
+        });
+      } else {
+        h+=`<div style="padding:.55rem 1rem 1rem 2.6rem;font-size:.8rem;color:var(--g400)">Sin tareas — escribe arriba y presiona Enter</div>`;
+      }
+      h+=`</div>`;
+    }
+    h+=`</div>`;
+  });
+
+  h+=`</div>`;
   const el=document.getElementById('cfg-panel-base');
   if(el) el.innerHTML=h;
 }
 
-function toggleCfgCat(cat){
-  const blk=document.getElementById('cfgblk-'+cat);
-  const body=document.getElementById('cfgbody-'+cat);
-  if(!blk||!body)return;
-  const isOpen=blk.classList.contains('open');
-  blk.classList.toggle('open',!isOpen);
+function cfgSetCat(cat){
+  _quickCat=cat;
+  _renderCfgBase();
+  setTimeout(()=>{ const inp=document.getElementById('qadd-inp'); if(inp)inp.focus(); },40);
+}
+
+function cfgToggleCat(cat){
+  _cfgOpenCats[cat]=!(_cfgOpenCats[cat]!==false);
+  _renderCfgBase();
+}
+
+function quickAddTarea(){
+  const inp=document.getElementById('qadd-inp');
+  if(!inp)return;
+  const desc=inp.value.trim();
+  if(!desc){inp.focus();return;}
+  S.tareas.push({id:S.nid++,cat:_quickCat,desc});
+  inp.value='';
+  sv();_renderCfgBase();
+  toast('✓ Tarea agregada');
+  setTimeout(()=>document.getElementById('qadd-inp')?.focus(),50);
 }
 
 function elimBase(id){
@@ -2220,88 +3808,108 @@ function elimBase(id){
   sv();_renderCfgBase();toast('Tarea eliminada');
 }
 
-function toggleCfgInst(id){
+function cfgToggleInst(id){
   const wrap=document.getElementById('cfginst-'+id);
   if(!wrap)return;
-  const visible=wrap.style.display!=='none';
-  wrap.style.display=visible?'none':'block';
-  if(!visible)wrap.querySelector('textarea')?.focus();
+  const vis=wrap.style.display!=='none';
+  wrap.style.display=vis?'none':'block';
+  const btn=document.getElementById('cfgib-'+id);
+  if(btn)btn.textContent=vis?'+ nota':'ℹ️';
+  if(!vis) wrap.querySelector('textarea')?.focus();
 }
+
+function toggleCfgInst(id){ cfgToggleInst(id); }
 
 function guardarInstBase(id,val){
   const t=S.tareas.find(t=>t.id===id);
   if(!t)return;
-  t.inst=val.trim();
-  sv();
-  // Actualizar ícono sin re-render completo
-  const btn=document.querySelector(`#cfgtask-${id} .tarea-inst-btn`);
-  if(btn)btn.classList.toggle('active',!!t.inst);
+  t.inst=val.trim();svDebounce();
+  const btn=document.getElementById('cfgib-'+id);
+  if(btn)btn.textContent=t.inst?'ℹ️':'+ nota';
 }
 
-function agregarTareaBase(cat){
-  const inp=document.getElementById('cadd-'+cat);
-  if(!inp)return;
-  const desc=inp.value.trim();
-  if(!desc){toast('Escribe la descripción');inp.focus();return;}
-  S.tareas.push({id:S.nid++,cat,desc});
-  inp.value='';
-  sv();_renderCfgBase();
-  // Mantener el bloque abierto
-  const blk=document.getElementById('cfgblk-'+cat);
-  if(blk&&!blk.classList.contains('open'))blk.classList.add('open');
-  toast('Tarea agregada');
+function setQuickCat(cat){ cfgSetCat(cat); }
+
+/* Activa/desactiva auto-asignación en una tarea base */
+function cfgToggleAuto(id){
+  const t=S.tareas.find(t=>t.id===id);
+  if(!t) return;
+  t.autoAsignar=!t.autoAsignar;
+  sv(); _renderCfgBase();
+  toast(t.autoAsignar?'⚡ Auto-asignar activado':'Auto-asignar desactivado');
 }
 
+/* Devuelve la primera plantilla cuyo dias_aplicables incluye el día de 'fecha' */
+function _tmplSugerida(fecha){
+  const NORM={'domingo':'domingo','lunes':'lunes','martes':'martes',
+    'miércoles':'miercoles','jueves':'jueves','viernes':'viernes','sábado':'sabado'};
+  const dia=NORM[diaSemana(fecha).toLowerCase()]||diaSemana(fecha).toLowerCase();
+  return (S.plantillas||[]).find(p=>
+    Array.isArray(p.dias_aplicables)&&
+    p.dias_aplicables.map(d=>d.toLowerCase()).includes(dia)
+  )||null;
+}
+
+/* ─────────────────────────────────────────────
+   SECCIÓN 2 — PRÓXIMAS ASIGNACIONES
+   Timeline por fecha (hoy + 14 días)
+───────────────────────────────────────────── */
 function _renderCfgProg(){
-  const emps=['Marlon','Ingrid','Isabella'];
-  const mananaDate=new Date();mananaDate.setDate(mananaDate.getDate()+1);
   const hoyStr=hoy();
-  // Incluir hoy y futuro
-  const fechasRel=Object.keys(S.tp||{}).filter(f=>f>=hoyStr).sort();
-  let h='';
-  let hayAlgo=false;
-  emps.forEach(emp=>{
-    const color=EQ_COLORES[emp]||'#b8943a';
-    const tareasEmp=[];
-    fechasRel.forEach(f=>{
+  const fechasRel=Object.keys(S.tp||{}).filter(f=>f>=hoyStr).sort().slice(0,30);
+  const emps=['Marlon','Ingrid','Isabella'];
+
+  /* Construir timeline: [{fecha, emp, task}] */
+  const items=[];
+  fechasRel.forEach(f=>{
+    emps.forEach(emp=>{
       const lista=(S.tp[f]?.[emp])||[];
-      if(lista.length) tareasEmp.push({f,lista});
+      lista.forEach(t=>items.push({f,emp,t}));
     });
-    if(!tareasEmp.length)return;
-    hayAlgo=true;
-    const total=tareasEmp.reduce((a,x)=>a+x.lista.length,0);
-    h+=`<div class="prog-emp-block">
-      <div class="prog-emp-hd">
-        <div class="prog-emp-av" style="background:${color}20;color:${color}">${ini(emp)}</div>
-        <span class="prog-emp-nm">${emp}</span>
-        <span class="prog-emp-cnt">${total} tarea${total!==1?'s':''}</span>
+  });
+
+  let h=`<div class="cfg-sec">
+    <div class="cfg-sec-hd">
+      <span class="cfg-sec-ttl">📅 Próximas asignaciones</span>
+      <span class="cfg-sec-cnt">${items.length} tarea${items.length!==1?'s':''}</span>
+    </div>`;
+
+  if(!items.length){
+    h+=`<div class="cfg-prox-empty">Sin tareas programadas.<br>
+      <span style="font-size:.75rem">Usa la pestaña <strong>Tareas</strong> para asignar.</span>
+    </div>`;
+  } else {
+    /* Agrupar por fecha */
+    const porFecha={};
+    items.forEach(it=>{
+      if(!porFecha[it.f]) porFecha[it.f]=[];
+      porFecha[it.f].push(it);
+    });
+    Object.keys(porFecha).sort().forEach(f=>{
+      const list=porFecha[f];
+      const lbl=f===hoyStr?`Hoy — ${fd(f)}`:`${diaSemana(f)} ${fd(f)}`;
+      h+=`<div class="cfg-prox-date">
+        <span class="cfg-prox-date-lbl">${lbl}</span>
+        <span style="font-size:.69rem;color:var(--g400)">${list.length} tarea${list.length!==1?'s':''}</span>
       </div>`;
-    tareasEmp.forEach(({f,lista})=>{
-      const esHoy=f===hoyStr;
-      const urgentes=lista.filter(t=>t.urgente);
-      const normales=lista.filter(t=>!t.urgente);
-      h+=`<div class="prog-fecha-block">
-        <div class="prog-fecha-lbl">${esHoy?'Hoy — ':''} ${diaSemana(f)} ${fd(f)}</div>`;
-      [...urgentes,...normales].forEach(t=>{
-        h+=`<div class="prog-task-row">
-          ${t.urgente?'<span style="font-size:.72rem;font-weight:600;color:var(--red);flex-shrink:0">⚡</span>':''}
-          <span class="prog-task-txt">${t.desc}</span>
-          <button class="prog-task-del" onclick="elimCfgTP('${emp}','${f}',${t.id})" title="Eliminar">✕</button>
+      list.forEach(({emp,t})=>{
+        const color=EQ_COLORES[emp]||'#b8943a';
+        const horaChip=t.hora?`<span class="cfg-prox-hora">⏰ ${t.hora}</span>`:'';
+        h+=`<div class="cfg-prox-task">
+          <div class="cfg-prox-av" style="background:${color}20;color:${color}">${ini(emp)}</div>
+          <span class="cfg-prox-txt">${t.urgente?'⚡ ':''}${t.desc}</span>
+          ${horaChip}
+          <button class="cfg-prox-del" onclick="elimCfgTP('${emp}','${f}',${t.id})" title="Eliminar">✕</button>
         </div>`;
       });
-      h+=`</div>`;
     });
-    h+=`</div>`;
-  });
-  if(!hayAlgo){
-    h=`<div style="text-align:center;padding:2rem 1rem;color:var(--g400);font-size:.84rem">
-      No hay tareas personalizadas programadas.<br>
-      <span style="font-size:.78rem">Usa el botón <strong>+</strong> para asignar una.</span>
-    </div>`;
   }
+  h+=`</div>`;
   const el=document.getElementById('cfg-panel-prog');
   if(el) el.innerHTML=h;
 }
+
+function cfgTab(tab){ renderConfig(); }
 
 function elimCfgTP(emp,fecha,id){
   if(!S.tp[fecha]?.[emp])return;
@@ -2310,136 +3918,23 @@ function elimCfgTP(emp,fecha,id){
   sv();_renderCfgProg();toast('Tarea eliminada');
 }
 
-// ── 7f-2. Plantillas de turno ──
-const PLANT_ICOS=['📋','🌟','📦','🛍️','✨','📸','🔑','🎯'];
-let _applyPlantId=null;
+// ── Apply sheet (items dinámicos: por categoría o todo) ──
+let _applyItems=[];   // [{cat,desc}] a asignar
+let _applyLabel='';   // título del sheet
 let _applyColab='';
 let _applyFechaMode='hoy';
-// IDs de tareas base seleccionadas para nueva plantilla (Set serializado como array)
-let _plantSel=new Set();
 
-function _renderCfgPlant(){
-  const el=document.getElementById('cfg-panel-plant');
-  if(!el)return;
-  const ORDEN=['ventas','orden','redes','inventario'];
-  const catMeta=CFG_CAT_META;
-  const catColor={ventas:'#b8943a',orden:'#2a7a4a',redes:'#2060a0',inventario:'#7a4a8a'};
-  const grupos={};
-  S.tareas.forEach(t=>{if(!grupos[t.cat])grupos[t.cat]=[];grupos[t.cat].push(t);});
-  const totalBase=S.tareas.length;
-  const selCount=_plantSel.size;
-
-  // ── Panel crear nueva plantilla ──
-  let h=`<div class="nueva-plantilla-card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem">
-      <span style="font-weight:600;font-size:.88rem;color:var(--g800)">Nueva plantilla</span>
-      ${selCount?`<span style="font-size:.72rem;color:var(--gold-dk);font-weight:600;background:var(--gold-lt);padding:2px 10px;border-radius:20px">${selCount} seleccionada${selCount!==1?'s':''}</span>`:''}
-    </div>
-
-    <input id="np-nombre" type="text" placeholder="Nombre de la plantilla…" maxlength="40"
-      style="width:100%;border:1.5px solid var(--g200);border-radius:var(--rs);padding:.48rem .75rem;font-family:var(--fb);font-size:.85rem;color:var(--g800);background:var(--white);outline:none;transition:border-color .15s;margin-bottom:.75rem"
-      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--g200)'"
-      onkeydown="if(event.key==='Enter')this.blur()">
-
-    <span class="modal-sec-lbl" style="margin-bottom:.4rem">Selecciona las tareas</span>`;
-
-  if(!totalBase){
-    h+=`<div style="font-size:.8rem;color:var(--g400);padding:.5rem 0">Primero agrega tareas en la pestaña <strong>Tareas base</strong></div>`;
-  } else {
-    ORDEN.forEach(cat=>{
-      const lista=grupos[cat]||[];
-      if(!lista.length)return;
-      const meta=catMeta[cat]||{ico:'•',nm:cat};
-      h+=`<div style="margin-bottom:.6rem">
-        <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--g400);margin-bottom:.3rem">${meta.ico} ${meta.nm}</div>`;
-      lista.forEach(t=>{
-        const chk=_plantSel.has(t.id);
-        h+=`<label class="np-check-row${chk?' on':''}" onclick="togglePlantSel(${t.id})">
-          <div class="np-check-box${chk?' checked':''}">
-            ${chk?`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`:''}
-          </div>
-          <span class="np-check-lbl">${t.desc}</span>
-        </label>`;
-      });
-      h+=`</div>`;
-    });
-  }
-
-  h+=`<button class="btn" style="width:100%;margin-top:.6rem" onclick="guardarPlantilla()">Guardar plantilla</button>
-  </div>`;
-
-  // ── Plantillas existentes ──
-  if(S.plantillas.length){
-    h+=`<div style="font-size:.68rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--g400);margin:.25rem 0 .5rem">Mis plantillas</div>`;
-    S.plantillas.forEach((pl,pi)=>{
-      const ico=PLANT_ICOS[pi%PLANT_ICOS.length];
-      h+=`<div class="plantilla-card">
-        <div class="plantilla-hd">
-          <div class="plantilla-ico">${ico}</div>
-          <div style="flex:1;min-width:0">
-            <div class="plantilla-nm">${pl.nombre}</div>
-            <div class="plantilla-cnt">${pl.items.length} tarea${pl.items.length!==1?'s':''}</div>
-          </div>
-          <div class="plantilla-actions">
-            <button class="plantilla-btn plantilla-btn-apply" onclick="abrirApply(${pl.id})">Aplicar</button>
-            <button class="plantilla-btn plantilla-btn-del" onclick="elimPlantilla(${pl.id})">✕</button>
-          </div>
-        </div>
-        <div class="plantilla-items">`;
-      pl.items.forEach(it=>{
-        const cm=catMeta[it.cat]||{ico:'•'};
-        const cc=catColor[it.cat]||'#888';
-        h+=`<div class="plantilla-item-row">
-          <div class="plantilla-cat-dot" style="background:${cc}"></div>
-          <span style="font-size:.85rem">${cm.ico}</span>
-          <span>${it.desc}</span>
-        </div>`;
-      });
-      h+=`</div></div>`;
-    });
-  } else {
-    h+=`<div style="text-align:center;padding:1.2rem 1rem;color:var(--g400);font-size:.82rem">Aún no hay plantillas guardadas.</div>`;
-  }
-
-  el.innerHTML=h;
-  // Restaurar nombre si ya se había escrito
-  const inp=document.getElementById('np-nombre');
-  if(inp&&_plantNombre)inp.value=_plantNombre;
-}
-
-let _plantNombre='';
-
-function togglePlantSel(id){
-  // Guardar nombre actual antes del re-render
-  _plantNombre=document.getElementById('np-nombre')?.value||'';
-  if(_plantSel.has(id))_plantSel.delete(id);
-  else _plantSel.add(id);
-  _renderCfgPlant();
-}
-
-function guardarPlantilla(){
-  const nombre=(document.getElementById('np-nombre')?.value||'').trim();
-  if(!nombre){toast('Escribe el nombre de la plantilla');document.getElementById('np-nombre')?.focus();return;}
-  if(!_plantSel.size){toast('Selecciona al menos una tarea');return;}
-  const items=S.tareas.filter(t=>_plantSel.has(t.id)).map(t=>({cat:t.cat,desc:t.desc}));
-  S.plantillas.push({id:S.nid++,nombre,items});
-  _plantSel=new Set();_plantNombre='';
-  sv();_renderCfgPlant();toast('Plantilla guardada ✓');
-}
-
-function elimPlantilla(id){
-  S.plantillas=S.plantillas.filter(p=>p.id!==id);
-  sv();_renderCfgPlant();toast('Plantilla eliminada');
-}
-
-// ── Apply sheet ──
-function abrirApply(plantId){
-  _applyPlantId=plantId;
+function abrirApplyItems(cat, label){
+  // cat===null → todas las tareas; cat==='ventas'→solo esa categoría
+  _applyItems = cat
+    ? S.tareas.filter(t=>t.cat===cat).map(t=>({cat:t.cat,desc:t.desc}))
+    : S.tareas.map(t=>({cat:t.cat,desc:t.desc}));
+  if(!_applyItems.length){toast('No hay tareas en esta categoría');return;}
+  _applyLabel=label||'Asignar tareas';
   _applyColab='';
   _applyFechaMode='hoy';
-  const pl=S.plantillas.find(p=>p.id===plantId);
   const titleEl=document.getElementById('apply-title');
-  if(titleEl&&pl)titleEl.textContent=`Aplicar: ${pl.nombre}`;
+  if(titleEl)titleEl.textContent=`${_applyLabel} (${_applyItems.length})`;
   ['Marlon','Ingrid','Isabella'].forEach(e=>document.getElementById('apav-'+e)?.classList.remove('on'));
   ['hoy','man','pick'].forEach(m=>document.getElementById('apfc-'+m)?.classList.toggle('on',m==='hoy'));
   const fi=document.getElementById('ap-fecha');
@@ -2473,17 +3968,15 @@ function selApplyFecha(mode){
 
 function confirmarApply(){
   if(!_applyColab){toast('Elige un colaborador');return;}
-  if(!_applyPlantId){cerrarApply();return;}
-  const pl=S.plantillas.find(p=>p.id===_applyPlantId);
-  if(!pl){cerrarApply();return;}
+  if(!_applyItems.length){cerrarApply();return;}
   const fecha=document.getElementById('ap-fecha')?.value||hoy();
   if(!S.tp[fecha])S.tp[fecha]={};
   if(!S.tp[fecha][_applyColab])S.tp[fecha][_applyColab]=[];
-  pl.items.forEach(it=>{
+  _applyItems.forEach(it=>{
     S.tp[fecha][_applyColab].push({id:S.nid++,desc:it.desc,urgente:false});
   });
   sv();cerrarApply();
-  toast(`${pl.items.length} tareas asignadas a ${_applyColab} ✓`);
+  toast(`${_applyItems.length} tarea${_applyItems.length!==1?'s':''} asignada${_applyItems.length!==1?'s':''} a ${_applyColab} ✓`);
   if(document.getElementById('ct-hoy')&&!document.getElementById('ct-hoy').classList.contains('hidden'))renderCardsHoy();
   if(_cfgTab==='prog')_renderCfgProg();
 }
@@ -2510,7 +4003,7 @@ function abrirModal(){
   document.getElementById('modal').classList.remove('hidden');
 }
 
-function cerrarModal(){document.getElementById('modal').classList.add('hidden');}
+/* cerrarModal — see unified version above */
 
 function selModalColab(emp){
   _modalColab=emp;
@@ -2585,10 +4078,10 @@ function renderProximas(emp,containerId){
     </div>`;
   fechasFuturas.forEach(f=>{
     const tareas=S.tp[f][emp];
-    const urgentes=tareas.filter(t=>t.urgente);
-    const normales=tareas.filter(t=>!t.urgente);
+    const tareasSorted=_sortTareas(tareas);
+    const urgentes=tareasSorted.filter(t=>t.urgente);
     h+=`<div style="margin-bottom:.6rem"><div class="cat-lbl">${diaSemana(f)} ${fd(f)}</div>`;
-    [...urgentes,...normales].forEach(t=>{
+    tareasSorted.forEach(t=>{
       h+=`<div class="frow" style="padding:.4rem 0;border-bottom:1px solid var(--g100);${t.urgente?'background:var(--red-bg);border-left:3px solid var(--red);border-radius:0 var(--rs) var(--rs) 0;padding-left:.6rem;margin-left:-.1rem':''}">
         <div style="flex:1;padding-right:8px">
           ${t.urgente?'<div style="margin-bottom:2px"><span class="urgente-badge">⚡ Urgente</span></div>':''}
@@ -2612,10 +4105,560 @@ function eliminarTP(emp,fecha,id,containerId){
 
 
 // ═══════════════════════════════════════════════════════════════
+// 9. SOLICITUDES DEL EQUIPO — sistema completo
+// ═══════════════════════════════════════════════════════════════
+
+const SOL_TIPOS={
+  insumo:{ico:'📦',lbl:'Insumo',color:'#c2410c'},
+  mejora:{ico:'✨',lbl:'Mejora',color:'#166534'},
+  bloqueo:{ico:'🚫',lbl:'Bloqueo',color:'#dc2626'}
+};
+let _solTipoSel='insumo';  // tipo activo en modal colaborador
+
+/* ── Auto-calcular prioridad básica ── */
+function _solPrioridad(texto, tipo){
+  const t=texto.toLowerCase();
+  if(tipo==='bloqueo') return 'alta';
+  if(/urgent|inmediato|ya|ahora|hoy/.test(t)) return 'alta';
+  if(/falta|no hay|agotado|roto|dañado/.test(t)) return 'alta';
+  if(/podría|mejorar|sería|sugerencia|idea/.test(t)) return 'baja';
+  return 'media';
+}
+
+/* ── Transformar texto libre → tarea accionable para CEO ── */
+function transformarSolicitud(texto, tipo){
+  const t=texto.trim();
+  const tl=t.toLowerCase();
+  // Reglas de prefijo según tipo
+  if(tipo==='insumo'){
+    if(/no hay|falta|faltan|agotad/.test(tl)){
+      // "no hay bolsas" → "Gestionar compra de bolsas"
+      const obj=tl.replace(/^(no hay|faltan|falta|se acabaron?|agotad[ao]s?)\s*/,'').trim();
+      return 'Gestionar compra de '+obj;
+    }
+    return 'Conseguir: '+t;
+  }
+  if(tipo==='mejora'){
+    if(/sería bueno|podría|deberíamos|hay que/.test(tl)){
+      const obj=tl.replace(/^(sería bueno|podría|deberíamos|hay que)\s*/,'').trim();
+      return 'Evaluar e implementar: '+obj;
+    }
+    return 'Mejora pendiente: '+t;
+  }
+  if(tipo==='bloqueo'){
+    if(/no funciona|está roto|dañado|no sirve/.test(tl)){
+      const obj=tl.replace(/^(el |la |los |las )?(.*?)\s*(no funciona|está roto|dañado|no sirve).*$/,'$2').trim()||t;
+      return 'Resolver problema: '+obj;
+    }
+    return 'Atender urgente: '+t;
+  }
+  return 'Acción pendiente: '+t;
+}
+
+/* ── Modal colaborador: abrir ── */
+function abrirSolicitudModal(){
+  _solTipoSel='insumo';
+  const overlay=document.createElement('div');
+  overlay.className='tmpl-modal-overlay';
+  overlay.id='sol-modal-overlay';
+  overlay.innerHTML=`
+    <div class="plan-modal" style="max-height:70vh">
+      <div class="plan-modal-title">
+        <span class="plan-modal-ttl">📣 Reportar necesidad</span>
+        <button class="tmpl-modal-close" onclick="cerrarSolModal()">✕</button>
+      </div>
+      <div class="sol-modal-body">
+        <div style="font-size:.72rem;color:var(--g500);margin-bottom:.6rem;font-weight:600">
+          Tipo de necesidad
+        </div>
+        <div class="sol-tipo-grid">
+          <button class="sol-tipo-btn on" data-tipo="insumo" onclick="solSelTipo('insumo')">
+            📦<br>Insumo
+          </button>
+          <button class="sol-tipo-btn" data-tipo="mejora" onclick="solSelTipo('mejora')">
+            ✨<br>Mejora
+          </button>
+          <button class="sol-tipo-btn" data-tipo="bloqueo" onclick="solSelTipo('bloqueo')">
+            🚫<br>Bloqueo
+          </button>
+        </div>
+        <div style="font-size:.72rem;color:var(--g500);margin-bottom:.5rem;font-weight:600">
+          Describí la situación
+        </div>
+        <textarea class="sol-inp" id="sol-txt-inp" rows="3"
+          placeholder="Ej: no hay bolsas para los pedidos, la impresora no funciona…"
+          maxlength="200"></textarea>
+        <div class="plan-footer" style="margin-top:.75rem">
+          <button class="plan-footer-btn cancel" onclick="cerrarSolModal()">Cancelar</button>
+          <button class="plan-footer-btn apply" onclick="enviarSolicitud()">Enviar al CEO</button>
+        </div>
+      </div>
+    </div>`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)cerrarSolModal();});
+  document.body.appendChild(overlay);
+  setTimeout(()=>document.getElementById('sol-txt-inp')?.focus(),80);
+}
+
+function cerrarSolModal(){
+  document.getElementById('sol-modal-overlay')?.remove();
+}
+
+function solSelTipo(tipo){
+  _solTipoSel=tipo;
+  document.querySelectorAll('.sol-tipo-btn').forEach(b=>{
+    b.classList.toggle('on',b.dataset.tipo===tipo);
+  });
+}
+
+function enviarSolicitud(){
+  const txt=(document.getElementById('sol-txt-inp')?.value||'').trim();
+  if(!txt){document.getElementById('sol-txt-inp')?.focus();return;}
+  const tipo=_solTipoSel;
+  const prio=_solPrioridad(txt, tipo);
+  const tarea=transformarSolicitud(txt, tipo);
+  const sol={
+    id: S.nid++,
+    colaborador: CU||'?',
+    texto: txt,
+    tipo,
+    prioridad: prio,
+    estado: 'pendiente',
+    fecha_creacion: hoy(),
+    tarea_sugerida: tarea,
+    convertida_en_tarea: false
+  };
+  S.solicitudes.push(sol);
+  // Auto-convertir en tarCEO
+  S.tarCEO.push({id:S.nid++, desc:tarea, solicitud_id:sol.id, hecho:false,
+    fecha_creacion:hoy(), prio:prio});
+  sol.convertida_en_tarea=true;
+  sol.estado='convertida';
+  sv();
+  cerrarSolModal();
+  _actualizarSolBadge();
+  toast('📣 Solicitud enviada al CEO');
+}
+
+/* ── Badge en tab Solicitudes ── */
+function _actualizarSolBadge(){
+  const pend=(S.solicitudes||[]).filter(s=>s.estado==='pendiente'||s.estado==='convertida').length;
+  const badge=document.getElementById('sol-badge');
+  if(!badge) return;
+  if(pend>0){badge.textContent=pend>9?'9+':pend;badge.classList.remove('hidden');}
+  else badge.classList.add('hidden');
+}
+
+/* ══ CEO: renderizar solicitudes ══ */
+function renderSolicitudes(){
+  _renderSolList();
+  _renderCEOBacklog();
+}
+
+function _renderSolList(){
+  const el=document.getElementById('sol-panel-solicitudes');
+  if(!el) return;
+  const lista=(S.solicitudes||[]).slice().reverse(); // más recientes primero
+  const pendN=lista.filter(s=>s.estado!=='resuelta').length;
+
+  let h=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
+    <div>
+      <div style="font-family:var(--ff);font-size:1.1rem;font-weight:600;color:var(--g800)">Solicitudes del equipo</div>
+      <div class="txt-muted" style="font-size:.74rem;margin-top:2px">${pendN} pendiente${pendN!==1?'s':''} · ${lista.length} total</div>
+    </div>
+  </div>`;
+
+  if(!lista.length){
+    h+=`<div style="text-align:center;padding:2rem 1rem;background:var(--white);
+      border-radius:var(--r);box-shadow:var(--sh)">
+      <div style="font-size:2rem;margin-bottom:.5rem">📬</div>
+      <div style="font-size:.84rem;color:var(--g500)">Sin solicitudes del equipo todavía.</div>
+    </div>`;
+    el.innerHTML=h; return;
+  }
+
+  lista.forEach(s=>{
+    const tipo=SOL_TIPOS[s.tipo]||{ico:'•',lbl:s.tipo,color:'#888'};
+    const prioMap={alta:'🔴 Alta',media:'🟡 Media',baja:'🔵 Baja'};
+    const estMap={pendiente:'⏳ Pendiente',convertida:'⚙ En proceso',resuelta:'✅ Resuelta'};
+    const fechaLbl=`${diaSemana(s.fecha_creacion)} ${fd(s.fecha_creacion)}`;
+    const resolverBtn=s.estado!=='resuelta'
+      ?`<button class="sol-act-btn resolve" onclick="resolverSolicitud(${s.id})">✅ Resolver</button>`:'';
+    const convertBtn=!s.convertida_en_tarea
+      ?`<button class="sol-act-btn convert" onclick="convertirSolicitud(${s.id})">⚙ A tarea CEO</button>`:'';
+    const delBtn=`<button class="sol-act-btn del" onclick="eliminarSolicitud(${s.id})" title="Eliminar">✕</button>`;
+
+    h+=`<div class="sol-card" data-tipo="${s.tipo}" style="${s.estado==='resuelta'?'opacity:.6':''}">
+      <div class="sol-card-body">
+        <div class="sol-card-top">
+          <span class="sol-card-emp">${ini(s.colaborador)} ${s.colaborador}</span>
+          <span class="sol-tipo-chip ${s.tipo}">${tipo.ico} ${tipo.lbl}</span>
+          <span class="sol-prio-chip ${s.prioridad}">${prioMap[s.prioridad]||s.prioridad}</span>
+          <span style="font-size:.67rem;color:var(--g400);margin-left:auto">${estMap[s.estado]||s.estado}</span>
+        </div>
+        <div class="sol-card-txt">${s.texto}</div>
+        ${s.tarea_sugerida?`<div class="sol-card-tarea">→ ${s.tarea_sugerida}</div>`:''}
+        <div class="sol-card-sub">📅 ${fechaLbl}</div>
+      </div>
+      <div class="sol-card-actions">${convertBtn}${resolverBtn}${delBtn}</div>
+    </div>`;
+  });
+
+  el.innerHTML=h;
+}
+
+function convertirSolicitud(id){
+  const s=(S.solicitudes||[]).find(s=>s.id===id);
+  if(!s||s.convertida_en_tarea) return;
+  S.tarCEO.push({id:S.nid++,desc:s.tarea_sugerida||s.texto,solicitud_id:s.id,
+    hecho:false,fecha_creacion:hoy(),prio:s.prioridad});
+  s.convertida_en_tarea=true;
+  s.estado='convertida';
+  sv(); _renderSolList(); _renderCEOBacklog(); _actualizarSolBadge();
+  toast('⚙ Convertida en tarea CEO');
+}
+
+function resolverSolicitud(id){
+  const s=(S.solicitudes||[]).find(s=>s.id===id);
+  if(!s) return;
+  s.estado='resuelta';
+  s.fecha_resolucion=hoy();
+  sv(); _renderSolList(); _actualizarSolBadge();
+  toast('✅ Solicitud resuelta');
+}
+
+function eliminarSolicitud(id){
+  S.solicitudes=(S.solicitudes||[]).filter(s=>s.id!==id);
+  sv(); _renderSolList(); _actualizarSolBadge();
+}
+
+/* ══ CEO Backlog — Pendientes estratégicos ══ */
+function _renderCEOBacklog(){
+  const el=document.getElementById('sol-panel-backlog');
+  if(!el) return;
+  const lista=S.tarCEO||[];
+  const pend=lista.filter(t=>!t.hecho).length;
+
+  let h=`<div class="ceo-bl-sec">
+    <div class="ceo-bl-hd">
+      <span class="ceo-bl-ttl">⚡ Pendientes estratégicos</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="ceo-bl-cnt">${pend} pendiente${pend!==1?'s':''}</span>
+        ${lista.length-pend>0?`<span style="font-size:.65rem;color:var(--green);font-weight:600">${lista.length-pend} completada${lista.length-pend!==1?'s':''}</span>`:''}
+      </div>
+    </div>`;
+
+  if(!lista.length){
+    h+=`<div style="padding:.85rem 1rem;font-size:.8rem;color:var(--g400)">
+      Sin tareas pendientes. Las solicitudes del equipo aparecerán aquí.</div>`;
+  } else {
+    const pendItems=[...lista].filter(t=>!t.hecho);
+    const doneItems=[...lista].filter(t=>t.hecho);
+    // Pendientes primero, luego completadas
+    [...pendItems,...doneItems].forEach(t=>{
+      const prioColor={alta:'var(--red)',media:'var(--yellow)',baja:'#60a5fa'}[t.prio]||'var(--g300)';
+      const checkIco=t.hecho?'✓':'';
+      const metaParts=[];
+      if(t.solicitud_id){
+        const sol=(S.solicitudes||[]).find(s=>s.id===t.solicitud_id);
+        if(sol) metaParts.push(`📣 ${sol.colaborador}`);
+      }
+      if(t.hecho&&t.fecha_resolucion) metaParts.push(`Completada ${fd(t.fecha_resolucion)}`);
+      else if(t.fecha_creacion) metaParts.push(`Creada ${fd(t.fecha_creacion)}`);
+      const metaStr=metaParts.join(' · ');
+      h+=`<div class="ceo-bl-item${t.hecho?' ceo-bl-done':''}">
+        <button class="ceo-bl-check${t.hecho?' done':''}"
+          onclick="toggleTarCEO(${t.id})" title="${t.hecho?'Marcar como pendiente':'Marcar como completada'}">${checkIco}</button>
+        <div class="ceo-bl-dot" style="background:${t.hecho?'var(--g200)':prioColor}"></div>
+        <div class="ceo-bl-body">
+          <span class="ceo-bl-txt">${t.desc}</span>
+          ${metaStr?`<div class="ceo-bl-meta">${metaStr}</div>`:''}
+        </div>
+        <button class="ceo-bl-del" onclick="elimTarCEO(${t.id})" title="Eliminar">✕</button>
+      </div>`;
+    });
+  }
+  h+=`<div class="ceo-bl-add">
+    <input class="ceo-bl-inp" id="ceo-bl-inp" type="text"
+      placeholder="Agregar tarea estratégica…" maxlength="120"
+      onkeydown="if(event.key==='Enter')agregarTarCEO()">
+    <button class="dia-assign-btn" onclick="agregarTarCEO()" style="font-size:.76rem">+ Agregar</button>
+  </div>`;
+  h+=`</div>`;
+  el.innerHTML=h;
+}
+
+function toggleTarCEO(id){
+  const t=(S.tarCEO||[]).find(x=>x.id===id);
+  if(!t) return;
+  t.hecho=!t.hecho;
+  if(t.hecho) t.fecha_resolucion=hoy();
+  else delete t.fecha_resolucion;
+  sv();
+  _edaHash=''; // invalidar cache para que Análisis se actualice
+  _renderCEOBacklog();
+}
+
+function elimTarCEO(id){
+  S.tarCEO=(S.tarCEO||[]).filter(t=>t.id!==id);
+  sv(); _renderCEOBacklog();
+}
+
+function agregarTarCEO(){
+  const inp=document.getElementById('ceo-bl-inp');
+  if(!inp) return;
+  const desc=inp.value.trim();
+  if(!desc){inp.focus();return;}
+  S.tarCEO.push({id:S.nid++,desc,hecho:false,fecha_creacion:hoy(),prio:'media'});
+  inp.value='';
+  sv(); _renderCEOBacklog();
+  toast('✓ Tarea estratégica agregada');
+}
+
+/* ══ Analytics: KPIs Motor de Retos ══ */
+function _renderKPIsRetos(){
+  const el=document.getElementById('eda-kpi-retos');
+  if(!el) return;
+  const todos=S.retos||[];
+  if(!todos.length){
+    el.innerHTML=`<div style="font-family:var(--ff);font-size:.88rem;font-weight:600;
+      color:var(--g800);margin-bottom:.5rem">Motor de Retos</div>
+      <div style="font-size:.8rem;color:var(--g400);padding:.5rem 0">Sin retos registrados aún.</div>`;
+    return;
+  }
+
+  const total=todos.length;
+  const completados=todos.filter(r=>r.hecho).length;
+  const pct=total?Math.round(completados/total*100):0;
+  const barColor=pct>=75?'var(--green)':pct>=40?'var(--yellow)':'var(--red)';
+
+  // % por tipo
+  const porTipo={};
+  Object.keys(_RETO_TIPOS).forEach(k=>{porTipo[k]={total:0,comp:0};});
+  todos.forEach(r=>{
+    if(!porTipo[r.tipo]) porTipo[r.tipo]={total:0,comp:0};
+    porTipo[r.tipo].total++;
+    if(r.hecho) porTipo[r.tipo].comp++;
+  });
+  const tipoRows=Object.entries(porTipo)
+    .filter(([,v])=>v.total>0)
+    .sort((a,b)=>b[1].comp-a[1].comp)
+    .map(([tipo,v])=>{
+      const t=_RETO_TIPOS[tipo]||{ico:'•',lbl:tipo};
+      const p=v.total?Math.round(v.comp/v.total*100):0;
+      const c=p>=75?'var(--green)':p>=40?'var(--yellow)':'var(--red)';
+      return `<div style="display:flex;align-items:center;gap:.5rem;
+          padding:.3rem 0;border-bottom:1px solid var(--g100);font-size:.76rem">
+        <span style="width:52px;flex-shrink:0">${t.ico} ${t.lbl}</span>
+        <div style="flex:1;height:5px;background:var(--g100);border-radius:3px;overflow:hidden">
+          <div style="height:100%;width:${p}%;background:${c};border-radius:3px"></div>
+        </div>
+        <span style="font-weight:700;color:${c};width:32px;text-align:right">${p}%</span>
+        <span style="color:var(--g400);font-size:.65rem">${v.comp}/${v.total}</span>
+      </div>`;
+    }).join('');
+
+  // Top colaborador
+  const porColab={};
+  todos.forEach(r=>{
+    if(!porColab[r.colaborador]) porColab[r.colaborador]={total:0,comp:0};
+    porColab[r.colaborador].total++;
+    if(r.hecho) porColab[r.colaborador].comp++;
+  });
+  const topColab=Object.entries(porColab).sort((a,b)=>b[1].comp-a[1].comp)[0];
+  const topColabStr=topColab
+    ?`${ini(topColab[0])} ${topColab[0]} · ${topColab[1].comp} reto${topColab[1].comp!==1?'s':''} completado${topColab[1].comp!==1?'s':''}`
+    :'—';
+
+  // Eventos más exigidos
+  const retosEvento=todos.filter(r=>r.tipo==='evento'&&r.hecho).length;
+
+  el.innerHTML=`
+    <div style="font-family:var(--ff);font-size:1rem;font-weight:600;color:var(--g800);
+      margin-bottom:.65rem">🏆 Motor de Retos</div>
+    <!-- Barra global -->
+    <div style="background:var(--white);border-radius:var(--rs);box-shadow:var(--sh);
+      padding:.7rem .9rem;margin-bottom:.55rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem">
+        <span style="font-size:.78rem;font-weight:600;color:var(--g700)">Progreso global de retos</span>
+        <span style="font-size:.72rem;font-weight:700;color:${barColor}">${completados}/${total} · ${pct}%</span>
+      </div>
+      <div style="height:7px;background:var(--g100);border-radius:4px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${barColor};border-radius:4px;transition:width .4s"></div>
+      </div>
+    </div>
+    <!-- KPI boxes -->
+    <div class="kpi-op-row" style="margin-bottom:.55rem">
+      <div class="kpi-op-box">
+        <div class="kpi-op-n">${completados}</div>
+        <div class="kpi-op-lbl">Retos completados</div>
+      </div>
+      <div class="kpi-op-box">
+        <div class="kpi-op-n" style="color:${barColor}">${pct}%</div>
+        <div class="kpi-op-lbl">Tasa de éxito</div>
+      </div>
+      <div class="kpi-op-box">
+        <div class="kpi-op-n" style="font-size:1rem;padding-top:.2rem">${topColab?ini(topColab[0]):'—'}</div>
+        <div class="kpi-op-lbl">Líder en retos</div>
+      </div>
+      <div class="kpi-op-box">
+        <div class="kpi-op-n">${retosEvento}</div>
+        <div class="kpi-op-lbl">Retos evento</div>
+      </div>
+    </div>
+    <!-- Por tipo -->
+    <div class="card" style="padding:.7rem .9rem">
+      <div style="font-size:.72rem;font-weight:700;color:var(--g500);letter-spacing:.08em;
+        text-transform:uppercase;margin-bottom:.5rem">Efectividad por tipo de reto</div>
+      ${tipoRows||'<div style="color:var(--g400);font-size:.78rem">Sin datos aún</div>'}
+    </div>`;
+}
+
+/* ══ Analytics: KPIs de gestión operativa CEO ══ */
+function _renderKPIsOperativos(){
+  const el=document.getElementById('eda-kpi-op');
+  if(!el) return;
+  const sols=S.solicitudes||[];
+  const total=sols.length;
+  const resueltas=sols.filter(s=>s.estado==='resuelta');
+  const pendientes=sols.filter(s=>s.estado!=='resuelta').length;
+
+  // Tiempo promedio resolución (días)
+  let tiempoPromedio='—';
+  if(resueltas.length){
+    const tiempos=resueltas.filter(s=>s.fecha_resolucion).map(s=>{
+      const d1=new Date(s.fecha_creacion+'T00:00:00');
+      const d2=new Date(s.fecha_resolucion+'T00:00:00');
+      return Math.max(0,Math.round((d2-d1)/(1000*60*60*24)));
+    });
+    if(tiempos.length)
+      tiempoPromedio=Math.round(tiempos.reduce((a,b)=>a+b,0)/tiempos.length)+'d';
+  }
+
+  // Tipo más frecuente
+  const contTipo={insumo:0,mejora:0,bloqueo:0};
+  sols.forEach(s=>{if(contTipo[s.tipo]!==undefined)contTipo[s.tipo]++;});
+  const topTipo=Object.entries(contTipo).sort((a,b)=>b[1]-a[1])[0];
+  const topTipoLbl=topTipo&&topTipo[1]>0
+    ?(SOL_TIPOS[topTipo[0]]?.ico||'•')+' '+topTipo[0]:'—';
+
+  // Por colaborador
+  const porColab={};
+  sols.forEach(s=>{porColab[s.colaborador]=(porColab[s.colaborador]||0)+1;});
+  const colabRows=Object.entries(porColab).sort((a,b)=>b[1]-a[1])
+    .map(([emp,n])=>`<div style="display:flex;justify-content:space-between;
+      padding:.35rem 0;border-bottom:1px solid var(--g100);font-size:.78rem">
+      <span style="color:var(--g700)">${ini(emp)} ${emp}</span>
+      <span style="font-weight:600;color:var(--g800)">${n}</span>
+    </div>`).join('')||'<div style="color:var(--g400);font-size:.78rem;padding:.5rem 0">Sin datos aún</div>';
+
+  // ── tarCEO progress ──
+  const tarCEOList=S.tarCEO||[];
+  const tarTot=tarCEOList.length;
+  const tarDone=tarCEOList.filter(t=>t.hecho).length;
+  const tarPend=tarTot-tarDone;
+  const tarPct=tarTot?Math.round(tarDone/tarTot*100):0;
+  const tarBarColor=tarPct>=75?'var(--green)':tarPct>=40?'var(--yellow)':'var(--red)';
+  const tarProgressHtml=`<div style="background:var(--white);border-radius:var(--rs);box-shadow:var(--sh);
+      padding:.7rem .9rem;margin-bottom:.55rem">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.45rem">
+      <span style="font-size:.78rem;font-weight:600;color:var(--g700)">⚡ Tareas estratégicas CEO</span>
+      <span style="font-size:.72rem;font-weight:700;color:${tarBarColor}">${tarDone}/${tarTot} · ${tarPct}%</span>
+    </div>
+    <div style="height:7px;background:var(--g100);border-radius:4px;overflow:hidden">
+      <div style="height:100%;width:${tarPct}%;background:${tarBarColor};border-radius:4px;transition:width .4s"></div>
+    </div>
+    ${tarPend>0?`<div style="font-size:.68rem;color:var(--g400);margin-top:.4rem">${tarPend} tarea${tarPend!==1?'s':''} pendiente${tarPend!==1?'s':''}</div>`
+      :(tarTot>0?'<div style="font-size:.68rem;color:var(--green);margin-top:.4rem">✓ Todas completadas</div>':'<div style="font-size:.68rem;color:var(--g400);margin-top:.4rem">Sin tareas registradas</div>')}
+  </div>`;
+
+  el.innerHTML=`
+    <div style="font-family:var(--ff);font-size:1rem;font-weight:600;color:var(--g800);
+      margin-bottom:.65rem">Gestión operativa del CEO</div>
+    ${tarProgressHtml}
+    <div class="kpi-op-row">
+      <div class="kpi-op-box">
+        <div class="kpi-op-n">${total}</div>
+        <div class="kpi-op-lbl">Total solicitudes</div>
+      </div>
+      <div class="kpi-op-box">
+        <div class="kpi-op-n" style="color:${pendientes>3?'var(--red)':'var(--g800)'}">${pendientes}</div>
+        <div class="kpi-op-lbl">Sin resolver</div>
+      </div>
+      <div class="kpi-op-box">
+        <div class="kpi-op-n">${tiempoPromedio}</div>
+        <div class="kpi-op-lbl">Tiempo prom. resolución</div>
+      </div>
+      <div class="kpi-op-box">
+        <div class="kpi-op-n" style="font-size:1rem">${topTipoLbl}</div>
+        <div class="kpi-op-lbl">Tipo más frecuente</div>
+      </div>
+    </div>
+    <div class="card" style="padding:.7rem .9rem">
+      <div style="font-size:.72rem;font-weight:700;color:var(--g500);letter-spacing:.08em;
+        text-transform:uppercase;margin-bottom:.5rem">Solicitudes por colaborador</div>
+      ${colabRows}
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 8b. REASIGNACIÓN AUTOMÁTICA — tareas incompletas del día anterior
+// ═══════════════════════════════════════════════════════════════
+
+/**
+ * Busca las tareas personalizadas del día anterior que NO fueron completadas
+ * y las copia al día de hoy marcándolas como "reprogramada".
+ * Se ejecuta una sola vez por día (se guarda S._lastReaDate).
+ */
+function chequearReasignacion(){
+  const hoyStr=hoy();
+  // Solo una vez por día-calendario
+  if(S._lastReaDate===hoyStr) return;
+
+  const d=new Date(hoyStr+'T00:00:00');
+  d.setDate(d.getDate()-1);
+  const ayer=d.toISOString().slice(0,10);
+
+  const EMPS=['Marlon','Ingrid','Isabella'];
+  let totalMov=0;
+
+  EMPS.forEach(emp=>{
+    const tareasAyer=(S.tp[ayer]?.[emp])||[];
+    if(!tareasAyer.length) return;
+
+    const estAyer=getEstados(ayer,emp);
+    const incompletas=tareasAyer.filter(t=>{
+      const e=estAyer['p_'+t.id]||'';
+      return e!=='green';  // no completada
+    });
+    if(!incompletas.length) return;
+
+    if(!S.tp[hoyStr]) S.tp[hoyStr]={};
+    if(!S.tp[hoyStr][emp]) S.tp[hoyStr][emp]=[];
+
+    // Dedup por descripción (minúsculas)
+    const existentes=new Set(S.tp[hoyStr][emp].map(t=>t.desc.toLowerCase().trim()));
+
+    incompletas.forEach(t=>{
+      if(existentes.has(t.desc.toLowerCase().trim())) return;
+      const nueva={id:S.nid++, desc:t.desc, reprogramada:true, reprogramadaDe:ayer};
+      if(t.hora)    nueva.hora=t.hora;
+      if(t.urgente) nueva.urgente=true;
+      S.tp[hoyStr][emp].push(nueva);
+      existentes.add(t.desc.toLowerCase().trim());
+      totalMov++;
+    });
+  });
+
+  S._lastReaDate=hoyStr;
+  if(totalMov>0) sv();
+}
+
+// ═══════════════════════════════════════════════════════════════
 // 8. INIT — Arranque de la aplicación
 // ═══════════════════════════════════════════════════════════════
 (function(){
   limpiarDatosAntiguos();
+  chequearReasignacion();  // mover incompletas de ayer a hoy
   if(!restaurarSesion()){
     showS('s-login');
   }
