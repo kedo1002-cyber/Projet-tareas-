@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Perfum Plus — Tareas</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
@@ -520,38 +520,116 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .sol-act-btn.resolve:hover{background:#dcfce7}
 .sol-act-btn.del{background:none;border-color:var(--g200);color:var(--g400)}
 .sol-badge-wrap{display:flex;gap:4px;align-items:center;margin-left:auto}
-/* CEO backlog — Pendientes estratégicos */
+/* CEO backlog v2 — Pendientes estratégicos */
+@keyframes ceo-flash{
+  0%{background:var(--green-bg);transform:scale(1)}
+  35%{background:#c8f0d8;transform:scale(1.008)}
+  100%{background:var(--white);transform:scale(1)}
+}
+@keyframes ceo-chk-bounce{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.3)}
+  65%{transform:scale(.88)}
+  100%{transform:scale(1)}
+}
+@keyframes ceo-entrada{
+  from{opacity:0;transform:translateY(-8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes ceo-tachar{
+  from{text-decoration-color:transparent}
+  to{text-decoration-color:var(--g400)}
+}
+@keyframes ceo-celeb-in{
+  from{opacity:0;transform:scale(.7) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
 .ceo-bl-sec{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);
   margin-bottom:.85rem;overflow:hidden}
 .ceo-bl-hd{padding:.7rem 1rem .6rem;display:flex;align-items:center;
   justify-content:space-between;border-bottom:1px solid var(--g100)}
 .ceo-bl-ttl{font-family:var(--ff);font-size:.88rem;font-weight:600;color:var(--g800)}
 .ceo-bl-cnt{font-size:.7rem;color:var(--g400);font-weight:500}
-.ceo-bl-item{display:flex;align-items:flex-start;gap:.7rem;padding:.75rem 1rem;
-  border-bottom:1px solid var(--g100);transition:background .12s}
+/* Barra de progreso global */
+.ceo-bl-progress{height:3px;background:var(--g100);overflow:hidden}
+.ceo-bl-progress-bar{height:100%;border-radius:3px;
+  transition:width .5s cubic-bezier(.4,0,.2,1),background .5s}
+/* Item */
+.ceo-bl-item{display:flex;align-items:center;gap:.75rem;padding:.75rem 1rem;
+  border-bottom:1px solid var(--g100);transition:background .12s;position:relative}
 .ceo-bl-item:last-child{border-bottom:none}
 .ceo-bl-item:hover{background:#fafbfc}
-.ceo-bl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ceo-bl-item.ceo-bl-flash{
+  animation:ceo-flash .6s ease-out forwards;border-radius:0}
+.ceo-bl-item.ceo-bl-entrada{animation:ceo-entrada .35s cubic-bezier(.22,.6,.2,1) forwards}
+/* Dot prioridad */
+.ceo-bl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;
+  transition:background .3s;flex-shrink:0}
+/* Body */
 .ceo-bl-body{flex:1;min-width:0}
-.ceo-bl-txt{font-size:.83rem;color:var(--g800);line-height:1.4;display:block}
-.ceo-bl-done .ceo-bl-txt{text-decoration:line-through;color:var(--g400)}
-.ceo-bl-meta{font-size:.66rem;color:var(--g400);margin-top:3px}
-.ceo-bl-del{background:none;border:none;color:var(--g300);font-size:.8rem;
-  cursor:pointer;padding:4px 6px;transition:color .12s;flex-shrink:0;margin-top:1px}
-.ceo-bl-del:hover{color:var(--red)}
-/* Botón de completado — grande y claro */
-.ceo-bl-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--g200);
-  background:var(--white);cursor:pointer;flex-shrink:0;transition:all .18s;
-  display:flex;align-items:center;justify-content:center;font-size:.75rem;
-  box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.ceo-bl-check:hover:not(.done){border-color:#4ade80;background:#f0fdf4;color:#166534}
+.ceo-bl-txt{font-size:.84rem;color:var(--g800);line-height:1.4;display:block;
+  transition:color .25s}
+.ceo-bl-done .ceo-bl-txt{
+  text-decoration:line-through;color:var(--g400);
+  animation:ceo-tachar .25s ease-out forwards;
+  text-decoration-color:var(--g400)}
+.ceo-bl-badges{display:flex;align-items:center;gap:.4rem;margin-top:.25rem;flex-wrap:wrap}
+.ceo-bl-meta{font-size:.66rem;color:var(--g400)}
+.ceo-bl-prio-chip{font-size:.58rem;font-weight:700;padding:1px 6px;
+  border-radius:20px;letter-spacing:.04em}
+.ceo-prio-alta{background:#fee2e2;color:#991b1b}
+.ceo-prio-media{background:#fef3c7;color:#92400e}
+.ceo-prio-baja{background:#f0f9ff;color:#0369a1}
+/* Empty state */
+.ceo-bl-empty{padding:1.5rem 1rem;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.35rem;
+  font-size:.83rem;color:var(--g500);font-weight:500}
+/* Checkbox CEO — mismo tamaño y estilo que .tarea-cb */
+.ceo-bl-check{width:40px;height:40px;border-radius:12px;border:2px solid var(--g200);
+  background:var(--white);cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .18s,background .18s,box-shadow .18s;
+  -webkit-tap-highlight-color:transparent;user-select:none;
+  touch-action:manipulation}
+.ceo-bl-check:active,.ceo-bl-check.pressing{transform:scale(.9)}
+.ceo-chk-svg{width:18px;height:18px;display:none;color:var(--white)}
+.ceo-bl-check:hover:not(.done){border-color:#4ade80;background:#f0fdf4}
+.ceo-bl-check:hover:not(.done) .ceo-chk-svg{display:block;color:#4ade80}
 .ceo-bl-check.done{background:var(--green);border-color:var(--green);
-  color:var(--white);box-shadow:0 2px 6px rgba(34,197,94,.3)}
-.ceo-bl-add{display:flex;gap:6px;padding:.6rem .9rem;background:var(--cream);
-  border-top:1px solid var(--g100)}
-.ceo-bl-inp{flex:1;border:1.5px solid var(--g200);border-radius:var(--rs);
-  padding:.42rem .7rem;font-family:var(--fb);font-size:.8rem;background:var(--white);outline:none}
-.ceo-bl-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,148,58,.1)}
+  box-shadow:0 2px 8px rgba(34,197,94,.35)}
+.ceo-bl-check.done .ceo-chk-svg{display:block}
+.ceo-bl-check.ceo-chk-bounce{animation:ceo-chk-bounce .4s cubic-bezier(.36,.07,.19,.97) forwards}
+/* Eliminar */
+.ceo-bl-del{background:none;border:none;color:var(--g200);font-size:.85rem;
+  cursor:pointer;padding:6px 8px;transition:color .12s;flex-shrink:0;
+  touch-action:manipulation;border-radius:6px}
+.ceo-bl-del:hover{color:var(--red);background:#fff0f0}
+/* Input agregar */
+.ceo-bl-add{display:flex;align-items:center;gap:0;
+  border-top:1px solid var(--g100);background:var(--cream)}
+.ceo-bl-inp{flex:1;border:none;background:transparent;outline:none;
+  font-family:var(--fb);font-size:.84rem;color:var(--g800);
+  padding:.7rem 1rem;min-width:0}
+.ceo-bl-inp::placeholder{color:var(--g300)}
+.ceo-bl-add-btn{flex-shrink:0;width:44px;height:44px;background:var(--gold);
+  border:none;color:var(--white);font-size:1.3rem;font-weight:700;
+  cursor:pointer;transition:background .15s;touch-action:manipulation;
+  display:flex;align-items:center;justify-content:center;border-radius:0}
+.ceo-bl-add-btn:hover{background:var(--gold-dk)}
+/* Celebración backlog limpio */
+.ceo-celeb-overlay{position:fixed;inset:0;z-index:400;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:5rem;pointer-events:none}
+.ceo-celeb-card{background:var(--black);border:1px solid var(--gold);
+  border-radius:20px;padding:1.25rem 2rem;text-align:center;
+  min-width:220px;pointer-events:auto;cursor:pointer;
+  animation:ceo-celeb-in .45s cubic-bezier(.34,1.56,.64,1) forwards;
+  box-shadow:0 8px 32px rgba(0,0,0,.5)}
+.ceo-celeb-ico{font-size:2rem;margin-bottom:.3rem}
+.ceo-celeb-ttl{font-family:var(--ff);font-size:1.15rem;font-weight:700;
+  color:var(--gold);margin-bottom:.2rem}
+.ceo-celeb-sub{font-size:.75rem;color:var(--g400);margin-bottom:.4rem}
+.ceo-celeb-hint{font-size:.62rem;color:var(--g600);letter-spacing:.07em;text-transform:uppercase}
 /* KPI gestión operativa */
 .kpi-op-row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.85rem}
 .kpi-op-box{background:var(--white);border-radius:var(--rs);box-shadow:var(--sh);
@@ -559,6 +637,76 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .kpi-op-n{font-family:var(--ff);font-size:1.5rem;font-weight:700;color:var(--g800);line-height:1}
 .kpi-op-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;
   color:var(--g400);margin-top:2px}
+
+/* ═══ Solicitudes v2 ═══ */
+.sol-header-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);
+  margin-bottom:.65rem;overflow:hidden}
+.sol-header-top{display:flex;align-items:center;justify-content:space-between;
+  padding:.75rem 1rem .6rem}
+.sol-header-title{font-family:var(--ff);font-size:1.05rem;font-weight:600;color:var(--g800)}
+.sol-header-sub{font-size:.72rem;color:var(--g500);margin-top:2px}
+.sol-urgent-badge{background:#fee2e2;color:#991b1b;font-size:.68rem;font-weight:700;
+  padding:.2rem .6rem;border-radius:20px;flex-shrink:0}
+.sol-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  border-top:1px solid var(--g100)}
+.sol-stat-box{padding:.5rem .6rem;text-align:center;border-right:1px solid var(--g100)}
+.sol-stat-box:last-child{border-right:none}
+.sol-stat-n{font-family:var(--ff);font-size:1.15rem;font-weight:700;color:var(--g800)}
+.sol-stat-lbl{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--g400);margin-top:2px}
+.sol-filtros-row{display:flex;gap:4px;padding:.5rem .75rem;
+  border-top:1px solid var(--g100);overflow-x:auto;scrollbar-width:none;flex-wrap:wrap}
+.sol-filtros-row::-webkit-scrollbar{display:none}
+.sol-fil-btn{padding:.28rem .65rem;border-radius:20px;border:1.5px solid var(--g200);
+  background:none;font-family:var(--fb);font-size:.68rem;font-weight:600;
+  color:var(--g500);cursor:pointer;transition:all .13s;white-space:nowrap;
+  touch-action:manipulation}
+.sol-fil-btn:hover{background:var(--cream);border-color:var(--g300)}
+.sol-fil-btn.on{background:#1a1a2e;border-color:#1a1a2e;color:#f0d060}
+.sol-dias-badge{font-size:.62rem;font-weight:700;padding:.1rem .42rem;border-radius:20px}
+.sol-dias-ok{background:#f0fdf4;color:#166534}
+.sol-dias-warn{background:#fef3c7;color:#92400e}
+.sol-dias-alert{background:#fee2e2;color:#991b1b}
+.sol-nota-ceo{font-size:.76rem;font-style:italic;color:#4338ca;
+  background:#eef2ff;border-radius:var(--rs);padding:.35rem .6rem;
+  margin-top:.35rem;border-left:3px solid #a5b4fc}
+.sol-empty{text-align:center;padding:2rem 1rem;background:var(--white);
+  border-radius:var(--r);box-shadow:var(--sh)}
+
+/* ═══ Pulso del equipo — Motor IA Liderazgo ═══ */
+.pulso-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);
+  margin-bottom:.75rem;overflow:hidden}
+.pulso-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:.7rem 1rem .55rem;border-bottom:1px solid var(--g100)}
+.pulso-ttl{font-family:var(--ff);font-size:.95rem;font-weight:600;color:var(--g800)}
+.pulso-fecha{font-size:.68rem;color:var(--g400)}
+.pulso-sub{font-size:.73rem;color:var(--g500);padding:.4rem 1rem .3rem;
+  background:var(--cream);border-bottom:1px solid var(--g100)}
+.pulso-item{padding:.75rem 1rem;border-bottom:1px solid var(--g100);
+  border-left:3px solid transparent;transition:background .12s}
+.pulso-item:last-child{border-bottom:none}
+.pulso-item:hover{background:#fafbfc}
+.pulso-item-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.4rem}
+.pulso-item-ico{width:30px;height:30px;border-radius:8px;display:flex;
+  align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.pulso-item-info{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.pulso-item-cat{font-size:.63rem;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase}
+.pulso-prio-chip{font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:20px}
+.pulso-prio-alta{background:#fee2e2;color:#991b1b}
+.pulso-prio-media{background:#fef3c7;color:#92400e}
+.pulso-prio-baja{background:#f0f9ff;color:#0369a1}
+.pulso-item-titulo{font-size:.85rem;font-weight:600;color:var(--g800);
+  line-height:1.35;margin-bottom:.3rem}
+.pulso-item-desc{font-size:.76rem;color:var(--g600);line-height:1.45;margin-bottom:.55rem}
+.pulso-add-btn{padding:.3rem .85rem;border-radius:20px;border:1.5px solid var(--gold);
+  background:none;color:var(--gold-dk);font-family:var(--fb);font-size:.71rem;
+  font-weight:600;cursor:pointer;transition:all .15s;touch-action:manipulation}
+.pulso-add-btn:hover{background:var(--gold);color:var(--white)}
+/* tipo "apoyo" en modal colaborador */
+.sol-tipo-btn[data-tipo="apoyo"].on{background:#faf5ff;border-color:#c4b5fd;color:#7c3aed}
+/* tipo chip apoyo en CEO */
+.sol-tipo-chip.apoyo{background:#faf5ff;color:#7c3aed}
 
 /* ══ Notificación solicitud en CEO (badge en tab) ══ */
 .ctab-badge{display:inline-flex;align-items:center;justify-content:center;
@@ -780,18 +928,159 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .eq-hist-lbl{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--g400)}
 
 /* ── EDA DASHBOARD ── */
-.eda-kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.85rem}
-.eda-kpi{background:var(--white);border-radius:var(--rs);padding:.75rem .85rem;box-shadow:var(--sh);border:1px solid var(--g100)}
-.eda-kpi-val{font-family:var(--ff);font-size:1.65rem;font-weight:700;line-height:1.1;color:var(--g800)}
-.eda-kpi-lbl{font-size:.63rem;letter-spacing:.09em;text-transform:uppercase;color:var(--g400);margin-top:.25rem}
-.eda-kpi-sub{font-size:.72rem;color:var(--g600);margin-top:.1rem}
-.eda-chart-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.75rem}
+/* ═══════════════ EDA v2 ═══════════════ */
+@keyframes kpi-count-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Header EDA */
+/* ══════════════════════════════════════════
+   EDA — ANÁLISIS DE RENDIMIENTO (Redesign)
+══════════════════════════════════════════ */
+
+/* --- Banner superior --- */
+.eda-banner{background:linear-gradient(135deg,#0f172a 0%,#1e293b 60%,#1a2332 100%);
+  border-radius:14px;padding:1.1rem 1.2rem 1rem;margin-bottom:1rem;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;
+  flex-wrap:wrap;box-shadow:0 4px 20px rgba(0,0,0,.18)}
+.eda-banner-badge{font-size:.62rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:#f0d060;background:rgba(240,208,96,.12);
+  border:1px solid rgba(240,208,96,.25);border-radius:20px;
+  padding:.2rem .65rem;display:inline-block;margin-bottom:.45rem}
+.eda-banner-title{font-family:var(--ff);font-size:1.3rem;font-weight:700;
+  color:#f8fafc;letter-spacing:-.01em;line-height:1.2}
+.eda-banner-sub{font-size:.72rem;color:#94a3b8;margin-top:.3rem;display:flex;
+  align-items:center;gap:.4rem}
+.eda-banner-dot{width:6px;height:6px;border-radius:50%;background:#22c55e;
+  box-shadow:0 0 5px #22c55e}
+/* Selector de período */
+.eda-periodo-pills{display:flex;gap:4px;flex-shrink:0;align-self:flex-start;
+  background:rgba(255,255,255,.06);border-radius:25px;padding:3px}
+.eda-periodo-btn{padding:.28rem .7rem;border-radius:22px;border:none;
+  background:transparent;font-family:var(--fb);font-size:.69rem;font-weight:600;
+  color:#94a3b8;cursor:pointer;transition:all .18s;white-space:nowrap;
+  touch-action:manipulation}
+.eda-periodo-btn:hover{color:#e2e8f0}
+.eda-periodo-btn.on{background:#f0d060;color:#0f172a;box-shadow:0 2px 8px rgba(240,208,96,.3)}
+
+/* --- KPI Grid --- */
+.eda-kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem}
+.eda-kpi{background:var(--white);border-radius:12px;padding:.85rem .9rem;
+  box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.05);
+  border:1px solid var(--g100);position:relative;overflow:hidden;
+  transition:box-shadow .2s,transform .2s}
+.eda-kpi:hover{box-shadow:0 4px 16px rgba(0,0,0,.12);transform:translateY(-2px)}
+.eda-kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:var(--kpi-accent,var(--gold));border-radius:3px 0 0 3px}
+.eda-kpi-ico{width:32px;height:32px;border-radius:9px;display:flex;
+  align-items:center;justify-content:center;margin-bottom:.5rem;flex-shrink:0;
+  background:var(--kpi-ico-bg,#fffbeb)}
+.eda-kpi-ico svg{width:15px;height:15px}
+.eda-kpi-val{font-family:var(--ff);font-size:1.7rem;font-weight:700;line-height:1.05;
+  color:var(--g800);letter-spacing:-.02em}
+.eda-kpi-name{font-size:1rem;font-family:var(--fb);font-weight:600;color:var(--g700)}
+.eda-kpi-row-inner{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.2rem}
+.eda-kpi-lbl{font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--g400);margin-top:.15rem}
+.eda-kpi-sub{font-size:.68rem;color:var(--g500);margin-top:.1rem}
+
+/* Trend badges */
+.eda-trend{font-size:.64rem;font-weight:700;padding:.12rem .45rem;border-radius:20px;
+  white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:2px}
+.eda-trend-up{background:#dcfce7;color:#15803d}
+.eda-trend-dn{background:#fee2e2;color:#b91c1c}
+.eda-trend-flat{background:#f1f5f9;color:#64748b}
+
+/* --- Chart header --- */
+.eda-chart-hd{display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:.75rem;gap:.5rem}
 .eda-chart-avg{font-family:var(--ff);font-size:1.2rem;font-weight:700;color:var(--g800);text-align:right}
 .eda-chart-avg-lbl{font-size:.62rem;color:var(--g400);text-transform:uppercase;letter-spacing:.07em;text-align:right}
-.eda-insight{display:flex;align-items:flex-start;gap:9px;padding:.42rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.84rem;color:rgba(250,249,246,.82);line-height:1.5}
+
+/* Section heading inside EDA */
+.eda-sec-hd{display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem;padding-bottom:.5rem;
+  border-bottom:1px solid var(--g100)}
+.eda-sec-hd-ico{width:28px;height:28px;background:#f1f5f9;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.eda-sec-hd-ico svg{width:14px;height:14px;color:#475569}
+.eda-sec-hd-txt{font-size:.82rem;font-weight:700;color:var(--g700);letter-spacing:.01em}
+.eda-sec-hd-count{margin-left:auto;font-size:.68rem;color:var(--g400);
+  background:var(--g100);padding:.1rem .5rem;border-radius:20px}
+
+/* Employee filter pills */
+.eda-emp-pills-row{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.eda-emp-pill{height:28px;border-radius:20px;border:1.5px solid var(--g200);
+  background:none;font-family:var(--fb);font-size:.71rem;font-weight:700;
+  cursor:pointer;transition:all .15s;display:flex;align-items:center;
+  justify-content:center;color:var(--g500);touch-action:manipulation;
+  padding:0 .6rem;gap:4px}
+.eda-emp-pill:hover{border-color:var(--g400);color:var(--g700);background:var(--cream)}
+.eda-emp-pill.on{background:#0f172a;border-color:#0f172a;color:#f0d060}
+.eda-emp-pill-dot{width:7px;height:7px;border-radius:50%}
+
+/* --- Scorecards --- */
+.eda-scorecards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+.eda-sc-card{background:var(--white);border-radius:14px;
+  box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.05);
+  padding:.85rem .85rem .75rem;position:relative;overflow:hidden;
+  transition:box-shadow .2s,transform .2s;border:1px solid var(--g100)}
+.eda-sc-card:hover{box-shadow:0 4px 18px rgba(0,0,0,.13);transform:translateY(-2px)}
+.eda-sc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--sc-color,var(--gold))}
+.eda-sc-rank{position:absolute;top:.6rem;right:.7rem;font-size:.62rem;font-weight:800;
+  color:var(--g400);letter-spacing:.06em;text-transform:uppercase}
+.eda-sc-rank.gold{color:#b8943a;background:#fffbeb;padding:.1rem .45rem;border-radius:20px}
+.eda-sc-top{display:flex;align-items:center;gap:.55rem;margin-bottom:.6rem}
+.eda-sc-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-family:var(--ff);font-size:.95rem;font-weight:700;flex-shrink:0;
+  border:2px solid var(--sc-color,var(--gold))22}
+.eda-sc-info{flex:1;min-width:0}
+.eda-sc-name{font-weight:700;font-size:.84rem;color:var(--g800)}
+.sc-estado{font-size:.61rem;font-weight:600;padding:.1rem .4rem;border-radius:20px;
+  display:inline-flex;align-items:center;gap:3px;margin-top:2px}
+.sc-estado.bien{background:#dcfce7;color:#15803d}
+.sc-estado.medio{background:#fef9c3;color:#a16207}
+.sc-estado.bajo{background:#fee2e2;color:#b91c1c}
+.sc-estado.libre{background:#f8fafc;color:#94a3b8}
+.sc-estado.sin-datos{background:#f8fafc;color:#94a3b8}
+.eda-sc-pct-row{display:flex;align-items:baseline;gap:.35rem;margin-bottom:.5rem}
+.eda-sc-pct{font-family:var(--ff);font-size:2rem;font-weight:800;line-height:1;letter-spacing:-.03em}
+.eda-sc-pct-lbl{font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--g400)}
+.sc-trend{font-size:.62rem;font-weight:700;padding:.1rem .42rem;border-radius:20px;margin-left:auto}
+.sc-trend.up{background:#dcfce7;color:#15803d}
+.sc-trend.dn{background:#fee2e2;color:#b91c1c}
+.sc-trend.flat{background:#f1f5f9;color:#64748b}
+.eda-sc-bar-wrap{height:6px;background:var(--g100);border-radius:4px;overflow:hidden;margin-bottom:.55rem}
+.eda-sc-bar{height:100%;border-radius:4px;transition:width .7s cubic-bezier(.4,0,.2,1)}
+.eda-sc-footer{display:flex;gap:.35rem;flex-wrap:wrap}
+.eda-sc-stat{font-size:.62rem;color:var(--g500);background:#f8fafc;border:1px solid var(--g100);
+  padding:.12rem .42rem;border-radius:20px;display:inline-flex;align-items:center;gap:3px}
+
+/* --- Insight cards (resumen ejecutivo) --- */
+.eda-resumen-header{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:.6rem;padding:0 .05rem}
+.eda-insights-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.eda-insight-card{border-radius:11px;border:1px solid var(--g100);background:#fff;
+  padding:.7rem .8rem;border-left:3px solid var(--ic-accent,var(--gold));
+  transition:box-shadow .15s,transform .15s}
+.eda-insight-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.09);transform:translateY(-1px)}
+.eda-ic-head{display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem}
+.eda-ic-ico-wrap{width:24px;height:24px;border-radius:7px;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;
+  background:var(--ic-ico-bg,#fffbeb)}
+.eda-ic-lbl{font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ic-txt-color,#92400e)}
+.eda-ic-txt{font-size:.77rem;color:#374151;line-height:1.5}
+
+/* Legacy / compatibility */
+.eda-insight{display:flex;align-items:flex-start;gap:9px;padding:.42rem 0;
+  border-bottom:1px solid rgba(255,255,255,.08);font-size:.84rem;
+  color:rgba(250,249,246,.82);line-height:1.5}
 .eda-insight:last-child{border-bottom:none}
 .eda-idot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:.38rem}
-.streak-badge{display:inline-flex;align-items:center;gap:3px;font-size:.66rem;font-weight:600;color:var(--gold-dk);background:var(--gold-lt);padding:1px 8px;border-radius:20px;margin-left:6px;vertical-align:middle}
+.streak-badge{display:inline-flex;align-items:center;gap:3px;font-size:.65rem;
+  font-weight:700;color:#b8943a;background:#fffbeb;border:1px solid #e8dfc5;
+  padding:1px 8px;border-radius:20px;margin-left:5px;vertical-align:middle}
+/* eda header compat */
+.eda-header{display:none}
 
 /* ══ Motor de Retos ══ */
 .retos-wrap{margin-bottom:.85rem}
@@ -838,6 +1127,419 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 .retos-generar-btn:hover{background:var(--g100);color:var(--g700)}
 .reto-evento-tag{font-size:.62rem;font-weight:600;color:#059669;
   background:#d1fae5;padding:1px 6px;border-radius:3px;margin-left:4px}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE / ANTI-ZOOM / TOUCH — mejoras globales
+   ══════════════════════════════════════════════════════════════ */
+
+/* 1) Scroll suave nativo y box-model consistente */
+*,*::before,*::after{box-sizing:border-box}
+html{
+  -webkit-text-size-adjust:100%;   /* evita que iOS agrande texto arbitrariamente */
+  text-size-adjust:100%;
+}
+body{
+  overscroll-behavior-y:contain;   /* evita pull-to-refresh accidental */
+  -webkit-tap-highlight-color:transparent; /* quita el flash azul al tocar */
+}
+
+/* 2) touch-action: manipulation en TODOS los elementos interactivos
+      → elimina el delay de 300ms y el zoom por doble-tap */
+button,a,[role="button"],
+.rtab,.btn,.btn-sm,.badge,
+.tarea-check,.tarea-item,.tarea-nota,
+.rating-opt,.modal-chip,.qmsg-chip,
+.cfg-cat-pill,.cfg-inst-btn,.cfg-qadd-btn,
+.ceo-bl-check,.ceo-bl-del,.ceo-bl-add,.ceo-bl-add-btn,
+.reto-check-btn,.reto-card,
+.ctab,.dia-day,.dia-assign-btn,
+.cc-card,.hi-item,.hi-fecha,
+.sol-btn,.sol-act-btn,.sol-card,
+.fab,.modal-close,.modal-av-ico,
+.tar-quick-btn,.tar-tmpl-item,
+input,textarea,select{
+  touch-action:manipulation;
+}
+
+/* 3) ANTI-ZOOM iOS / Android
+      iOS Safari hace zoom automático si font-size < 16px en inputs.
+      Se aplica SOLO en pantallas táctiles para no alterar desktop. */
+@media (hover:none) and (pointer:coarse){
+  input,
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="date"],
+  input[type="search"],
+  input[type="tel"],
+  select,
+  textarea{
+    font-size:16px !important;  /* mínimo para prevenir auto-zoom en iOS */
+  }
+}
+
+/* También cubre Safari iOS que ignora hover:none en algunos casos */
+@supports (-webkit-touch-callout:none){
+  input,select,textarea{
+    font-size:16px !important;
+  }
+}
+
+/* 4) Contenedores principales — scroll fluido en iOS */
+.ac,.modal-body,.sol-modal-body,.plan-modal-body{
+  -webkit-overflow-scrolling:touch;
+}
+
+/* 5) Responsive breakpoints
+   ─────────────────────────────────────────────────
+   Base (mobile-first): se aplica a todos los tamaños
+   ─────────────────────────────────────────────────── */
+
+/* Tableta ≥ 600px */
+@media(max-width:599px){
+  .eda-scorecards-row{grid-template-columns:1fr 1fr}
+  .eda-insights-grid{grid-template-columns:1fr}
+  .eda-header{flex-direction:column;gap:.5rem}
+  .eda-periodo-pills{width:100%;justify-content:flex-start}
+}
+@media(min-width:600px){
+  .ac{max-width:600px;margin:0 auto}
+  .kpi-op-row{grid-template-columns:1fr 1fr 1fr 1fr}
+  .eda-kpi-row{grid-template-columns:repeat(4,1fr)}
+  .eda-scorecards-row{grid-template-columns:repeat(3,1fr)}
+  .eda-insights-grid{grid-template-columns:repeat(3,1fr)}
+  .nums-row{gap:.85rem}
+  .ph-big{font-size:2.8rem}
+  .lcard{padding:2rem}
+}
+
+/* Desktop / pantalla grande ≥ 900px */
+@media(min-width:900px){
+  body{background:#f0ece4}
+  .ah,.ac{max-width:520px;margin-left:auto;margin-right:auto}
+  #s-login .lcard{max-width:420px;margin:0 auto}
+  .modal-box{max-width:500px;margin-left:auto;margin-right:auto}
+  html{font-size:15px}  /* en desktop mantenemos 15px */
+}
+
+/* 6) Mejoras de tap target — mínimo 44×44px en móvil (WCAG) */
+@media(hover:none) and (pointer:coarse){
+  .btn-sm{min-height:44px;padding:.65rem 1rem}
+  .tarea-check{min-width:40px;min-height:40px}
+  .ctab{padding:.75rem .6rem;min-height:44px}
+  .dia-day{min-height:48px}
+  .sol-act-btn{min-height:40px;padding:.45rem .85rem}
+  .ceo-bl-check{width:32px;height:32px}
+  .reto-check-btn{width:32px;height:32px}
+  .modal-close{min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+  .fab{width:56px;height:56px}
+}
+
+/* 7) Safe area para notch (iPhone X+) */
+@supports(padding:max(0px)){
+  .ah{
+    padding-top:max(.75rem, env(safe-area-inset-top));
+    padding-left:max(1rem, env(safe-area-inset-left));
+    padding-right:max(1rem, env(safe-area-inset-right));
+  }
+  .ac{
+    padding-bottom:max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   AGENDA — nueva vista de asignación de tareas CEO
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── Strip semanal ─── */
+.agenda-strip-row{display:flex;align-items:stretch;gap:2px;
+  background:var(--white);border-radius:var(--r);box-shadow:var(--sh);
+  padding:.35rem .4rem;margin-bottom:.7rem;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+.agenda-strip-row::-webkit-scrollbar{display:none}
+.agenda-nav-btn{flex-shrink:0;width:28px;background:none;border:none;
+  font-size:1.25rem;color:var(--g300);cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:8px;transition:color .15s;touch-action:manipulation}
+.agenda-nav-btn:hover{color:var(--gold)}
+.agenda-day-btn{flex:1;min-width:40px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:2px;padding:.45rem .2rem;
+  background:none;border:none;border-radius:10px;cursor:pointer;
+  transition:background .15s;touch-action:manipulation;position:relative}
+.agenda-day-btn:hover{background:var(--cream)}
+.agenda-day-name{font-size:.62rem;font-weight:600;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--g400)}
+.agenda-day-num{font-family:var(--ff);font-size:1rem;font-weight:700;
+  color:var(--g700);line-height:1}
+.agenda-day-btn.agenda-past .agenda-day-num{color:var(--g300)}
+.agenda-day-btn.agenda-past .agenda-day-name{color:var(--g200)}
+.agenda-day-btn.agenda-today{background:var(--cream)}
+.agenda-day-btn.agenda-today .agenda-day-name{color:var(--gold-dk)}
+.agenda-day-btn.agenda-today .agenda-day-num{color:var(--gold-dk)}
+.agenda-day-btn.agenda-sel{background:var(--gold) !important}
+.agenda-day-btn.agenda-sel .agenda-day-name,
+.agenda-day-btn.agenda-sel .agenda-day-num{color:var(--white) !important}
+.agenda-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.agenda-dot-none{background:var(--g100)}
+.agenda-dot-green{background:var(--green)}
+.agenda-dot-yellow{background:var(--yellow)}
+.agenda-dot-red{background:var(--red)}
+.agenda-dot-blue{background:#60a5fa}
+
+/* ─── Barra de input inteligente ─── */
+.agenda-bar{background:var(--white);border-radius:var(--r);
+  box-shadow:var(--sh);margin-bottom:.7rem;overflow:hidden}
+.agenda-bar-row{display:flex;align-items:center;gap:0}
+.agenda-inp{flex:1;padding:.75rem 1rem;border:none;outline:none;
+  font-family:var(--fb);font-size:.88rem;color:var(--g800);background:transparent;
+  min-width:0}
+.agenda-inp::placeholder{color:var(--g300)}
+.agenda-add-btn{flex-shrink:0;width:44px;height:44px;background:var(--gold);
+  border:none;color:var(--white);font-size:1.25rem;font-weight:700;
+  cursor:pointer;transition:background .15s;touch-action:manipulation;
+  display:flex;align-items:center;justify-content:center}
+.agenda-add-btn:hover{background:var(--gold-dk)}
+.agenda-act-btn{flex-shrink:0;width:44px;height:44px;background:var(--cream);
+  border:none;border-left:1px solid var(--g100);font-size:1rem;
+  cursor:pointer;transition:background .15s;touch-action:manipulation;
+  display:flex;align-items:center;justify-content:center}
+.agenda-act-btn:hover,.agenda-act-btn.on{background:#1a1a2e;color:#f0d060}
+
+/* ─── Smart actions dropdown ─── */
+.agenda-actions{border-top:1px solid var(--g100);padding:.35rem .5rem}
+.agenda-act-item{display:flex;align-items:center;gap:.7rem;width:100%;
+  padding:.6rem .5rem;background:none;border:none;border-radius:var(--rs);
+  cursor:pointer;text-align:left;transition:background .12s;touch-action:manipulation}
+.agenda-act-item:hover{background:var(--cream)}
+.agenda-act-ico{font-size:1.1rem;flex-shrink:0;width:28px;text-align:center}
+.agenda-act-lbl{font-size:.83rem;font-weight:600;color:var(--g800)}
+.agenda-act-sub{font-size:.7rem;color:var(--g400);margin-top:1px}
+
+/* ─── Header del día seleccionado ─── */
+.agenda-day-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:.5rem 0 .45rem;margin-bottom:.45rem}
+.agenda-day-hd-date{font-family:var(--ff);font-size:.95rem;font-weight:700;color:var(--g800)}
+.agenda-rend-chip{font-size:.65rem;font-weight:700;padding:2px 8px;
+  border-radius:10px;letter-spacing:.03em}
+.agenda-rend-chip.agenda-rend-normal{background:var(--cream);color:var(--g600)}
+.agenda-rend-chip.agenda-rend-alivio{background:#fef3c7;color:#92400e}
+.agenda-rend-chip.agenda-rend-extra{background:#d1fae5;color:#065f46}
+
+/* ─── Secciones ─── */
+.agenda-sec{margin-bottom:.6rem}
+.agenda-sec-hd{display:flex;align-items:center;justify-content:space-between;
+  padding:.3rem 0;margin-bottom:.25rem}
+.agenda-sec-hd span:first-child{font-size:.65rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--g400)}
+.agenda-sec-cnt{font-size:.68rem;font-weight:600;color:var(--g500);
+  background:var(--cream);padding:1px 7px;border-radius:10px}
+
+/* ─── Item de tarea asignada ─── */
+.agenda-task{display:flex;align-items:center;gap:0;background:var(--white);
+  border-radius:var(--rs);box-shadow:0 1px 3px rgba(0,0,0,.05);
+  margin-bottom:.4rem;overflow:hidden;transition:opacity .15s}
+.agenda-task.agenda-task-done{opacity:.5}
+.agenda-task-stripe{width:3px;align-self:stretch;flex-shrink:0}
+.agenda-task-stripe.blue{background:#60a5fa}
+.agenda-task-stripe.red{background:var(--red)}
+.agenda-task-stripe.yellow{background:var(--yellow)}
+.agenda-task-stripe.green{background:var(--green)}
+.agenda-task-body{flex:1;min-width:0;padding:.6rem .75rem}
+.agenda-task-desc{font-size:.84rem;color:var(--g800);line-height:1.4;display:block}
+.agenda-task.agenda-task-done .agenda-task-desc{text-decoration:line-through;color:var(--g400)}
+.agenda-task-hora{font-size:.66rem;color:var(--g400);margin-top:2px;display:block}
+.agenda-task-del{flex-shrink:0;background:none;border:none;color:var(--g200);
+  width:36px;height:36px;cursor:pointer;font-size:.75rem;
+  display:flex;align-items:center;justify-content:center;touch-action:manipulation;
+  transition:color .12s}
+.agenda-task-del:hover{color:var(--red)}
+
+/* ─── Empty state ─── */
+.agenda-empty-state{background:var(--white);border-radius:var(--rs);
+  padding:1.25rem 1rem;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.agenda-empty-ico{font-size:1.5rem;margin-bottom:.4rem}
+.agenda-empty-txt{font-size:.82rem;font-weight:600;color:var(--g500)}
+.agenda-empty-sub{font-size:.71rem;color:var(--g400);margin-top:.25rem}
+
+/* ─── Tareas base (colapsable) ─── */
+.agenda-base-toggle{display:flex;align-items:center;justify-content:space-between;
+  width:100%;padding:.55rem .75rem;background:var(--white);border:none;
+  border-radius:var(--rs);box-shadow:0 1px 3px rgba(0,0,0,.05);
+  cursor:pointer;font-size:.72rem;font-weight:600;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--g400);touch-action:manipulation;
+  transition:background .12s}
+.agenda-base-toggle:hover{background:var(--cream)}
+.agenda-base-cat{font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--g400);padding:.45rem .75rem .2rem;font-weight:700}
+.agenda-base-item{display:flex;align-items:center;gap:.65rem;
+  padding:.42rem .75rem;font-size:.81rem;color:var(--g700);background:var(--white)}
+.agenda-base-item.done{color:var(--g300);text-decoration:line-through}
+.agenda-dot-sm{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.agenda-dot-sm.green{background:var(--green)}
+.agenda-dot-sm.yellow{background:var(--yellow)}
+.agenda-dot-sm.red{background:var(--red)}
+.agenda-dot-sm.empty{background:var(--g100);border:1px solid var(--g200)}
+
+/* ─── Agenda: periodo label ─── */
+.agenda-periodo{font-size:.67rem;color:var(--g400);text-align:center;
+  padding:.2rem 0 .35rem;letter-spacing:.03em}
+
+/* ─── Agenda: task checkbox ─── */
+.agenda-task-check{flex-shrink:0;width:44px;height:44px;display:flex;
+  align-items:center;justify-content:center;cursor:pointer;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.agenda-chk{width:18px;height:18px;border-radius:50%;border:2px solid var(--g200);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;flex-shrink:0}
+.agenda-chk.chk-on{background:var(--green);border-color:var(--green)}
+.agenda-chk.chk-on::after{content:'✓';font-size:.65rem;color:var(--white);
+  font-weight:700;line-height:1}
+
+/* ─── Agenda: badges urgente / hora ─── */
+.agenda-badge-urg{display:inline-flex;align-items:center;justify-content:center;
+  background:var(--red);color:var(--white);font-size:.6rem;font-weight:700;
+  width:16px;height:16px;border-radius:50%;margin-right:.3rem;
+  flex-shrink:0;vertical-align:middle}
+.agenda-badge-hora{display:inline-block;font-size:.67rem;font-weight:600;
+  color:var(--gold-dk);background:var(--cream);padding:0 5px;
+  border-radius:8px;margin-right:.35rem;vertical-align:middle}
+
+/* ─── Agenda: base section count + arrow ─── */
+.agenda-base-cnt{font-size:.65rem;background:var(--cream);color:var(--g500);
+  padding:1px 7px;border-radius:10px;font-weight:600;margin-left:.4rem}
+.agenda-base-arrow{font-size:.75rem;color:var(--g400);
+  transition:transform .2s;display:inline-block}
+
+/* ══ CHATBOT IA ══ */
+/* --- FAB Button --- */
+.chat-fab{position:fixed;bottom:24px;left:20px;width:54px;height:54px;
+  background:linear-gradient(145deg,#c9a84c,var(--gold));border:none;border-radius:50%;
+  box-shadow:0 4px 20px rgba(184,148,58,.5);cursor:pointer;z-index:1200;
+  display:none;align-items:center;justify-content:center;
+  transition:transform .25s,box-shadow .25s,background .3s;color:#fff;padding:0}
+.chat-fab.visible{display:flex}
+.chat-fab:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(184,148,58,.6)}
+.chat-fab.open{background:linear-gradient(145deg,#374151,#1f2937);
+  box-shadow:0 4px 20px rgba(0,0,0,.35)}
+.chat-fab::before{content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:2px solid rgba(184,148,58,.5);opacity:0;pointer-events:none;
+  animation:chat-pulse-ring 2.8s infinite 2s}
+.chat-fab.open::before{display:none}
+@keyframes chat-pulse-ring{0%{opacity:.7;transform:scale(1)}70%{opacity:0;transform:scale(1.45)}100%{opacity:0}}
+.chat-fab-ico{display:flex;align-items:center;justify-content:center;
+  transition:transform .2s,opacity .15s}
+/* --- Panel --- */
+.chat-panel{position:fixed;bottom:0;left:0;width:100%;max-width:100vw;
+  height:72vh;min-height:420px;background:#fff;border-radius:22px 22px 0 0;
+  box-shadow:0 -6px 40px rgba(0,0,0,.18);z-index:1199;display:flex;
+  flex-direction:column;transform:translateY(105%);overflow:hidden;
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1)}
+.chat-panel.open{transform:translateY(0)}
+@media(min-width:600px){
+  .chat-panel{bottom:90px;left:20px;width:385px;border-radius:22px;
+    transform:translateY(18px) scale(.95);opacity:0;
+    transition:transform .32s cubic-bezier(.34,1.56,.64,1),opacity .2s}
+  .chat-panel.open{transform:translateY(0) scale(1);opacity:1}
+}
+/* --- Header --- */
+.chat-hdr{background:linear-gradient(135deg,#1a2332 0%,#2d3f55 100%);
+  padding:13px 15px 13px;display:flex;align-items:center;gap:11px;flex-shrink:0;
+  border-bottom:1px solid rgba(255,255,255,.06)}
+.chat-hdr-ava{width:38px;height:38px;background:linear-gradient(145deg,#c9a84c,var(--gold));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;box-shadow:0 2px 8px rgba(184,148,58,.4)}
+.chat-hdr-ava svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.2))}
+.chat-hdr-info{flex:1;min-width:0}
+.chat-hdr-name{font-size:.87rem;font-weight:700;color:#fff;letter-spacing:.01em}
+.chat-hdr-sub{font-size:.7rem;color:#94a3b8;margin-top:2px;display:flex;align-items:center;gap:5px}
+.chat-hdr-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;
+  box-shadow:0 0 5px #22c55e;flex-shrink:0}
+.chat-hdr-close{width:32px;height:32px;background:rgba(255,255,255,.08);border:none;
+  border-radius:50%;color:rgba(255,255,255,.7);cursor:pointer;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,color .15s}
+.chat-hdr-close:hover{background:rgba(255,255,255,.18);color:#fff}
+/* --- Chips area --- */
+.chat-chips-wrap{background:#fafaf9;border-bottom:1px solid var(--g100);
+  padding:8px 12px 6px;flex-shrink:0}
+.chat-chips-lbl{font-size:.66rem;color:var(--g400);font-weight:600;
+  text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;
+  display:flex;align-items:center;gap:5px}
+.chat-chips-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;padding-bottom:3px}
+.chat-chips-row::-webkit-scrollbar{display:none}
+.chat-chip{flex-shrink:0;background:#fff;border:1.5px solid var(--g150);
+  border-radius:100px;padding:4px 11px;font-size:.71rem;font-weight:500;
+  color:var(--g600);cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;
+  transition:all .18s;max-width:195px;overflow:hidden;text-overflow:ellipsis;
+  box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.chat-chip:hover{border-color:var(--gold);background:#fffbeb;color:#92701a;
+  box-shadow:0 2px 8px rgba(184,148,58,.2);transform:translateY(-1px)}
+.chat-chip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+/* --- Messages --- */
+.chat-msgs{flex:1;overflow-y:auto;padding:14px 12px 6px;display:flex;
+  flex-direction:column;gap:8px;scroll-behavior:smooth;background:#f8f9fb}
+.chat-msgs::-webkit-scrollbar{width:3px}
+.chat-msgs::-webkit-scrollbar-track{background:transparent}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--g150);border-radius:2px}
+.chat-bubble-row{display:flex;align-items:flex-end;gap:7px}
+.chat-bubble-row.user{justify-content:flex-end}
+.chat-bot-ava{width:24px;height:24px;background:linear-gradient(145deg,#c9a84c,var(--gold));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:#fff}
+.chat-bubble{max-width:82%;padding:9px 13px;border-radius:18px;font-size:.79rem;
+  line-height:1.55;word-break:break-word;animation:chat-bi .2s ease}
+@keyframes chat-bi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.chat-bubble.user{background:linear-gradient(145deg,#c9a84c,var(--gold));color:#fff;
+  border-bottom-right-radius:5px;box-shadow:0 2px 10px rgba(184,148,58,.3)}
+.chat-bubble.bot{background:#fff;color:#1e293b;border-bottom-left-radius:5px;
+  box-shadow:0 1px 6px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.05)}
+.chat-bubble.bot strong{color:#0f172a;font-weight:600}
+.chat-btime{font-size:.61rem;opacity:.45;margin-top:4px;display:block;text-align:right}
+.chat-bubble.bot .chat-btime{text-align:left}
+/* --- Typing indicator --- */
+.chat-bubble-row.typing{align-items:flex-end;gap:7px}
+.chat-typing{background:#fff;border-radius:18px;border-bottom-left-radius:5px;
+  padding:11px 16px;display:flex;gap:5px;align-items:center;
+  box-shadow:0 1px 6px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.05)}
+.chat-td{width:6px;height:6px;background:#cbd5e1;border-radius:50%;
+  animation:chat-tdot 1s infinite ease-in-out}
+.chat-td:nth-child(2){animation-delay:.18s}
+.chat-td:nth-child(3){animation-delay:.36s}
+@keyframes chat-tdot{0%,80%,100%{transform:scale(.65);opacity:.35}40%{transform:scale(1.15);opacity:1;background:var(--gold)}}
+/* --- Input area --- */
+.chat-inp-wrap{padding:9px 11px 12px;background:#fff;border-top:1px solid var(--g100);
+  display:flex;align-items:flex-end;gap:8px;flex-shrink:0}
+.chat-inp{flex:1;min-height:38px;max-height:96px;resize:none;
+  border:1.5px solid var(--g150);border-radius:12px;padding:8px 12px;
+  font-size:.79rem;font-family:inherit;line-height:1.45;outline:none;
+  background:#f8f9fb;transition:border-color .18s,background .18s;color:#1e293b}
+.chat-inp:focus{border-color:var(--gold);background:#fff;
+  box-shadow:0 0 0 3px rgba(184,148,58,.1)}
+.chat-inp::placeholder{color:#94a3b8}
+.chat-send{width:38px;height:38px;background:linear-gradient(145deg,#c9a84c,var(--gold));
+  border:none;border-radius:11px;color:#fff;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .18s,box-shadow .18s;
+  box-shadow:0 2px 8px rgba(184,148,58,.35)}
+.chat-send:hover{transform:scale(1.08);box-shadow:0 4px 14px rgba(184,148,58,.5)}
+.chat-send:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+/* --- Inline IA button on tasks --- */
+.tarea-chat-btn{width:26px;height:26px;background:transparent;
+  border:1.5px solid var(--g150);border-radius:8px;color:var(--g400);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .18s;margin-left:2px;padding:0;position:relative}
+.tarea-chat-btn:hover{border-color:var(--gold);color:var(--gold);background:#fffbeb;
+  transform:scale(1.1);box-shadow:0 2px 8px rgba(184,148,58,.25)}
+/* --- Inline AI chip on reto & pulso --- */
+.ai-help-chip{display:inline-flex;align-items:center;gap:5px;
+  background:#fffbeb;border:1.5px solid rgba(184,148,58,.35);
+  border-radius:100px;padding:4px 11px;font-size:.71rem;font-weight:600;
+  color:#92701a;cursor:pointer;transition:all .18s;white-space:nowrap}
+.ai-help-chip:hover{background:#fef3c7;border-color:var(--gold);
+  box-shadow:0 2px 8px rgba(184,148,58,.25);transform:translateY(-1px)}
+.ai-help-chip svg{flex-shrink:0}
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
@@ -971,13 +1673,9 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
       <div class="colab-grid" id="ceo-cards"></div>
     </div>
 
-    <!-- TAREAS: calendario mensual + asignación -->
+    <!-- TAREAS: agenda unificada CEO -->
     <div id="ct-tareas" class="hidden">
-      <!-- Planificar semana -->
-      <button class="plan-btn" onclick="planificarSemana()">
-        📅 Planificar semana automática
-      </button>
-      <!-- Pill selector colaborador -->
+      <!-- Selector colaborador -->
       <div class="tar-pills">
         <button class="tar-pill on" id="tarcol-Marlon" onclick="tarSelColab('Marlon')">
           <span class="tar-pill-dot" style="background:#b8943a"></span>Marlon
@@ -989,10 +1687,46 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
           <span class="tar-pill-dot" style="background:#2060a0"></span>Isabella
         </button>
       </div>
-      <!-- Calendario premium -->
-      <div id="tar-cal"></div>
-      <!-- Panel día -->
-      <div id="tar-dia-panel"></div>
+      <!-- Strip semanal -->
+      <div id="agenda-strip"></div>
+      <!-- Barra inteligente: input + smart actions -->
+      <div class="agenda-bar">
+        <div class="agenda-bar-row">
+          <input id="agenda-inp" class="agenda-inp" type="text"
+            placeholder="Nueva tarea…  (! al inicio = urgente)" maxlength="90"
+            onkeydown="if(event.key==='Enter')agendaSubmitTask()">
+          <button class="agenda-add-btn" onclick="agendaSubmitTask()" title="Agregar tarea">+</button>
+          <button class="agenda-act-btn" id="agenda-act-btn"
+            onclick="agendaToggleActions()" title="Acciones rápidas">⚡</button>
+        </div>
+        <div id="agenda-actions" class="agenda-actions hidden">
+          <button class="agenda-act-item" onclick="agendaSmartAction('auto')">
+            <span class="agenda-act-ico">⚡</span>
+            <div><div class="agenda-act-lbl">Auto-asignar</div>
+              <div class="agenda-act-sub">Según rendimiento del colaborador</div></div>
+          </button>
+          <button class="agenda-act-item" onclick="agendaSmartAction('ayer')">
+            <span class="agenda-act-ico">📋</span>
+            <div><div class="agenda-act-lbl">Copiar de ayer</div>
+              <div class="agenda-act-sub">Duplicar todas las tareas del día anterior</div></div>
+          </button>
+          <button class="agenda-act-item" onclick="agendaSmartAction('tmpl')">
+            <span class="agenda-act-ico">📐</span>
+            <div><div class="agenda-act-lbl">Aplicar plantilla</div>
+              <div class="agenda-act-sub">Elegir de las plantillas guardadas</div></div>
+          </button>
+          <button class="agenda-act-item" onclick="agendaSmartAction('semana')">
+            <span class="agenda-act-ico">📅</span>
+            <div><div class="agenda-act-lbl">Planificar semana</div>
+              <div class="agenda-act-sub">Asignar automáticamente toda la semana</div></div>
+          </button>
+        </div>
+      </div>
+      <!-- Lista de tareas del día seleccionado -->
+      <div id="agenda-tasks"></div>
+      <!-- Elementos ghost para compatibilidad con funciones heredadas -->
+      <div id="tar-cal" class="hidden"></div>
+      <div id="tar-dia-panel" class="hidden"></div>
     </div>
 
     <!-- DETALLE colaborador -->
@@ -1074,72 +1808,106 @@ body{font-family:var(--fb);background:var(--cream);color:var(--black);min-height
 
     <!-- ANÁLISIS EDA -->
     <div id="ct-analisis" class="hidden">
-      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem">Análisis del equipo</div>
-      <div class="txt-muted" style="margin-bottom:.85rem" id="eda-sub"></div>
 
-      <!-- KPI Row -->
-      <div class="eda-kpi-row" id="eda-kpi-row"></div>
-
-      <!-- Resumen ejecutivo -->
-      <div class="card" style="margin-bottom:.85rem;background:var(--black);border:none">
-        <div class="card-t" style="color:var(--gold-lt);margin-bottom:.5rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase">Resumen ejecutivo</div>
-        <div id="eda-resumen"></div>
+      <!-- ══ BANNER EDA ══ -->
+      <div class="eda-banner">
+        <div>
+          <div class="eda-banner-badge">Dashboard · Perfum Plus</div>
+          <div class="eda-banner-title">Análisis de Rendimiento</div>
+          <div class="eda-banner-sub">
+            <span class="eda-banner-dot"></span>
+            <span id="eda-sub">Cargando datos…</span>
+          </div>
+        </div>
+        <div class="eda-periodo-pills">
+          <button class="eda-periodo-btn on" data-p="semana" onclick="edaCambiarPeriodo('semana')">Semana</button>
+          <button class="eda-periodo-btn" data-p="mes" onclick="edaCambiarPeriodo('mes')">Mes</button>
+          <button class="eda-periodo-btn" data-p="30d" onclick="edaCambiarPeriodo('30d')">30 días</button>
+        </div>
       </div>
 
-      <!-- Bloque 1: Tendencia semana (Marlon) -->
+      <!-- ══ KPIs ══ -->
+      <div class="eda-kpi-row" id="eda-kpi-row"></div>
+
+      <!-- ══ SCORECARDS ══ -->
+      <div style="margin-bottom:1rem">
+        <div id="eda-scorecards"></div>
+      </div>
+
+      <!-- ══ INSIGHTS EJECUTIVOS ══ -->
+      <div style="margin-bottom:1rem">
+        <div id="eda-resumen-wrap"></div>
+      </div>
+
+      <!-- ══ GRÁFICO — Comparación del equipo ══ -->
       <div class="card" style="margin-bottom:.85rem">
         <div class="eda-chart-hd">
           <div>
-            <div class="card-t" style="margin-bottom:.1rem">Tendencia Marlon</div>
-            <div class="txt-muted" style="font-size:.72rem">Eficacia diaria — últimos 7 días laborables</div>
+            <div class="eda-sec-hd" style="border:none;margin-bottom:.25rem;padding:0">
+              <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <span class="eda-sec-hd-txt">Tendencia del equipo</span>
+            </div>
+            <div class="txt-muted" style="font-size:.71rem" id="eda-comp-sub">Eficacia diaria por colaborador</div>
           </div>
-          <div><div class="eda-chart-avg" id="eda-avg-m">—</div><div class="eda-chart-avg-lbl">Promedio</div></div>
+          <div id="eda-emp-pills" class="eda-emp-pills-row"></div>
         </div>
-        <div style="position:relative;height:160px"><canvas id="chart-tendencia-m"></canvas></div>
+        <div style="position:relative;height:185px"><canvas id="chart-tendencia-m"></canvas></div>
       </div>
 
-      <!-- Bloque 2: Tendencia mes (Ingrid + Isabella) -->
+      <!-- ══ TURNOS FDS ══ -->
       <div class="card" style="margin-bottom:.85rem">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem">
           <div>
-            <div class="card-t" style="margin-bottom:.1rem">Fin de semana — este mes</div>
-            <div class="txt-muted" style="font-size:.72rem" id="eda-fds-sub">Ingrid e Isabella</div>
+            <div class="eda-sec-hd" style="border:none;margin-bottom:.2rem;padding:0">
+              <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <span class="eda-sec-hd-txt">Fin de semana — este mes</span>
+            </div>
+            <div class="txt-muted" style="font-size:.71rem" id="eda-fds-sub">Ingrid e Isabella</div>
           </div>
           <div id="eda-fds-badges" style="display:flex;gap:6px;flex-shrink:0"></div>
         </div>
         <div id="fds-turnos-list"></div>
       </div>
 
-      <!-- Bloque 3: Rendimiento por categoría -->
+      <!-- ══ RENDIMIENTO POR CATEGORÍA ══ -->
       <div class="card" style="margin-bottom:.85rem">
         <div class="eda-chart-hd">
           <div>
-            <div class="card-t" style="margin-bottom:.1rem">Rendimiento por categoría</div>
-            <div class="txt-muted" style="font-size:.72rem">% de tareas completadas por área — esta semana</div>
+            <div class="eda-sec-hd" style="border:none;margin-bottom:.25rem;padding:0">
+              <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+              <span class="eda-sec-hd-txt">Rendimiento por área</span>
+            </div>
+            <div class="txt-muted" style="font-size:.71rem" id="eda-cat-sub">% completado por categoría de tarea</div>
           </div>
         </div>
-        <div style="position:relative;height:180px"><canvas id="chart-cats"></canvas></div>
+        <div style="position:relative;height:185px"><canvas id="chart-cats"></canvas></div>
       </div>
 
-      <!-- Bloque 4: Consistencia -->
+      <!-- ══ CONSISTENCIA ══ -->
       <div class="card" style="margin-bottom:.85rem">
-        <div class="card-t" style="margin-bottom:.75rem">Consistencia del equipo</div>
+        <div class="eda-sec-hd">
+          <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <span class="eda-sec-hd-txt">Consistencia del equipo</span>
+        </div>
         <div id="eda-consistencia"></div>
       </div>
 
-      <!-- Bloque 5: Retos — motor de sugerencias -->
+      <!-- ══ RETOS ══ -->
       <div class="card" style="margin-bottom:.85rem">
         <div id="eda-kpi-retos"></div>
       </div>
 
-      <!-- Bloque 6: Gestión operativa CEO (solicitudes) -->
+      <!-- ══ GESTIÓN OPERATIVA ══ -->
       <div class="card" style="margin-bottom:.85rem">
         <div id="eda-kpi-op"></div>
       </div>
+
     </div>
 
     <!-- SOLICITUDES DEL EQUIPO + BACKLOG CEO -->
     <div id="ct-solicitudes" class="hidden">
+      <!-- 💡 Panel Pulso del equipo (IA liderazgo) -->
+      <div id="sol-panel-liderazgo"></div>
       <div id="sol-panel-solicitudes"></div>
       <div id="sol-panel-backlog"></div>
     </div>
@@ -1523,6 +2291,17 @@ function showS(id){
   target.classList.remove('screen-fade-in');
   void target.offsetWidth;
   target.classList.add('screen-fade-in');
+  // Mostrar / ocultar chat FAB según pantalla
+  const fab=document.getElementById('chat-fab');
+  if(fab){
+    if(id==='s-login'){
+      fab.classList.remove('visible');
+      // Cerrar panel si estaba abierto
+      if(_chatOpen) closeChat();
+    } else {
+      fab.classList.add('visible');
+    }
+  }
 }
 
 
@@ -1571,13 +2350,14 @@ function tareaItemHtml(id,desc,est,nota,opts){
   const inst=opts?.inst||'';
   const instHtml=inst?`<div class="tarea-inst-box" id="inst-${id}" style="display:none">${inst}</div>`:'';
   const instBtn=inst?`<button class="tarea-inst-btn" onclick="toggleInstColab('${id}')" title="Ver instrucción">ℹ️</button>`:'';
+  const chatBtnHtml=`<button class="tarea-chat-btn" data-desc="${desc.replace(/"/g,'&quot;')}" onclick="event.stopPropagation();openChatTask(this)" title="Consultar IA"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></button>`;
 
   return `<div class="tarea-item${urgente?' urgente':''}" data-id="${id}">
     <button class="tarea-cb ${cbClass}" onmousedown="startLP('${id}')" onmouseup="endLP('${id}')" onmouseleave="endLP('${id}')" ontouchstart="startLP('${id}');event.preventDefault()" ontouchend="endLP('${id}');tapEst('${id}');event.preventDefault()" onclick="tapEst('${id}')" aria-label="Completar (mantén 0.5s para marcar En proceso)">${svgProc}${svgDone}</button>
     <div class="tarea-cb-inner">
       <div class="tarea-meta" style="align-items:flex-start">
         <div style="flex:1;min-width:0">${metaInner}</div>
-        ${instBtn}
+        ${instBtn}${chatBtnHtml}
       </div>
       ${instHtml}
       <div class="tarea-nota-wrap">
@@ -1949,6 +2729,7 @@ function _renderRetosColab(){
         <span class="reto-desc">${r.descripcion}</span>
         <div class="reto-obj">🎯 Objetivo: ${r.objetivo_numerico} ${r.objetivo_numerico===1?'acción':'acciones'}
           ${r.evento_nombre?` · 🎉 ${r.evento_nombre}`:''}</div>
+        <button class="ai-help-chip" data-desc="${r.descripcion.replace(/"/g,'&quot;')}" onclick="openChatTask(this)" style="margin-top:6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Ayuda IA</button>
       </div>
     </div>`;
   });
@@ -2371,22 +3152,288 @@ function ceoTab(tab,btn){
 let _tarColab='Marlon';
 let _tarMesOff=0;      // 0=mes actual, -1=anterior, +1=siguiente
 let _tarDiaSel=null;   // fecha seleccionada 'YYYY-MM-DD'
+let _agendaStripOff=0;  // offset de la ventana semanal en el strip
 let _tarQCat='ventas'; // categoría activa en quick-assign
 let _cfgTab='base';    // sub-tab activo en Config (fix: era undefined)
 
-function renderTareas(){
-  _tarDiaSel=null;
-  _renderTarCal();
-  document.getElementById('tar-dia-panel').innerHTML='';
+function renderTareas(){ renderAgenda(); }
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   AGENDA — Strip semanal + input inteligente
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+function renderAgenda(){
+  _tarDiaSel = _tarDiaSel || hoy();
+  _agendaStripOff = 0;
+  _renderAgendaStrip();
+  _renderAgendaTasks();
+}
+
+/* Construye el strip de 7 días comenzando desde hoy+_agendaStripOff días */
+function _renderAgendaStrip(){
+  const wrap = document.getElementById('agenda-strip');
+  if(!wrap) return;
+  const emp  = _tarColab;
+  const hoyS = hoy();
+  // Día base = hoy + offset
+  const base = new Date(hoyS+'T12:00:00');
+  base.setDate(base.getDate() + _agendaStripOff);
+
+  let html = '<div class="agenda-strip-row">';
+  // flecha izquierda
+  html += `<button class="agenda-nav-btn" onclick="agendaNavStrip(-7)" title="Semana anterior">‹</button>`;
+
+  for(let i=0;i<7;i++){
+    const d = new Date(base); d.setDate(d.getDate()+i);
+    const ds = d.toISOString().split('T')[0];
+    const isHoy = ds===hoyS;
+    const isSel = ds===_tarDiaSel;
+    const isPast = ds<hoyS;
+    const dow = d.toLocaleDateString('es-CO',{weekday:'short'}).replace('.','').toUpperCase();
+    const dom = d.getDate();
+
+    // Determinar dot
+    const ef = calcEficacia(emp, ds);
+    const tpLen = (S.tp[ds]?.[emp]||[]).length;
+    let dotCls = '';
+    if(ef.total>0){
+      const pct = ef.total?Math.round(ef.comp/ef.total*100):0;
+      dotCls = pct>=75?'green': pct>=30?'yellow':'red';
+    } else if(tpLen>0){
+      dotCls = 'blue';
+    }
+
+    let btnCls = 'agenda-day-btn';
+    if(isHoy) btnCls += ' agenda-today';
+    if(isSel) btnCls += ' agenda-sel';
+    if(isPast&&!isHoy) btnCls += ' agenda-past';
+
+    html += `<button class="${btnCls}" onclick="agendaSelDay('${ds}')">
+      <span class="agenda-day-name">${dow}</span>
+      <span class="agenda-day-num">${dom}</span>
+      ${dotCls?`<span class="agenda-dot agenda-dot-${dotCls}"></span>`:'<span class="agenda-dot agenda-dot-none"></span>'}
+    </button>`;
+  }
+
+  // flecha derecha
+  html += `<button class="agenda-nav-btn" onclick="agendaNavStrip(7)" title="Semana siguiente">›</button>`;
+  html += '</div>';
+
+  // Etiqueta del período
+  const inicio = base;
+  const fin = new Date(base); fin.setDate(fin.getDate()+6);
+  const mesI = inicio.toLocaleDateString('es-CO',{month:'short'});
+  const mesF = fin.toLocaleDateString('es-CO',{month:'short'});
+  const periodo = mesI===mesF
+    ? `${inicio.getDate()}–${fin.getDate()} ${mesI}`
+    : `${inicio.getDate()} ${mesI} – ${fin.getDate()} ${mesF}`;
+  html += `<div class="agenda-periodo">${periodo}</div>`;
+
+  wrap.innerHTML = html;
+}
+
+/* Lista de tareas para el día seleccionado */
+function _renderAgendaTasks(){
+  const wrap = document.getElementById('agenda-tasks');
+  if(!wrap) return;
+  const emp  = _tarColab;
+  const fecha = _tarDiaSel || hoy();
+  const hoyS  = hoy();
+  const isPast = fecha < hoyS;
+  const asignadas = S.tp[fecha]?.[emp] || [];
+  const base = S.tareas || [];
+  const ef = calcEficacia(emp, fecha);
+
+  // ── Cabecera del día ──
+  const dObj = new Date(fecha+'T12:00:00');
+  const dLbl = dObj.toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long'});
+  const dCap = dLbl.charAt(0).toUpperCase()+dLbl.slice(1);
+
+  let pctBar = '';
+  if(ef.total>0){
+    const pct = ef.total?Math.round(ef.comp/ef.total*100):0;
+    const col = pct>=75?'var(--green)':pct>=40?'var(--yellow)':'var(--red)';
+    pctBar = `<div style="margin-top:.35rem;height:5px;background:var(--g100);border-radius:3px;overflow:hidden">
+      <div style="height:100%;width:${pct}%;background:${col};border-radius:3px;transition:width .4s"></div>
+    </div>
+    <div style="font-size:.72rem;color:var(--g500);margin-top:.2rem">${ef.comp}/${ef.total} completadas · ${pct}%</div>`;
+  }
+
+  let html = `<div class="agenda-day-hd">
+    <div class="agenda-day-hd-date">${dCap}</div>
+    ${pctBar}
+  </div>`;
+
+  // ── Tareas asignadas ──
+  const est = getEstados(fecha, emp);
+  if(asignadas.length){
+    asignadas.forEach(t=>{
+      const done = est['p_'+t.id]==='green';
+      const urgBadge = t.urgente?'<span class="agenda-badge-urg">!</span>':'';
+      const horaBadge = t.hora?`<span class="agenda-badge-hora">${t.hora}</span>`:'';
+      html += `<div class="agenda-task${done?' agenda-task-done':''}">
+        <label class="agenda-task-check" onclick="tarToggleHecho('${fecha}','${emp}',${t.id})">
+          <span class="agenda-chk${done?' chk-on':''}"></span>
+        </label>
+        <div class="agenda-task-body">
+          <span class="agenda-task-desc">${urgBadge}${horaBadge}${t.desc}</span>
+        </div>
+        <button class="agenda-task-del" onclick="agendaDelTask('${fecha}',${t.id})" title="Eliminar">×</button>
+      </div>`;
+    });
+  } else {
+    html += `<div class="agenda-empty-state">
+      <div class="agenda-empty-ico">📋</div>
+      <div>Sin tareas asignadas${isPast?' (día pasado)':''}</div>
+      <div style="font-size:.75rem;color:var(--g400);margin-top:.25rem">Escribe una tarea arriba o usa ⚡</div>
+    </div>`;
+  }
+
+  // ── Tareas base (colapsables) ──
+  if(base.length){
+    const baseHechas = base.filter(t=> est[t.id]==='green');
+    html += `<div class="agenda-base-toggle" onclick="agendaToggleBase()">
+      <span>Tareas base <span class="agenda-base-cnt">${baseHechas.length}/${base.length}</span></span>
+      <span class="agenda-base-arrow" id="agenda-base-arrow">▾</span>
+    </div>
+    <div id="agenda-base-items" class="hidden">`;
+    base.forEach(t=>{
+      const done = est[t.id]==='green';
+      html += `<div class="agenda-base-item${done?' done':''}">
+        <label class="agenda-task-check" onclick="toggleRep('${fecha}','${emp}',${t.id})">
+          <span class="agenda-chk${done?' chk-on':''}"></span>
+        </label>
+        <span style="flex:1;font-size:.85rem">${t.desc}</span>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  wrap.innerHTML = html;
+}
+
+function agendaSelDay(fecha){
+  _tarDiaSel = fecha;
+  const actionsEl = document.getElementById('agenda-actions');
+  const actBtn = document.getElementById('agenda-act-btn');
+  if(actionsEl) actionsEl.classList.add('hidden');
+  if(actBtn) actBtn.classList.remove('on');
+  _renderAgendaStrip();
+  _renderAgendaTasks();
+}
+
+function agendaNavStrip(dir){
+  _agendaStripOff += dir;
+  // Ajustar día seleccionado si queda fuera de la ventana visible
+  const base = new Date(hoy()+'T12:00:00');
+  base.setDate(base.getDate() + _agendaStripOff);
+  const fin = new Date(base); fin.setDate(fin.getDate()+6);
+  const baseS = base.toISOString().split('T')[0];
+  const finS  = fin.toISOString().split('T')[0];
+  if(!_tarDiaSel || _tarDiaSel < baseS || _tarDiaSel > finS){
+    _tarDiaSel = baseS;
+  }
+  _renderAgendaStrip();
+  _renderAgendaTasks();
+}
+
+function agendaSubmitTask(){
+  const inp = document.getElementById('agenda-inp');
+  if(!inp) return;
+  const raw = inp.value.trim();
+  if(!raw) { inp.focus(); return; }
+  const urgente = raw.startsWith('!');
+  const desc = urgente ? raw.slice(1).trim() : raw;
+  if(!desc) { inp.focus(); return; }
+  const fecha = _tarDiaSel || hoy();
+  const emp   = _tarColab;
+  if(!S.tp[fecha]) S.tp[fecha]={};
+  if(!S.tp[fecha][emp]) S.tp[fecha][emp]=[];
+  S.tp[fecha][emp].push({id:S.nid++, desc, urgente});
+  sv();
+  inp.value='';
+  inp.focus();
+  _renderAgendaStrip();
+  _renderAgendaTasks();
+  if(!document.getElementById('ct-hoy')?.classList.contains('hidden')) renderCardsHoy();
+}
+
+function agendaToggleActions(){
+  const el = document.getElementById('agenda-actions');
+  const btn = document.getElementById('agenda-act-btn');
+  if(!el) return;
+  const isHidden = el.classList.contains('hidden');
+  el.classList.toggle('hidden', !isHidden);
+  btn?.classList.toggle('on', isHidden);
+}
+
+function agendaSmartAction(type){
+  const fecha = _tarDiaSel || hoy();
+  // cerrar acciones
+  document.getElementById('agenda-actions')?.classList.add('hidden');
+  document.getElementById('agenda-act-btn')?.classList.remove('on');
+
+  if(type==='auto'){
+    tarAutoAsignar(fecha);
+  } else if(type==='ayer'){
+    tarDuplicarDiaAnterior(fecha);
+  } else if(type==='tmpl'){
+    tarAplicarPlantilla(fecha);
+  } else if(type==='semana'){
+    planificarSemana();
+  }
+  _renderAgendaStrip();
+  _renderAgendaTasks();
+}
+
+function agendaDelTask(fecha, id){
+  if(!S.tp[fecha]?.[_tarColab]) return;
+  S.tp[fecha][_tarColab] = S.tp[fecha][_tarColab].filter(t=>t.id!==id);
+  if(!S.tp[fecha][_tarColab].length) delete S.tp[fecha][_tarColab];
+  sv();
+  _renderAgendaStrip();
+  _renderAgendaTasks();
+}
+
+function agendaToggleBase(){
+  const items = document.getElementById('agenda-base-items');
+  const arrow = document.getElementById('agenda-base-arrow');
+  if(!items) return;
+  const isHidden = items.classList.contains('hidden');
+  items.classList.toggle('hidden', !isHidden);
+  if(arrow) arrow.style.transform = isHidden ? 'rotate(180deg)' : '';
+}
+
+/* Toggle tarea personalizada (S.tp) via estados['p_'+id] */
+function tarToggleHecho(fecha, emp, id){
+  const rep = ensureReporte(fecha, emp);
+  const key = 'p_'+id;
+  const actual = rep.estados?.[key] || '';
+  const siguiente = actual==='green' ? '' : 'green';
+  if(siguiente==='') delete rep.estados[key]; else rep.estados[key]=siguiente;
+  sv(); mostrarAutosave();
+  _renderAgendaStrip();
+  _renderAgendaTasks();
+}
+
+/* Toggle tarea base (S.tareas) via estados[id] — usado desde agenda CEO view */
+function toggleRep(fecha, emp, id){
+  const rep = ensureReporte(fecha, emp);
+  const actual = rep.estados?.[id] || '';
+  const siguiente = actual==='green' ? '' : 'green';
+  if(siguiente==='') delete rep.estados[id]; else rep.estados[id]=siguiente;
+  sv(); mostrarAutosave();
+  _renderAgendaStrip();
+  _renderAgendaTasks();
 }
 
 function tarSelColab(emp){
   _tarColab=emp;
-  _tarDiaSel=null;
+  _tarDiaSel=hoy();
+  _agendaStripOff=0;
   document.querySelectorAll('.tar-pill').forEach(b=>b.classList.remove('on'));
   document.getElementById('tarcol-'+emp)?.classList.add('on');
-  _renderTarCal();
-  document.getElementById('tar-dia-panel').innerHTML='';
+  _renderAgendaStrip();
+  _renderAgendaTasks();
 }
 
 function tarNavMes(dir){
@@ -3114,8 +4161,8 @@ function _aplicarPlanSemana(){
 
   sv();
   cerrarModal();
-  _renderTarCal();
-  if(_tarDiaSel) _renderTarDiaPanel(_tarDiaSel);
+  _renderAgendaStrip();
+  _renderAgendaTasks();
   toast(`📅 Semana planificada — ${diasPlanificados} día${diasPlanificados!==1?'s':''}`, 3000);
 }
 
@@ -3144,8 +4191,8 @@ function _tmplAplicar(fecha, idx){
   S.tp[fecha][emp].push(...nuevas);
   sv();
   toast(`📐 "${p.nombre}" — ${nuevas.length} tarea${nuevas.length>1?'s':''} aplicada${nuevas.length>1?'s':''}`);
-  _renderTarDiaPanel(fecha);
-  _renderTarCal();
+  _renderAgendaStrip();
+  _renderAgendaTasks();
 }
 
 function tarToggleInst(id){
@@ -3357,12 +4404,16 @@ function calcMesUI(emp,numsId,progId,histId,esCeo){
 // ── 7e. Análisis EDA ──
 let chartTendM=null,chartTendFDS=null,chartCats=null;
 let _edaHash=null;
+let _edaPeriodo='semana'; // 'semana' | 'mes' | '30d'
+let _edaEmpSel='todos';   // 'todos' | emp name
 function _getEdaHash(){
+  const _periodKey=_edaPeriodo||'semana';
+  // (period is injected below)
   let repHash=0;
   Object.keys(S.rep).forEach(d=>{Object.keys(S.rep[d]||{}).forEach(emp=>{const r=(S.rep[d]||{})[emp];if(r&&r.estados)repHash+=Object.values(r.estados).filter(v=>v).length;});});
   const _tarDone=(S.tarCEO||[]).filter(t=>t.hecho).length;
   const _retDone=(S.retos||[]).filter(r=>r.hecho).length;
-  return hoy()+'_'+repHash+'_'+Object.keys(S.turnos).length+'_'+mes()+'_'+(S.solicitudes?.length||0)+'_'+(S.tarCEO?.length||0)+'_'+_tarDone+'_'+(S.retos?.length||0)+'_'+_retDone;
+  return hoy()+'_'+repHash+'_'+Object.keys(S.turnos).length+'_'+mes()+'_'+(S.solicitudes?.length||0)+'_'+(S.tarCEO?.length||0)+'_'+_tarDone+'_'+(S.retos?.length||0)+'_'+_retDone+'_'+(_edaPeriodo||'semana');
 }
 
 function _lineOpts(showLegend){
@@ -3397,47 +4448,171 @@ function _calcRacha(emp){
 }
 
 function _renderKPIs(){
-  let compTotal=0,totalTotal=0;
-  last7().forEach(d=>{TODOS_EMP.forEach(emp=>{if(!esLaborable(emp,d))return;const ef=calcEficacia(emp,d);compTotal+=ef.comp;totalTotal+=ef.total;});});
-  const efGlobal=totalTotal?Math.round(compTotal/totalTotal*100):0;
-
-  const ranks=TODOS_EMP.map(emp=>{
-    let c=0,t=0;
-    const dias=emp==='Marlon'?last7().filter(d=>esLaborable(emp,d)):diasDelMes(mes()).filter(d=>S.turnos[d]?.[emp]===true);
-    dias.forEach(d=>{const ef=calcEficacia(emp,d);c+=ef.comp;t+=ef.total;});
-    return{emp,pct:t?Math.round(c/t*100):0};
-  }).sort((a,b)=>b.pct-a.pct);
-  const lider=ranks[0];
-
-  let complHoy=0;
-  TODOS_EMP.forEach(emp=>{if(!esLaborable(emp,hoy()))return;complHoy+=calcEficacia(emp,hoy()).comp;});
-
-  const dias100=last7().filter(d=>{const ef=calcEficacia('Marlon',d);return esLaborable('Marlon',d)&&ef.total>0&&ef.pct===100;}).length;
-
-  const efCol=efGlobal>=75?'var(--green)':efGlobal>=50?'var(--yellow)':'var(--red)';
   const row=document.getElementById('eda-kpi-row');
   if(!row)return;
+
+  // ── Eficiencia global actual ──
+  let cA=0,tA=0,cP=0,tP=0;
+  TODOS_EMP.forEach(emp=>{
+    _getEdaDias(emp).forEach(d=>{const ef=calcEficacia(emp,d);cA+=ef.comp;tA+=ef.total;});
+    _getEdaDiasPrev(emp).forEach(d=>{const ef=calcEficacia(emp,d);cP+=ef.comp;tP+=ef.total;});
+  });
+  const efGlobal=tA?Math.round(cA/tA*100):0;
+  const efPrev=tP?Math.round(cP/tP*100):0;
+
+  // ── Líder del período ──
+  const ranks=TODOS_EMP.map(emp=>{
+    const v=_avgEficacia(emp,_getEdaDias(emp));
+    return{emp,pct:v??0};
+  }).sort((a,b)=>b.pct-a.pct);
+  const lider=ranks[0];
+  const liderPrev=TODOS_EMP.map(emp=>{
+    const v=_avgEficacia(emp,_getEdaDiasPrev(emp));
+    return{emp,pct:v??0};
+  }).sort((a,b)=>b.pct-a.pct)[0];
+
+  // ── Completadas hoy ──
+  let complHoy=0;
+  TODOS_EMP.forEach(emp=>{if(!esLaborable(emp,hoy()))return;complHoy+=calcEficacia(emp,hoy()).comp;});
+  let complAyer=0;
+  const ayerStr=(()=>{const d=new Date(hoy()+'T12:00:00');d.setDate(d.getDate()-1);return d.toISOString().split('T')[0];})();
+  TODOS_EMP.forEach(emp=>{if(!esLaborable(emp,ayerStr))return;complAyer+=calcEficacia(emp,ayerStr).comp;});
+
+  // ── Días al 100% ──
+  const dias100=_getEdaDias('Marlon').filter(d=>{const ef=calcEficacia('Marlon',d);return ef.total>0&&ef.pct===100;}).length;
+  const dias100Prev=_getEdaDiasPrev('Marlon').filter(d=>{const ef=calcEficacia('Marlon',d);return ef.total>0&&ef.pct===100;}).length;
+
+  // ── Helper de flecha + delta ──
+  function _trend(curr,prev,isCount){
+    if(prev===null||prev===undefined||prev===0&&curr===0) return '';
+    const delta=curr-prev;
+    if(Math.abs(delta)<(isCount?1:2)) return '<span class="eda-trend eda-trend-flat">→ igual</span>';
+    const up=delta>0;
+    const sign=up?'+':'';
+    const cls=up?'eda-trend-up':'eda-trend-dn';
+    const arrow=up?'↑':'↓';
+    return `<span class="eda-trend ${cls}">${arrow} ${sign}${delta}${isCount?'':' pp'}</span>`;
+  }
+
+  const efCol=efGlobal>=75?'#15803d':efGlobal>=50?'#b45309':'#b91c1c';
+  const efBg =efGlobal>=75?'#dcfce7':efGlobal>=50?'#fef9c3':'#fee2e2';
+  const periodoLbl={semana:'Esta semana',mes:'Este mes','30d':'Últimos 30d'}[_edaPeriodo]||'';
+
+  const icoEf=`<svg viewBox="0 0 24 24" fill="none" stroke="${efCol}" stroke-width="2.2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+  const icoLider=`<svg viewBox="0 0 24 24" fill="none" stroke="#b8943a" stroke-width="2.2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  const icoHoy=`<svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
+  const ico100=`<svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round"><path d="M3 3v18h18"/><polyline points="18.5 8 13 13.5 8.5 9 3 15"/></svg>`;
+
   row.innerHTML=`
-    <div class="eda-kpi">
-      <div class="eda-kpi-val" style="color:${efCol}">${efGlobal}%</div>
-      <div class="eda-kpi-lbl">Eficiencia equipo</div>
-      <div class="eda-kpi-sub">Esta semana · todos</div>
+    <div class="eda-kpi" style="--kpi-accent:${efCol};--kpi-ico-bg:${efBg}">
+      <div class="eda-kpi-ico">${icoEf}</div>
+      <div class="eda-kpi-row-inner">
+        <div class="eda-kpi-val" style="color:${efCol}">${efGlobal}%</div>
+        ${_trend(efGlobal,efPrev,false)}
+      </div>
+      <div class="eda-kpi-lbl">Eficiencia del equipo</div>
+      <div class="eda-kpi-sub">${periodoLbl}</div>
     </div>
-    <div class="eda-kpi">
-      <div class="eda-kpi-val" style="font-size:1.1rem;padding-top:.3rem">${lider.emp}</div>
-      <div class="eda-kpi-lbl">Líder de la semana</div>
-      <div class="eda-kpi-sub">${lider.pct}% de eficacia</div>
+    <div class="eda-kpi" style="--kpi-accent:#b8943a;--kpi-ico-bg:#fffbeb">
+      <div class="eda-kpi-ico">${icoLider}</div>
+      <div class="eda-kpi-row-inner">
+        <div class="eda-kpi-name eda-kpi-val" style="color:#92701a">${lider.emp}</div>
+        ${liderPrev&&liderPrev.emp===lider.emp?'<span class="eda-trend eda-trend-up">↑ líder</span>':''}
+      </div>
+      <div class="eda-kpi-lbl">Líder del período</div>
+      <div class="eda-kpi-sub">${lider.pct}% eficacia</div>
     </div>
-    <div class="eda-kpi">
-      <div class="eda-kpi-val">${complHoy}</div>
+    <div class="eda-kpi" style="--kpi-accent:#2563eb;--kpi-ico-bg:#eff6ff">
+      <div class="eda-kpi-ico">${icoHoy}</div>
+      <div class="eda-kpi-row-inner">
+        <div class="eda-kpi-val">${complHoy}</div>
+        ${_trend(complHoy,complAyer,true)}
+      </div>
       <div class="eda-kpi-lbl">Completadas hoy</div>
-      <div class="eda-kpi-sub">Todo el equipo</div>
+      <div class="eda-kpi-sub">vs ayer · todo el equipo</div>
     </div>
-    <div class="eda-kpi">
-      <div class="eda-kpi-val">${dias100}</div>
+    <div class="eda-kpi" style="--kpi-accent:#7c3aed;--kpi-ico-bg:#f5f3ff">
+      <div class="eda-kpi-ico">${ico100}</div>
+      <div class="eda-kpi-row-inner">
+        <div class="eda-kpi-val">${dias100}</div>
+        ${_trend(dias100,dias100Prev,true)}
+      </div>
       <div class="eda-kpi-lbl">Días al 100%</div>
-      <div class="eda-kpi-sub">Marlon esta semana</div>
+      <div class="eda-kpi-sub">Marlon · ${periodoLbl.toLowerCase()}</div>
     </div>`;
+}
+
+/* ────────────────────────────────────────────────────
+   EDA — Helpers de período y cambio de vista
+──────────────────────────────────────────────────── */
+function edaCambiarPeriodo(p){
+  _edaPeriodo=p;
+  document.querySelectorAll('.eda-periodo-btn').forEach(b=>b.classList.toggle('on',b.dataset.p===p));
+  _edaHash=''; // forzar re-render completo
+  renderAnalisis();
+}
+
+function edaFiltrarEmp(emp){
+  _edaEmpSel=emp;
+  document.querySelectorAll('.eda-emp-pill').forEach(b=>b.classList.toggle('on',b.dataset.e===emp));
+  _renderTendenciaEquipo();
+}
+
+/* Días trabajados por empleado en el período actual */
+function _getEdaDias(emp){
+  const hoyS=hoy();
+  const isFDS=(emp!=='Marlon');
+  const esTrabajado=d=>isFDS?S.turnos[d]?.[emp]===true:esLaborable(emp,d);
+  if(_edaPeriodo==='semana') return last7().filter(d=>esTrabajado(d));
+  if(_edaPeriodo==='mes') return diasDelMes(mes()).filter(d=>esTrabajado(d));
+  // '30d'
+  const dias=[];
+  for(let i=29;i>=0;i--){
+    const d=new Date(hoyS+'T12:00:00');d.setDate(d.getDate()-i);
+    dias.push(d.toISOString().split('T')[0]);
+  }
+  return dias.filter(d=>esTrabajado(d));
+}
+
+/* Período previo (para cálculo de tendencia) */
+function _getEdaDiasPrev(emp){
+  const hoyS=hoy();
+  const isFDS=(emp!=='Marlon');
+  const esTrabajado=d=>isFDS?S.turnos[d]?.[emp]===true:esLaborable(emp,d);
+  if(_edaPeriodo==='semana'){
+    const dias=[];
+    for(let i=7;i<14;i++){
+      const d=new Date(hoyS+'T12:00:00');d.setDate(d.getDate()-i);
+      dias.push(d.toISOString().split('T')[0]);
+    }
+    return dias.filter(d=>esTrabajado(d));
+  }
+  if(_edaPeriodo==='mes'){
+    const [y,m]=mes().split('-').map(Number);
+    const prevMes=m===1?`${y-1}-12`:`${y}-${String(m-1).padStart(2,'0')}`;
+    return diasDelMes(prevMes).filter(d=>esTrabajado(d));
+  }
+  // '30d' → prev 30d
+  const dias=[];
+  for(let i=30;i<60;i++){
+    const d=new Date(hoyS+'T12:00:00');d.setDate(d.getDate()-i);
+    dias.push(d.toISOString().split('T')[0]);
+  }
+  return dias.filter(d=>esTrabajado(d));
+}
+
+/* Eficacia promedio de un empleado en un conjunto de días */
+function _avgEficacia(emp, dias){
+  let c=0,t=0;
+  dias.forEach(d=>{const ef=calcEficacia(emp,d);c+=ef.comp;t+=ef.total;});
+  return t?Math.round(c/t*100):null;
+}
+
+/* Label del período actual */
+function _edaPeriodoLabel(){
+  if(_edaPeriodo==='semana') return `${fd(last7()[0])} — ${fd(last7()[6])}`;
+  if(_edaPeriodo==='mes') return fm(mes());
+  return 'Últimos 30 días';
 }
 
 function renderAnalisis(){
@@ -3446,29 +4621,93 @@ function renderAnalisis(){
   _edaHash=hash;
   _renderKPIsRetos();
   _renderKPIsOperativos();
-  document.getElementById('eda-sub').textContent=`Semana del ${fd(last7()[0])} al ${fd(last7()[6])} · Mes: ${fm(mes())}`;
+  const subEl=document.getElementById('eda-sub');
+  if(subEl) subEl.textContent=_edaPeriodoLabel()+' · '+fm(mes());
   _renderKPIs();
-  _renderTendenciaMarlon();
+  _renderScorecards();
+  _renderTendenciaEquipo();
   _renderTendenciaFDS();
   _renderCategorias();
   _renderConsistencia();
   _renderResumen();
 }
 
-function _renderTendenciaMarlon(){
-  const dias=last7().filter(d=>esLaborable('Marlon',d));
-  const labels=dias.map(d=>diaSemana(d).slice(0,3));
-  const vals=dias.map(d=>{const{pct,total}=calcEficacia('Marlon',d);return total?pct:0;});
-  const avg=vals.length?Math.round(vals.reduce((a,b)=>a+b,0)/vals.length):0;
-  const avgEl=document.getElementById('eda-avg-m');
-  if(avgEl)avgEl.textContent=avg+'%';
-  if(chartTendM){chartTendM.destroy();chartTendM=null;}
+function _renderTendenciaMarlon(){ _renderTendenciaEquipo(); }
+
+function _renderTendenciaEquipo(){
   const ctx=document.getElementById('chart-tendencia-m');
+  if(chartTendM){chartTendM.destroy();chartTendM=null;}
   if(!ctx)return;
-  chartTendM=new Chart(ctx,{type:'line',data:{labels,datasets:[
-    {label:'Eficacia',data:vals,borderColor:'#b8943a',backgroundColor:'rgba(184,148,58,.1)',borderWidth:2.5,pointBackgroundColor:'#b8943a',pointRadius:4,tension:.35,fill:true,order:1},
-    _refLine75(vals.length)
-  ]},options:_lineOpts(false)});
+
+  const EMP_COLORS={Marlon:'#b8943a',Ingrid:'#2a7a4a',Isabella:'#2060a0'};
+  const emps=_edaEmpSel==='todos'?TODOS_EMP:[_edaEmpSel];
+
+  // Construir eje X unificado con todos los días de todos los empleados
+  const allDays=new Set();
+  emps.forEach(emp=>_getEdaDias(emp).forEach(d=>allDays.add(d)));
+  const labels=[...allDays].sort();
+  const labelsFmt=labels.map(d=>diaSemana(d).slice(0,3)+' '+parseInt(d.slice(8)));
+
+  const datasets=emps.map(emp=>{
+    const color=EMP_COLORS[emp]||'#888';
+    const data=labels.map(d=>{
+      const diasEmp=_getEdaDias(emp);
+      if(!diasEmp.includes(d)) return null;
+      const{pct,total}=calcEficacia(emp,d);
+      return total?pct:0;
+    });
+    return{
+      label:emp,data,
+      borderColor:color,
+      backgroundColor:color+'18',
+      borderWidth:2.2,
+      pointBackgroundColor:color,
+      pointRadius:data.map(v=>v!==null?4:0),
+      pointHoverRadius:6,
+      tension:.3,
+      fill:emps.length===1,
+      spanGaps:false,
+      order:1
+    };
+  });
+
+  // Pills de empleado
+  const pillsEl=document.getElementById('eda-emp-pills');
+  if(pillsEl){
+    const empOpts=['todos',...TODOS_EMP];
+    pillsEl.innerHTML=empOpts.map(e=>{
+      const lbl=e==='todos'?'Todos':ini(e);
+      return `<button class="eda-emp-pill${_edaEmpSel===e?' on':''}" data-e="${e}" onclick="edaFiltrarEmp('${e}')" title="${e}">${lbl}</button>`;
+    }).join('');
+  }
+
+  // Avg del primer empleado
+  const subEl=document.getElementById('eda-comp-sub');
+  if(subEl){
+    const avgStrs=emps.map(emp=>{
+      const v=_avgEficacia(emp,_getEdaDias(emp));
+      return v!==null?`${emp} ${v}%`:'';
+    }).filter(Boolean);
+    subEl.textContent=avgStrs.join(' · ')||'Sin datos suficientes';
+  }
+
+  datasets.push(_refLine75(labels.length));
+  chartTendM=new Chart(ctx,{
+    type:'line',
+    data:{labels:labelsFmt,datasets},
+    options:{
+      ..._lineOpts(false),
+      plugins:{
+        ..._lineOpts(false).plugins,
+        legend:{
+          display:emps.length>1,
+          position:'top',
+          labels:{color:'#5c5549',font:{size:11,family:"'DM Sans',sans-serif"},
+            boxWidth:12,padding:12}
+        }
+      }
+    }
+  });
 }
 
 function _renderTendenciaFDS(){
@@ -3555,6 +4794,193 @@ function _renderTendenciaFDS(){
   container.innerHTML=h;
 }
 
+/* ════════════════════════════════════════════════
+   SCORECARDS por empleado
+════════════════════════════════════════════════ */
+function _renderScorecards(){
+  const wrap=document.getElementById('eda-scorecards');
+  if(!wrap) return;
+  const EMP_COLORS={Marlon:'#b8943a',Ingrid:'#2a7a4a',Isabella:'#2060a0'};
+
+  // Calcular rankings primero
+  const rankings=TODOS_EMP.map(emp=>{
+    const dias=_getEdaDias(emp);
+    return{emp,pct:_avgEficacia(emp,dias)??0};
+  }).sort((a,b)=>b.pct-a.pct);
+  const rankMap={};
+  rankings.forEach((r,i)=>rankMap[r.emp]=i+1);
+
+  let h='<div class="eda-scorecards-row">';
+  TODOS_EMP.forEach(emp=>{
+    const color=EMP_COLORS[emp]||'#888';
+    const dias=_getEdaDias(emp);
+    const diasPrev=_getEdaDiasPrev(emp);
+    const pct=_avgEficacia(emp,dias);
+    const pctPrev=_avgEficacia(emp,diasPrev);
+    const delta=pct!==null&&pctPrev!==null?pct-pctPrev:null;
+    const racha=_calcRacha(emp);
+    const efHoy=calcEficacia(emp,hoy());
+    const hayHoy=esLaborable(emp,hoy())||(S.turnos[hoy()]?.[emp]===true);
+    const pctHoy=hayHoy&&efHoy.total>0?efHoy.pct:null;
+    const rank=rankMap[emp]||3;
+
+    // Estado del día con SVG dots
+    let estadoHoy='';
+    if(!hayHoy)          estadoHoy=`<span class="sc-estado libre">Libre hoy</span>`;
+    else if(pctHoy===null) estadoHoy=`<span class="sc-estado sin-datos">Sin registro</span>`;
+    else if(pctHoy>=75)  estadoHoy=`<span class="sc-estado bien"><span style="width:6px;height:6px;border-radius:50%;background:#15803d;display:inline-block"></span> En meta</span>`;
+    else if(pctHoy>=40)  estadoHoy=`<span class="sc-estado medio"><span style="width:6px;height:6px;border-radius:50%;background:#d97706;display:inline-block"></span> En progreso</span>`;
+    else                 estadoHoy=`<span class="sc-estado bajo"><span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block"></span> Necesita foco</span>`;
+
+    // Trend badge
+    let trendBadge='';
+    if(delta!==null){
+      if(delta>=5)       trendBadge=`<span class="sc-trend up">↑ +${delta}pp</span>`;
+      else if(delta<=-5) trendBadge=`<span class="sc-trend dn">↓ ${delta}pp</span>`;
+      else               trendBadge=`<span class="sc-trend flat">→ estable</span>`;
+    }
+
+    // Rank badge
+    const rankLabel=rank===1?'🥇 #1':rank===2?'🥈 #2':'🥉 #3';
+    const rankCls=rank===1?'gold':'';
+
+    let totalComp=0;
+    dias.forEach(d=>{ totalComp+=calcEficacia(emp,d).comp; });
+    const pctDisp=pct!==null?pct+'%':'—';
+    const pctColor=pct===null?'#94a3b8':pct>=75?'#15803d':pct>=40?'#b45309':'#b91c1c';
+
+    h+=`<div class="eda-sc-card" style="--sc-color:${color}">
+      <div class="eda-sc-rank ${rankCls}">${rankLabel}</div>
+      <div class="eda-sc-top">
+        <div class="eda-sc-av" style="background:${color}18;color:${color};border-color:${color}44">${ini(emp)}</div>
+        <div class="eda-sc-info">
+          <div class="eda-sc-name">${emp}</div>
+          ${estadoHoy}
+        </div>
+      </div>
+      <div class="eda-sc-pct-row">
+        <div class="eda-sc-pct" style="color:${pctColor}">${pctDisp}</div>
+        <div class="eda-sc-pct-lbl">eficacia</div>
+        ${trendBadge}
+      </div>
+      <div class="eda-sc-bar-wrap">
+        <div class="eda-sc-bar" style="width:${pct||0}%;background:linear-gradient(90deg,${color}99,${color})"></div>
+      </div>
+      <div class="eda-sc-footer" style="margin-top:.5rem">
+        ${racha>=2?`<span class="eda-sc-stat">🔥 ${racha}d</span>`:''}
+        <span class="eda-sc-stat">✓ ${totalComp}</span>
+        <span class="eda-sc-stat">${dias.length}d</span>
+      </div>
+    </div>`;
+  });
+  h+='</div>';
+  wrap.innerHTML=h;
+}
+
+/* ════════════════════════════════════════════════
+   RESUMEN EJECUTIVO — Tarjetas de insight
+════════════════════════════════════════════════ */
+function _renderResumen(){
+  const diasM=_getEdaDias('Marlon');
+  const mid=Math.floor(diasM.length/2);
+  function avgM(arr){let c=0,t=0;arr.forEach(d=>{const ef=calcEficacia('Marlon',d);c+=ef.comp;t+=ef.total;});return t?Math.round(c/t*100):0;}
+  const tend=avgM(diasM.slice(mid))-avgM(diasM.slice(0,mid));
+
+  const catVals=Object.keys(CATS).map(cat=>{
+    let comp=0,total=0;
+    _getEdaDias('Marlon').concat(_getEdaDias('Ingrid')).concat(_getEdaDias('Isabella')).forEach(d=>{
+      TODOS_EMP.forEach(emp=>{
+        if(!_getEdaDias(emp).includes(d)) return;
+        const est=getEstados(d,emp);
+        S.tareas.filter(t=>t.cat===cat).forEach(t=>{total++;if(est[t.id]==='green')comp++;});
+      });
+    });
+    return{cat,pct:total?Math.round(comp/total*100):0,label:CATS[cat],total};
+  }).filter(c=>c.total>0).sort((a,b)=>a.pct-b.pct);
+
+  const eficacias=TODOS_EMP.map(emp=>{
+    const dias=_getEdaDias(emp);
+    const pct=_avgEficacia(emp,dias);
+    return{emp,pct:pct??0,dias:dias.length,total:dias.reduce((a,d)=>{return a+calcEficacia(emp,d).total;},0)};
+  });
+  const totalDatos=eficacias.reduce((a,e)=>a+e.total,0);
+
+  const INSIGHT_TIPOS={
+    alerta:  {ico:'🚨',lbl:'Alerta',   bg:'#fef2f2',border:'#fca5a5',txtColor:'#991b1b'},
+    logro:   {ico:'🏆',lbl:'Logro',    bg:'#f0fdf4',border:'#86efac',txtColor:'#166534'},
+    oport:   {ico:'📈',lbl:'Oportunidad',bg:'#fef3c7',border:'#fcd34d',txtColor:'#92400e'},
+    obs:     {ico:'💡',lbl:'Insight',  bg:'#eff6ff',border:'#93c5fd',txtColor:'#1d4ed8'},
+  };
+
+  const insights=[];
+
+  if(totalDatos===0){
+    insights.push({tipo:'obs',text:'Sin datos suficientes todavía. Pide a los colaboradores que registren sus avances del día.'});
+  } else {
+    if(tend>8)       insights.push({tipo:'logro',text:`Marlon mejora ${tend} puntos respecto al inicio del período — tendencia positiva.`});
+    else if(tend<-8) insights.push({tipo:'alerta',text:`Marlon baja ${Math.abs(tend)} puntos en la segunda mitad del período — revisar causas.`});
+    else if(diasM.length>=3) insights.push({tipo:'obs',text:`Marlon mantiene ritmo estable durante el período, sin variaciones significativas.`});
+
+    const conDatos=eficacias.filter(e=>e.total>0);
+    if(conDatos.length>1){
+      const bajo=conDatos.sort((a,b)=>a.pct-b.pct)[0];
+      if(bajo.pct<50)      insights.push({tipo:'alerta',text:`${bajo.emp} está por debajo del 50% — puede necesitar apoyo o seguimiento del líder.`});
+      else if(bajo.pct<70) insights.push({tipo:'oport',text:`${bajo.emp} está al ${bajo.pct}% — hay margen de mejora para alcanzar la meta del equipo.`});
+      const top=conDatos.sort((a,b)=>b.pct-a.pct)[0];
+      if(top.pct>=90) insights.push({tipo:'logro',text:`${top.emp} lidera con ${top.pct}% de eficacia — referente del equipo este período.`});
+    }
+
+    if(catVals.length>0&&catVals[0].pct<65)
+      insights.push({tipo:'alerta',text:`"${catVals[0].label}" es el área más débil con ${catVals[0].pct}% — requiere foco en la próxima planificación.`});
+    if(catVals.length>0&&catVals[catVals.length-1].pct>=88)
+      insights.push({tipo:'logro',text:`"${catVals[catVals.length-1].label}" destaca con ${catVals[catVals.length-1].pct}% — buen estándar para replicar.`});
+
+    // Solicitudes sin resolver
+    const solPend=(S.solicitudes||[]).filter(s=>s.estado!=='resuelta').length;
+    if(solPend>=3) insights.push({tipo:'alerta',text:`Hay ${solPend} solicitudes del equipo sin resolver — esto puede afectar el estado de ánimo del equipo.`});
+
+    // Retos
+    const retosHoy=(S.retos||[]).filter(r=>r.fecha===hoy());
+    if(retosHoy.length>0){
+      const retoDone=retosHoy.filter(r=>r.hecho).length;
+      const retoPct=Math.round(retoDone/retosHoy.length*100);
+      if(retoPct>=75) insights.push({tipo:'logro',text:`El equipo completó el ${retoPct}% de los retos de hoy — excelente momentum.`});
+    }
+  }
+
+  const wrap=document.getElementById('eda-resumen-wrap');
+  if(!wrap) return;
+
+  const IC_STYLES={
+    alerta:{accent:'#ef4444',icoBg:'#fee2e2',ico:'🚨',lbl:'Alerta'},
+    logro: {accent:'#16a34a',icoBg:'#dcfce7',ico:'🏆',lbl:'Logro'},
+    oport: {accent:'#d97706',icoBg:'#fef9c3',ico:'📈',lbl:'Oportunidad'},
+    obs:   {accent:'#2563eb',icoBg:'#dbeafe',ico:'💡',lbl:'Insight'},
+  };
+
+  let h=`<div class="eda-resumen-header">
+    <div class="eda-sec-hd" style="border:none;padding:0;margin-bottom:0">
+      <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <span class="eda-sec-hd-txt">Análisis ejecutivo</span>
+    </div>
+    <span class="eda-sec-hd-count">${insights.length} insight${insights.length!==1?'s':''}</span>
+  </div>
+  <div class="eda-insights-grid" style="margin-top:.55rem">`;
+
+  insights.slice(0,6).forEach(ins=>{
+    const st=IC_STYLES[ins.tipo]||IC_STYLES.obs;
+    h+=`<div class="eda-insight-card" style="--ic-accent:${st.accent};--ic-ico-bg:${st.icoBg};--ic-txt-color:${st.accent}">
+      <div class="eda-ic-head">
+        <div class="eda-ic-ico-wrap">${st.ico}</div>
+        <span class="eda-ic-lbl">${st.lbl}</span>
+      </div>
+      <div class="eda-ic-txt">${ins.text}</div>
+    </div>`;
+  });
+  h+='</div>';
+  wrap.innerHTML=h;
+}
+
 function _renderCategorias(){
   const dias=last7();
   const cats=Object.keys(CATS);
@@ -3611,8 +5037,7 @@ function _renderConsistencia(){
   document.getElementById('eda-consistencia').innerHTML=h;
 }
 
-function _renderResumen(){
-  // Calcular tendencia de Marlon (primera mitad de semana vs segunda)
+function _renderResumen_OLD_REPLACED(){
   const diasM=last7().filter(d=>esLaborable('Marlon',d));
   const mid=Math.floor(diasM.length/2);
   function avgM(arr){let c=0,t=0;arr.forEach(d=>{const ef=calcEficacia('Marlon',d);c+=ef.comp;t+=ef.total;});return t?Math.round(c/t*100):0;}
@@ -4111,14 +5536,17 @@ function eliminarTP(emp,fecha,id,containerId){
 const SOL_TIPOS={
   insumo:{ico:'📦',lbl:'Insumo',color:'#c2410c'},
   mejora:{ico:'✨',lbl:'Mejora',color:'#166534'},
-  bloqueo:{ico:'🚫',lbl:'Bloqueo',color:'#dc2626'}
+  bloqueo:{ico:'🚫',lbl:'Bloqueo',color:'#dc2626'},
+  apoyo:{ico:'🤝',lbl:'Apoyo',color:'#7c3aed'}
 };
 let _solTipoSel='insumo';  // tipo activo en modal colaborador
+let _solFiltro='todas';    // filtro activo en vista CEO
 
 /* ── Auto-calcular prioridad básica ── */
 function _solPrioridad(texto, tipo){
   const t=texto.toLowerCase();
   if(tipo==='bloqueo') return 'alta';
+  if(tipo==='apoyo') return 'media';
   if(/urgent|inmediato|ya|ahora|hoy/.test(t)) return 'alta';
   if(/falta|no hay|agotado|roto|dañado/.test(t)) return 'alta';
   if(/podría|mejorar|sería|sugerencia|idea/.test(t)) return 'baja';
@@ -4152,6 +5580,9 @@ function transformarSolicitud(texto, tipo){
     }
     return 'Atender urgente: '+t;
   }
+  if(tipo==='apoyo'){
+    return 'Dar apoyo/feedback a: '+t;
+  }
   return 'Acción pendiente: '+t;
 }
 
@@ -4171,7 +5602,7 @@ function abrirSolicitudModal(){
         <div style="font-size:.72rem;color:var(--g500);margin-bottom:.6rem;font-weight:600">
           Tipo de necesidad
         </div>
-        <div class="sol-tipo-grid">
+        <div class="sol-tipo-grid" style="grid-template-columns:repeat(4,1fr)">
           <button class="sol-tipo-btn on" data-tipo="insumo" onclick="solSelTipo('insumo')">
             📦<br>Insumo
           </button>
@@ -4180,6 +5611,9 @@ function abrirSolicitudModal(){
           </button>
           <button class="sol-tipo-btn" data-tipo="bloqueo" onclick="solSelTipo('bloqueo')">
             🚫<br>Bloqueo
+          </button>
+          <button class="sol-tipo-btn" data-tipo="apoyo" onclick="solSelTipo('apoyo')">
+            🤝<br>Apoyo
           </button>
         </div>
         <div style="font-size:.72rem;color:var(--g500);margin-bottom:.5rem;font-weight:600">
@@ -4248,62 +5682,419 @@ function _actualizarSolBadge(){
   else badge.classList.add('hidden');
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   PULSO DEL EQUIPO — Motor de sugerencias de liderazgo IA
+═══════════════════════════════════════════════════════════════ */
+
+const _LIDER_TIPS={
+  checkin:   {ico:'📊', cat:'Seguimiento', color:'#3b82f6', bg:'#eff6ff'},
+  reconocer: {ico:'🏆', cat:'Reconocimiento', color:'#f59e0b', bg:'#fffbeb'},
+  urgente:   {ico:'⚠️', cat:'Atención urgente', color:'#dc2626', bg:'#fef2f2'},
+  solicitud: {ico:'📋', cat:'Gestión', color:'#7c3aed', bg:'#f5f3ff'},
+  formacion: {ico:'📚', cat:'Formación', color:'#059669', bg:'#f0fdf4'},
+  equipo:    {ico:'🤝', cat:'Comunicación', color:'#0891b2', bg:'#ecfeff'},
+  planif:    {ico:'🗓️', cat:'Planificación', color:'#6b7280', bg:'#f9fafb'},
+};
+
+/* Motor principal: genera sugerencias basadas en datos reales */
+function _generarSugerenciasLiderazgo(){
+  const sugs=[];
+  const hoyS=hoy();
+  const dow=new Date(hoyS+'T12:00:00').getDay(); // 0=dom, 1=lun ... 6=sab
+  const emps=Object.keys(EQ_COLORES)||['Marlon','Ingrid','Isabella'];
+
+  // ── 1. Análisis de rendimiento por colaborador ────────────────────────────
+  emps.forEach(emp=>{
+    const dias7=[];
+    for(let i=1;i<=7;i++){
+      const d=new Date(hoyS+'T12:00:00'); d.setDate(d.getDate()-i);
+      dias7.push(d.toISOString().split('T')[0]);
+    }
+    const pcts=dias7.map(d=>{
+      const ef=calcEficacia(emp,d);
+      return ef.total>0?Math.round(ef.comp/ef.total*100):null;
+    }).filter(p=>p!==null);
+    if(!pcts.length) return;
+    const pctProm=Math.round(pcts.reduce((a,b)=>a+b,0)/pcts.length);
+    const pctHoy=calcEficacia(emp,hoyS);
+
+    // Rendimiento bajo sostenido (últimos 3+ días con <40%)
+    const bajos=pcts.slice(0,3).filter(p=>p<40);
+    if(bajos.length>=3){
+      sugs.push({
+        tipo:'checkin', emp,
+        titulo:`Check-in con ${emp}`,
+        desc:`Lleva ${bajos.length} días consecutivos con rendimiento bajo (prom. ${Math.round(bajos.reduce((a,b)=>a+b,0)/bajos.length)}%). Puede necesitar apoyo o claridad en sus tareas.`,
+        accion:`Hacer check-in con ${emp} y revisar obstáculos`,
+        prio:'alta'
+      });
+    }
+    // Rendimiento excelente → reconocimiento
+    else if(pctProm>=85&&pcts.length>=3){
+      sugs.push({
+        tipo:'reconocer', emp,
+        titulo:`Reconocer a ${emp}`,
+        desc:`Semana con rendimiento sobresaliente (prom. ${pctProm}%). El reconocimiento refuerza el desempeño y motiva al resto del equipo.`,
+        accion:`Reconocer el desempeño de ${emp} esta semana`,
+        prio:'media'
+      });
+    }
+    // Sin tareas asignadas hoy (y es día hábil)
+    if(dow>0&&dow<6){
+      const tpHoy=(S.tp[hoyS]?.[emp]||[]).length;
+      const efHoy=calcEficacia(emp,hoyS);
+      if(tpHoy===0&&efHoy.total===0){
+        sugs.push({
+          tipo:'planif', emp,
+          titulo:`${emp} sin tareas hoy`,
+          desc:`No tiene tareas asignadas para hoy. Asignarle tareas mejora su enfoque y la productividad del equipo.`,
+          accion:`Asignar tareas del día a ${emp}`,
+          prio:'media'
+        });
+      }
+    }
+  });
+
+  // ── 2. Solicitudes pendientes antiguas ────────────────────────────────────
+  const solPend=(S.solicitudes||[]).filter(s=>s.estado!=='resuelta');
+  const solAntiguas=solPend.filter(s=>_diasDesde2(s.fecha_creacion)>=3);
+  if(solAntiguas.length>0){
+    sugs.push({
+      tipo:'solicitud',
+      titulo:`${solAntiguas.length} solicitud${solAntiguas.length>1?'es':''} sin resolver (${solAntiguas.length>1?'+3 días cada una':'más de 3 días'})`,
+      desc:`Solicitudes pendientes por mucho tiempo generan frustración en el equipo. Revisar y resolver o comunicar estado.`,
+      accion:`Revisar y resolver las ${solAntiguas.length} solicitudes antiguas`,
+      prio:'alta'
+    });
+  }
+  // Solicitudes de bloqueo sin resolver (siempre urgente)
+  const bloqueos=solPend.filter(s=>s.tipo==='bloqueo');
+  if(bloqueos.length>0){
+    sugs.push({
+      tipo:'urgente',
+      titulo:`🚫 ${bloqueos.length} bloqueo${bloqueos.length>1?'s':''} activo${bloqueos.length>1?'s':''}`,
+      desc:`${bloqueos.map(s=>`"${s.texto.slice(0,40)}${s.texto.length>40?'…':''}" (${s.colaborador})`).join(', ')} — los bloqueos afectan directamente la productividad.`,
+      accion:`Resolver bloqueo${bloqueos.length>1?'s':''} del equipo hoy`,
+      prio:'alta'
+    });
+  }
+
+  // ── 3. Comunicación y alineación del equipo ───────────────────────────────
+  // Lunes → reunión semanal
+  if(dow===1){
+    sugs.push({
+      tipo:'equipo',
+      titulo:'Alineación del equipo — inicio de semana',
+      desc:'Lunes es el momento ideal para comunicar los objetivos de la semana, ajustar prioridades y motivar al equipo.',
+      accion:'Hacer briefing de apertura semanal con el equipo',
+      prio:'media'
+    });
+  }
+  // Viernes → feedback y cierre
+  if(dow===5){
+    sugs.push({
+      tipo:'reconocer',
+      titulo:'Cierre y reconocimiento semanal',
+      desc:'Viernes es el momento perfecto para revisar resultados de la semana, celebrar logros y dar feedback constructivo.',
+      accion:'Hacer cierre de semana con reconocimientos al equipo',
+      prio:'media'
+    });
+  }
+
+  // ── 4. Backlog CEO muy cargado ────────────────────────────────────────────
+  const tarPend=(S.tarCEO||[]).filter(t=>!t.hecho).length;
+  if(tarPend>=6){
+    sugs.push({
+      tipo:'solicitud',
+      titulo:`Backlog cargado — ${tarPend} tareas pendientes`,
+      desc:`Con ${tarPend} tareas pendientes es momento de priorizar: decidir cuáles delegar, cuáles posponer y cuáles atender hoy.`,
+      accion:`Revisar y priorizar las ${tarPend} tareas CEO pendientes`,
+      prio:'alta'
+    });
+  }
+
+  // ── 5. Formación y desarrollo ─────────────────────────────────────────────
+  // Miércoles → mid-week coaching
+  if(dow===3&&emps.length>0){
+    sugs.push({
+      tipo:'formacion',
+      titulo:'Momento de coaching de mitad de semana',
+      desc:'Los miércoles son ideales para dar retroalimentación informal, revisar avances y ajustar el rumbo antes del cierre.',
+      accion:'Dar feedback individual de mitad de semana al equipo',
+      prio:'baja'
+    });
+  }
+
+  // ── 6. Retos: análisis de completación ───────────────────────────────────
+  emps.forEach(emp=>{
+    const retosEmp=(S.retos||[]).filter(r=>r.colaborador===emp&&r.fecha===hoyS);
+    if(retosEmp.length>0){
+      const retoDone=retosEmp.filter(r=>r.hecho).length;
+      if(retoDone===retosEmp.length&&retosEmp.length>=2){
+        sugs.push({
+          tipo:'reconocer', emp,
+          titulo:`${emp} completó todos sus retos del día`,
+          desc:`Completó ${retoDone}/${retosEmp.length} retos asignados hoy. Un reconocimiento en el momento refuerza ese comportamiento.`,
+          accion:`Felicitar a ${emp} por completar sus retos`,
+          prio:'baja'
+        });
+      }
+    }
+  });
+
+  // Limitar a 6 sugerencias, priorizando por prio
+  const orden={alta:0,media:1,baja:2};
+  return sugs.sort((a,b)=>(orden[a.prio]||2)-(orden[b.prio]||2)).slice(0,6);
+}
+
+/* Agregar sugerencia como tarea CEO directamente */
+function liderAgregarTarea(accion){
+  const desc=accion;
+  S.tarCEO=S.tarCEO||[];
+  // Evitar duplicados
+  if(S.tarCEO.some(t=>t.desc.toLowerCase()===desc.toLowerCase())){
+    toast('✓ Esta sugerencia ya está en tus tareas');
+    return;
+  }
+  S.tarCEO.push({id:S.nid++,desc,hecho:false,fecha_creacion:hoy(),prio:'media'});
+  sv(); _renderCEOBacklog(); _renderPulsoEquipo();
+  toast('✅ Agregada a pendientes estratégicos');
+}
+
+function _renderPulsoEquipo(){
+  const el=document.getElementById('sol-panel-liderazgo');
+  if(!el) return;
+  const sugs=_generarSugerenciasLiderazgo();
+  const hoyS=hoy();
+  const dLbl=new Date(hoyS+'T12:00:00').toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'short'});
+
+  if(!sugs.length){
+    el.innerHTML=`<div class="pulso-card">
+      <div class="pulso-hd">
+        <span class="pulso-ttl">💡 Pulso del equipo</span>
+        <span class="pulso-fecha">${dLbl}</span>
+      </div>
+      <div style="padding:.85rem 1rem;text-align:center">
+        <div style="font-size:1.6rem;margin-bottom:.4rem">🌟</div>
+        <div style="font-size:.83rem;color:var(--g600);font-weight:500">Todo en orden</div>
+        <div style="font-size:.74rem;color:var(--g400);margin-top:.2rem">No hay sugerencias de liderazgo para hoy</div>
+      </div>
+    </div>`;
+    return;
+  }
+
+  let h=`<div class="pulso-card">
+    <div class="pulso-hd">
+      <span class="pulso-ttl">💡 Pulso del equipo</span>
+      <span class="pulso-fecha">${dLbl}</span>
+    </div>
+    <div class="pulso-sub">${sugs.length} sugerencia${sugs.length!==1?'s':''} para ser mejor líder hoy</div>`;
+
+  sugs.forEach((sg,i)=>{
+    const tip=_LIDER_TIPS[sg.tipo]||{ico:'💡',cat:'Sugerencia',color:'#6b7280',bg:'#f9fafb'};
+    const prioLbl={alta:'Urgente',media:'Importante',baja:'Sugerido'}[sg.prio]||sg.prio;
+    const prioCls={alta:'pulso-prio-alta',media:'pulso-prio-media',baja:'pulso-prio-baja'}[sg.prio]||'';
+    h+=`<div class="pulso-item" style="border-left-color:${tip.color}">
+      <div class="pulso-item-top">
+        <span class="pulso-item-ico" style="background:${tip.bg};color:${tip.color}">${tip.ico}</span>
+        <div class="pulso-item-info">
+          <span class="pulso-item-cat" style="color:${tip.color}">${tip.cat}</span>
+          <span class="pulso-prio-chip ${prioCls}">${prioLbl}</span>
+        </div>
+      </div>
+      <div class="pulso-item-titulo">${sg.titulo}</div>
+      <div class="pulso-item-desc">${sg.desc}</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <button class="pulso-add-btn" onclick="liderAgregarTarea('${sg.accion.replace(/'/g,"\'")}')">
+          + Agregar a mis tareas
+        </button>
+      </div>
+    </div>`;
+  });
+
+  h+=`</div>`;
+  el.innerHTML=h;
+}
+
 /* ══ CEO: renderizar solicitudes ══ */
 function renderSolicitudes(){
+  _renderPulsoEquipo();
   _renderSolList();
   _renderCEOBacklog();
+}
+
+/* Helper: días desde fecha */
+function _diasDesde(fecha){
+  if(!fecha) return 0;
+  const d1=new Date(fecha+'T12:00:00'), d2=new Date(hoy()+'T12:00:00');
+  return Math.max(0,Math.round((d2-d1)/(1000*60*60*24)));
+}
+
+function solFiltrar(f){
+  _solFiltro=f;
+  document.querySelectorAll('.sol-fil-btn').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+  _renderSolListCards(document.getElementById('sol-cards-wrap'),
+    (S.solicitudes||[]).slice().reverse());
 }
 
 function _renderSolList(){
   const el=document.getElementById('sol-panel-solicitudes');
   if(!el) return;
-  const lista=(S.solicitudes||[]).slice().reverse(); // más recientes primero
+  const lista=(S.solicitudes||[]).slice().reverse();
   const pendN=lista.filter(s=>s.estado!=='resuelta').length;
+  const altaN=lista.filter(s=>s.prioridad==='alta'&&s.estado!=='resuelta').length;
+  // Calcular tiempo promedio de resolución
+  const resueltas=lista.filter(s=>s.estado==='resuelta'&&s.fecha_resolucion&&s.fecha_creacion);
+  const avgRes=resueltas.length
+    ? Math.round(resueltas.reduce((acc,s)=>acc+_diasDesde2(s.fecha_creacion,s.fecha_resolucion),0)/resueltas.length)
+    : null;
+  // Top tipo
+  const tipoCnt={};lista.filter(s=>s.estado!=='resuelta').forEach(s=>{tipoCnt[s.tipo]=(tipoCnt[s.tipo]||0)+1;});
+  const topTipo=Object.entries(tipoCnt).sort((a,b)=>b[1]-a[1])[0];
 
-  let h=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
-    <div>
-      <div style="font-family:var(--ff);font-size:1.1rem;font-weight:600;color:var(--g800)">Solicitudes del equipo</div>
-      <div class="txt-muted" style="font-size:.74rem;margin-top:2px">${pendN} pendiente${pendN!==1?'s':''} · ${lista.length} total</div>
+  let h=`<div class="sol-header-card">
+    <div class="sol-header-top">
+      <div>
+        <div class="sol-header-title">Solicitudes del equipo</div>
+        <div class="sol-header-sub">${lista.length} total · ${pendN} pendiente${pendN!==1?'s':''}</div>
+      </div>
+      ${altaN>0?`<div class="sol-urgent-badge">🔴 ${altaN} urgente${altaN!==1?'s':''}</div>`:''}
     </div>
-  </div>`;
+    <div class="sol-stats-row">
+      <div class="sol-stat-box">
+        <div class="sol-stat-n">${pendN}</div>
+        <div class="sol-stat-lbl">Pendientes</div>
+      </div>
+      <div class="sol-stat-box">
+        <div class="sol-stat-n">${resueltas.length}</div>
+        <div class="sol-stat-lbl">Resueltas</div>
+      </div>
+      <div class="sol-stat-box">
+        <div class="sol-stat-n">${avgRes!==null?avgRes+'d':'—'}</div>
+        <div class="sol-stat-lbl">T. resolución</div>
+      </div>
+      <div class="sol-stat-box">
+        <div class="sol-stat-n">${topTipo?SOL_TIPOS[topTipo[0]]?.ico||'•':'—'}</div>
+        <div class="sol-stat-lbl">${topTipo?SOL_TIPOS[topTipo[0]]?.lbl||topTipo[0]:'Sin datos'}</div>
+      </div>
+    </div>
+    <!-- Filtros -->
+    <div class="sol-filtros-row">
+      ${['todas','pendiente','insumo','mejora','bloqueo','apoyo'].map(f=>{
+        const lbl={todas:'Todas',pendiente:'⏳ Pend.',insumo:'📦',mejora:'✨',bloqueo:'🚫',apoyo:'🤝'}[f]||f;
+        return `<button class="sol-fil-btn${_solFiltro===f?' on':''}" data-f="${f}" onclick="solFiltrar('${f}')">${lbl}</button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div id="sol-cards-wrap"></div>`;
 
-  if(!lista.length){
-    h+=`<div style="text-align:center;padding:2rem 1rem;background:var(--white);
-      border-radius:var(--r);box-shadow:var(--sh)">
+  el.innerHTML=h;
+  _renderSolListCards(document.getElementById('sol-cards-wrap'), lista);
+}
+
+/* Días entre dos fechas */
+function _diasDesde2(f1, f2){
+  const d1=new Date(f1+'T12:00:00'), d2=new Date((f2||hoy())+'T12:00:00');
+  return Math.max(0,Math.round((d2-d1)/(1000*60*60*24)));
+}
+
+function _renderSolListCards(wrap, lista){
+  if(!wrap) return;
+  // Aplicar filtro
+  let filtrada=lista;
+  if(_solFiltro==='pendiente') filtrada=lista.filter(s=>s.estado!=='resuelta');
+  else if(['insumo','mejora','bloqueo','apoyo'].includes(_solFiltro)) filtrada=lista.filter(s=>s.tipo===_solFiltro);
+
+  if(!filtrada.length){
+    wrap.innerHTML=`<div class="sol-empty">
       <div style="font-size:2rem;margin-bottom:.5rem">📬</div>
-      <div style="font-size:.84rem;color:var(--g500)">Sin solicitudes del equipo todavía.</div>
+      <div style="font-size:.84rem;color:var(--g500)">Sin solicitudes${_solFiltro!=='todas'?' en esta categoría':' todavía'}.</div>
     </div>`;
-    el.innerHTML=h; return;
+    return;
   }
 
-  lista.forEach(s=>{
-    const tipo=SOL_TIPOS[s.tipo]||{ico:'•',lbl:s.tipo,color:'#888'};
-    const prioMap={alta:'🔴 Alta',media:'🟡 Media',baja:'🔵 Baja'};
-    const estMap={pendiente:'⏳ Pendiente',convertida:'⚙ En proceso',resuelta:'✅ Resuelta'};
-    const fechaLbl=`${diaSemana(s.fecha_creacion)} ${fd(s.fecha_creacion)}`;
-    const resolverBtn=s.estado!=='resuelta'
-      ?`<button class="sol-act-btn resolve" onclick="resolverSolicitud(${s.id})">✅ Resolver</button>`:'';
+  const prioMap={alta:'🔴 Alta',media:'🟡 Media',baja:'🔵 Baja'};
+  const estMap={pendiente:'⏳ Pendiente',convertida:'⚙ En proceso',resuelta:'✅ Resuelta'};
+  let h='';
+  filtrada.forEach(s=>{
+    const tipo=SOL_TIPOS[s.tipo]||{ico:'•',lbl:s.tipo};
+    const dias=_diasDesde2(s.fecha_creacion);
+    const diasLbl=dias===0?'hoy':dias===1?'hace 1 día':`hace ${dias} días`;
+    const diasCls=dias>=5?'sol-dias-alert':dias>=2?'sol-dias-warn':'sol-dias-ok';
+    const resuelta=s.estado==='resuelta';
+    const resolverBtn=!resuelta
+      ?`<button class="sol-act-btn resolve" onclick="solResolverConNota(${s.id})">✅ Resolver</button>`:'';
     const convertBtn=!s.convertida_en_tarea
       ?`<button class="sol-act-btn convert" onclick="convertirSolicitud(${s.id})">⚙ A tarea CEO</button>`:'';
     const delBtn=`<button class="sol-act-btn del" onclick="eliminarSolicitud(${s.id})" title="Eliminar">✕</button>`;
+    const notaCEO=s.nota_ceo?`<div class="sol-nota-ceo">💬 CEO: ${s.nota_ceo}</div>`:'';
 
-    h+=`<div class="sol-card" data-tipo="${s.tipo}" style="${s.estado==='resuelta'?'opacity:.6':''}">
+    h+=`<div class="sol-card" data-tipo="${s.tipo}" style="${resuelta?'opacity:.55':''}">
       <div class="sol-card-body">
         <div class="sol-card-top">
           <span class="sol-card-emp">${ini(s.colaborador)} ${s.colaborador}</span>
           <span class="sol-tipo-chip ${s.tipo}">${tipo.ico} ${tipo.lbl}</span>
           <span class="sol-prio-chip ${s.prioridad}">${prioMap[s.prioridad]||s.prioridad}</span>
-          <span style="font-size:.67rem;color:var(--g400);margin-left:auto">${estMap[s.estado]||s.estado}</span>
+          <span class="sol-dias-badge ${diasCls}">${diasLbl}</span>
+          <span style="font-size:.65rem;color:var(--g400);margin-left:auto">${estMap[s.estado]||s.estado}</span>
         </div>
         <div class="sol-card-txt">${s.texto}</div>
         ${s.tarea_sugerida?`<div class="sol-card-tarea">→ ${s.tarea_sugerida}</div>`:''}
-        <div class="sol-card-sub">📅 ${fechaLbl}</div>
+        ${notaCEO}
       </div>
       <div class="sol-card-actions">${convertBtn}${resolverBtn}${delBtn}</div>
     </div>`;
   });
+  wrap.innerHTML=h;
+}
 
-  el.innerHTML=h;
+/* Resolver con nota opcional */
+function solResolverConNota(id){
+  const s=(S.solicitudes||[]).find(s=>s.id===id);
+  if(!s) return;
+  const overlay=document.createElement('div');
+  overlay.className='tmpl-modal-overlay';
+  overlay.id='sol-resolve-overlay';
+  overlay.innerHTML=`
+    <div class="plan-modal" style="max-width:420px">
+      <div class="plan-modal-title">
+        <span class="plan-modal-ttl">✅ Resolver solicitud</span>
+        <button class="tmpl-modal-close" onclick="document.getElementById('sol-resolve-overlay')?.remove()">✕</button>
+      </div>
+      <div style="padding:.85rem 1rem 0">
+        <div style="font-size:.82rem;color:var(--g700);background:var(--cream);
+          border-radius:var(--rs);padding:.55rem .8rem;margin-bottom:.75rem">
+          "${s.texto}"
+        </div>
+        <div style="font-size:.72rem;color:var(--g500);margin-bottom:.4rem;font-weight:600">
+          Nota para el colaborador (opcional)
+        </div>
+        <textarea class="sol-inp" id="sol-nota-inp" rows="2"
+          placeholder="Ej: Ya lo solicitamos al proveedor, llegará el lunes…"
+          maxlength="160"></textarea>
+        <div class="plan-footer" style="margin-top:.75rem">
+          <button class="plan-footer-btn cancel"
+            onclick="document.getElementById('sol-resolve-overlay')?.remove()">Cancelar</button>
+          <button class="plan-footer-btn apply"
+            onclick="confirmarResolver(${id})">✅ Confirmar resolución</button>
+        </div>
+      </div>
+    </div>`;
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
+  document.body.appendChild(overlay);
+  setTimeout(()=>document.getElementById('sol-nota-inp')?.focus(),80);
+}
+
+function confirmarResolver(id){
+  const s=(S.solicitudes||[]).find(s=>s.id===id);
+  if(!s) return;
+  const nota=(document.getElementById('sol-nota-inp')?.value||'').trim();
+  s.estado='resuelta';
+  s.fecha_resolucion=hoy();
+  if(nota) s.nota_ceo=nota;
+  sv(); document.getElementById('sol-resolve-overlay')?.remove();
+  _renderSolList(); _actualizarSolBadge();
+  toast('✅ Solicitud resuelta');
 }
 
 function convertirSolicitud(id){
@@ -4317,14 +6108,7 @@ function convertirSolicitud(id){
   toast('⚙ Convertida en tarea CEO');
 }
 
-function resolverSolicitud(id){
-  const s=(S.solicitudes||[]).find(s=>s.id===id);
-  if(!s) return;
-  s.estado='resuelta';
-  s.fecha_resolucion=hoy();
-  sv(); _renderSolList(); _actualizarSolBadge();
-  toast('✅ Solicitud resuelta');
-}
+function resolverSolicitud(id){ solResolverConNota(id); }
 
 function eliminarSolicitud(id){
   S.solicitudes=(S.solicitudes||[]).filter(s=>s.id!==id);
@@ -4348,15 +6132,25 @@ function _renderCEOBacklog(){
     </div>`;
 
   if(!lista.length){
-    h+=`<div style="padding:.85rem 1rem;font-size:.8rem;color:var(--g400)">
-      Sin tareas pendientes. Las solicitudes del equipo aparecerán aquí.</div>`;
+    h+=`<div class="ceo-bl-empty">
+      <span style="font-size:1.4rem">📭</span>
+      <div>Sin tareas pendientes</div>
+      <div style="font-size:.72rem;color:var(--g400);margin-top:2px">Las solicitudes del equipo aparecerán aquí</div>
+    </div>`;
   } else {
+    // Progreso global — barra
+    const pct = lista.length ? Math.round((lista.length-pend)/lista.length*100) : 0;
+    const barColor = pct>=75?'var(--green)':pct>=40?'var(--yellow)':'var(--gold)';
+    h+=`<div class="ceo-bl-progress">
+      <div class="ceo-bl-progress-bar" style="width:${pct}%;background:${barColor}"></div>
+    </div>`;
+
     const pendItems=[...lista].filter(t=>!t.hecho);
     const doneItems=[...lista].filter(t=>t.hecho);
-    // Pendientes primero, luego completadas
     [...pendItems,...doneItems].forEach(t=>{
       const prioColor={alta:'var(--red)',media:'var(--yellow)',baja:'#60a5fa'}[t.prio]||'var(--g300)';
-      const checkIco=t.hecho?'✓':'';
+      const prioLbl={alta:'Alta',media:'Media',baja:'Baja'}[t.prio]||'';
+      const prioCls={alta:'ceo-prio-alta',media:'ceo-prio-media',baja:'ceo-prio-baja'}[t.prio]||'';
       const metaParts=[];
       if(t.solicitud_id){
         const sol=(S.solicitudes||[]).find(s=>s.id===t.solicitud_id);
@@ -4365,13 +6159,20 @@ function _renderCEOBacklog(){
       if(t.hecho&&t.fecha_resolucion) metaParts.push(`Completada ${fd(t.fecha_resolucion)}`);
       else if(t.fecha_creacion) metaParts.push(`Creada ${fd(t.fecha_creacion)}`);
       const metaStr=metaParts.join(' · ');
-      h+=`<div class="ceo-bl-item${t.hecho?' ceo-bl-done':''}">
+      // SVG checkmark
+      const svgCheck=`<svg class="ceo-chk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+      h+=`<div class="ceo-bl-item${t.hecho?' ceo-bl-done':''}" data-ceo-id="${t.id}">
         <button class="ceo-bl-check${t.hecho?' done':''}"
-          onclick="toggleTarCEO(${t.id})" title="${t.hecho?'Marcar como pendiente':'Marcar como completada'}">${checkIco}</button>
+          onclick="toggleTarCEO(${t.id})"
+          ontouchstart="this.classList.add('pressing')" ontouchend="this.classList.remove('pressing')"
+          title="${t.hecho?'Marcar como pendiente':'Marcar como completada'}">${svgCheck}</button>
         <div class="ceo-bl-dot" style="background:${t.hecho?'var(--g200)':prioColor}"></div>
         <div class="ceo-bl-body">
           <span class="ceo-bl-txt">${t.desc}</span>
-          ${metaStr?`<div class="ceo-bl-meta">${metaStr}</div>`:''}
+          <div class="ceo-bl-badges">
+            ${prioLbl?`<span class="ceo-bl-prio-chip ${prioCls}">${prioLbl}</span>`:''}
+            ${metaStr?`<span class="ceo-bl-meta">${metaStr}</span>`:''}
+          </div>
         </div>
         <button class="ceo-bl-del" onclick="elimTarCEO(${t.id})" title="Eliminar">✕</button>
       </div>`;
@@ -4379,9 +6180,10 @@ function _renderCEOBacklog(){
   }
   h+=`<div class="ceo-bl-add">
     <input class="ceo-bl-inp" id="ceo-bl-inp" type="text"
-      placeholder="Agregar tarea estratégica…" maxlength="120"
+      placeholder="Nueva tarea estratégica… (Enter para agregar)"
+      maxlength="120"
       onkeydown="if(event.key==='Enter')agregarTarCEO()">
-    <button class="dia-assign-btn" onclick="agregarTarCEO()" style="font-size:.76rem">+ Agregar</button>
+    <button class="ceo-bl-add-btn" onclick="agregarTarCEO()">+</button>
   </div>`;
   h+=`</div>`;
   el.innerHTML=h;
@@ -4394,8 +6196,95 @@ function toggleTarCEO(id){
   if(t.hecho) t.fecha_resolucion=hoy();
   else delete t.fecha_resolucion;
   sv();
-  _edaHash=''; // invalidar cache para que Análisis se actualice
-  _renderCEOBacklog();
+  _edaHash='';
+
+  // ── Actualizar DOM in-place (sin re-render = sin auto-foco) ──
+  const item=document.querySelector(`.ceo-bl-item[data-ceo-id="${id}"]`);
+  const btn=item?.querySelector('.ceo-bl-check');
+  const dot=item?.querySelector('.ceo-bl-dot');
+  const txt=item?.querySelector('.ceo-bl-txt');
+
+  if(item&&btn&&dot&&txt){
+    if(t.hecho){
+      // Animación: checkmark → flash verde → mover abajo
+      btn.classList.add('done');
+      item.classList.add('ceo-bl-done');
+      // Flash verde en la fila
+      item.classList.remove('ceo-bl-flash');
+      void item.offsetWidth;
+      item.classList.add('ceo-bl-flash');
+      setTimeout(()=>item.classList.remove('ceo-bl-flash'),600);
+      // Bounce en el botón
+      btn.classList.add('ceo-chk-bounce');
+      setTimeout(()=>btn.classList.remove('ceo-chk-bounce'),400);
+      // Actualizar dot
+      dot.style.background='var(--g200)';
+      // Actualizar badge meta
+      const badges=item.querySelector('.ceo-bl-badges');
+      if(badges){
+        const meta=badges.querySelector('.ceo-bl-meta');
+        if(meta) meta.textContent='Completada '+fd(hoy());
+        else badges.insertAdjacentHTML('beforeend',`<span class="ceo-bl-meta">Completada ${fd(hoy())}</span>`);
+      }
+      // Reordenar: mover al final tras animación
+      setTimeout(()=>{
+        // Re-render completo para reordenar, pero sin foco en ningún elemento
+        const activeEl=document.activeElement;
+        _renderCEOBacklog();
+        // Asegurarse que no se enfoque nada
+        if(activeEl&&activeEl!==document.body)activeEl.blur();
+        // Actualizar barra progreso y header
+      },550);
+    } else {
+      // Deshacer: quitar done
+      btn.classList.remove('done');
+      item.classList.remove('ceo-bl-done');
+      dot.style.background=({alta:'var(--red)',media:'var(--yellow)',baja:'#60a5fa'}[t.prio]||'var(--g300)');
+      // Actualizar meta
+      const badges=item.querySelector('.ceo-bl-badges');
+      if(badges){
+        const meta=badges.querySelector('.ceo-bl-meta');
+        if(meta) meta.textContent=t.fecha_creacion?'Creada '+fd(t.fecha_creacion):'';
+      }
+      setTimeout(()=>{
+        const activeEl=document.activeElement;
+        _renderCEOBacklog();
+        if(activeEl&&activeEl!==document.body)activeEl.blur();
+      },100);
+    }
+    // Actualizar header count inmediatamente
+    const pend=(S.tarCEO||[]).filter(x=>!x.hecho).length;
+    const cntEl=document.querySelector('.ceo-bl-cnt');
+    if(cntEl) cntEl.textContent=`${pend} pendiente${pend!==1?'s':''}`;
+    // Actualizar barra de progreso
+    const total=(S.tarCEO||[]).length;
+    const pct=total?Math.round((total-pend)/total*100):0;
+    const barColor=pct>=75?'var(--green)':pct>=40?'var(--yellow)':'var(--gold)';
+    const bar=document.querySelector('.ceo-bl-progress-bar');
+    if(bar){bar.style.width=pct+'%';bar.style.background=barColor;}
+    // Celebración si todas completadas
+    if(pend===0&&total>0) _ceoBacklogCelebracion(total);
+  } else {
+    _renderCEOBacklog();
+  }
+}
+
+/* Mini celebración cuando el CEO completa TODAS las tareas */
+function _ceoBacklogCelebracion(total){
+  setTimeout(()=>{
+    const overlay=document.createElement('div');
+    overlay.className='ceo-celeb-overlay';
+    overlay.innerHTML=`
+      <div class="ceo-celeb-card" onclick="this.parentElement.remove()">
+        <div class="ceo-celeb-ico">⚡</div>
+        <div class="ceo-celeb-ttl">¡Backlog limpio!</div>
+        <div class="ceo-celeb-sub">${total} tarea${total!==1?'s':''} completada${total!==1?'s':''} · Excelente liderazgo</div>
+        <div class="ceo-celeb-hint">Toca para cerrar</div>
+      </div>`;
+    overlay.addEventListener('click',()=>overlay.remove());
+    document.body.appendChild(overlay);
+    setTimeout(()=>overlay.remove(),3500);
+  },200);
 }
 
 function elimTarCEO(id){
@@ -4408,10 +6297,24 @@ function agregarTarCEO(){
   if(!inp) return;
   const desc=inp.value.trim();
   if(!desc){inp.focus();return;}
-  S.tarCEO.push({id:S.nid++,desc,hecho:false,fecha_creacion:hoy(),prio:'media'});
+  // Soporte prefijo ! = alta prioridad
+  const urgente=desc.startsWith('!');
+  const descFinal=urgente?desc.slice(1).trim():desc;
+  if(!descFinal){inp.focus();return;}
+  const prio=urgente?'alta':'media';
+  const newId=S.nid++;
+  S.tarCEO.push({id:newId,desc:descFinal,hecho:false,fecha_creacion:hoy(),prio});
   inp.value='';
   sv(); _renderCEOBacklog();
-  toast('✓ Tarea estratégica agregada');
+  // Animación entrada en el nuevo item
+  setTimeout(()=>{
+    const newItem=document.querySelector(`.ceo-bl-item[data-ceo-id="${newId}"]`);
+    if(newItem){
+      newItem.classList.add('ceo-bl-entrada');
+      setTimeout(()=>newItem.classList.remove('ceo-bl-entrada'),500);
+    }
+    inp.focus();
+  },50);
 }
 
 /* ══ Analytics: KPIs Motor de Retos ══ */
@@ -4687,6 +6590,317 @@ function chequearReasignacion(){
   });
 })();
 
+
+/* ════════════════════════════════════════════════════════
+   CHATBOT IA — Perfum Plus
+   ════════════════════════════════════════════════════════ */
+let _chatOpen=false;
+const _chatHistories={};   // historial separado por usuario: { 'Marlon': [...], 'CEO': [...] }
+let _chatTyping=false;
+function _chatH(){ const k=CU||'__anon'; if(!_chatHistories[k]) _chatHistories[k]=[]; return _chatHistories[k]; }
+
+const _CHAT_KB={
+  bienvenida:[
+    '¡Hola! 👋 Soy tu asistente de **Perfum Plus**. Puedo ayudarte a completar tus tareas, explicarte paso a paso cómo hacer cada actividad y responder preguntas del negocio.',
+    'Toca cualquier tarea de la lista de arriba ⬆️ para que te explique exactamente cómo hacerla. ¿En qué te puedo ayudar hoy?'
+  ],
+  ventas:{
+    kw:['venta','vend','cliente','factur','cobr','precio','oferta','catalogo','catalog'],
+    r:[
+      'Para cerrar una venta exitosa:\n1️⃣ Saluda al cliente con su nombre si lo conoces\n2️⃣ Pregunta la ocasión (regalo, uso diario, noche)\n3️⃣ Ofrece 2-3 opciones según el perfil\n4️⃣ Deja que huela y decida sin presión\n5️⃣ Registra la venta en la app y marca la tarea ✅\n\n💡 Si duda, ofrece una muestra gratis.',
+      'Tips para más ventas:\n• Sugiere combos (perfume + loción)\n• Menciona promociones vigentes\n• Habla del origen y notas del perfume 🌸\n• Ofrece empaque de regalo\n• Registra todo en el sistema para el conteo del día'
+    ]
+  },
+  inventario:{
+    kw:['inventar','stock','producto','bodeg','conteo','surtid','exist','mercanc'],
+    r:[
+      'Para actualizar el inventario:\n1️⃣ Agrupa productos por familia de fragancia\n2️⃣ Cuenta uno por uno con calma\n3️⃣ Compara con el registro anterior\n4️⃣ Anota diferencias en la nota de la tarea\n5️⃣ Reporta faltantes al CEO antes de cerrar 🚨\n\n📦 Hazlo siempre a la misma hora para mayor precisión.',
+      'Rutina de inventario rápido:\n• Usa la búsqueda del catálogo en la app\n• Prioriza los productos más vendidos\n• Marca los agotados para reposición urgente\n• Toma foto del conteo como evidencia 📸'
+    ]
+  },
+  redes:{
+    kw:['red','social','instagram','facebook','post','story','contenid','publica','foto','tiktok'],
+    r:[
+      'Cómo publicar contenido de calidad:\n1️⃣ Elige el producto estrella del día\n2️⃣ Toma foto con luz natural (ventana lateral)\n3️⃣ Usa fondo blanco o negro de la marca\n4️⃣ Escribe texto corto + precio + emojis 🌸💛\n5️⃣ Publica a las 12pm o 7pm (horas pico)\n6️⃣ Marca la tarea como completada ✅\n\n📱 La consistencia diaria construye la audiencia.',
+      'Ideas de contenido para hoy:\n🌅 Fragancia del día con descripción\n⭐ Testimonio de cliente satisfecho\n🎁 Combo o promoción especial\n💛 Historia de la marca / origen del perfume\n\nUsa siempre el logo y paleta de colores de Perfum Plus.'
+    ]
+  },
+  orden:{
+    kw:['orden','organiz','limpi','arregl','acomod','exhibit','vitrina','mostrador'],
+    r:[
+      'Rutina de orden del punto:\n1️⃣ Despeja superficies de objetos innecesarios\n2️⃣ Limpia de arriba hacia abajo\n3️⃣ Organiza productos por familia y precio\n4️⃣ Verifica que todas las etiquetas sean legibles\n5️⃣ Repón muestras si están bajas\n6️⃣ Toma foto del resultado final 📸\n\n✨ Un punto ordenado puede aumentar ventas un 20%.',
+      'Para un montaje de exhibición impactante:\n• Agrupa por colores o familias olfativas\n• Coloca los más vendidos a nivel de los ojos\n• Usa espejo o superficies brillantes de fondo\n• Renueva la presentación cada semana para que se vea fresco'
+    ]
+  },
+  equipo:{
+    kw:['equipo','colaborad','empleado','turno','horario','rendim','performanc'],
+    r:[
+      'Para gestionar el equipo de forma efectiva:\n• Revisa el **Pulso del equipo** en Solicitudes\n• Las sugerencias IA detectan oportunidades de mejora\n• Usa el EDA para ver rendimiento histórico por persona\n• Responde solicitudes pendientes en menos de 24h 📊',
+      'Para dar retroalimentación que motiva:\n1️⃣ Sé específico: menciona el hecho concreto\n2️⃣ Hazlo pronto: dentro de las 24 horas\n3️⃣ Propón la mejora concreta\n4️⃣ Registra el seguimiento en las notas\n\n🏆 El reconocimiento a tiempo multiplica el rendimiento.'
+    ]
+  },
+  meta:{
+    kw:['meta','objetivo','logr','alcanz','cumpl','porcentaj','eficaci','puntaj'],
+    r:[
+      'Para alcanzar la meta del día:\n• Revisa el marcador de progreso en el inicio\n• Las tareas urgentes ⚡ tienen prioridad máxima\n• Completa primero las de mayor impacto\n• Usa los Retos del día como guía de acción 🎯',
+      'Si vas por debajo de la meta:\n1️⃣ Prioriza tareas de mayor valor inmediato\n2️⃣ Enfócate en ventas de ticket alto\n3️⃣ Contacta clientes frecuentes\n4️⃣ Envía una solicitud al CEO si necesitas apoyo 🤝\n\nRecuerda: cada tarea completada suma al puntaje.'
+    ]
+  },
+  app:{
+    kw:['app','aplicac','sistem','como uso','como se usa','donde','donde está','como funciona'],
+    r:[
+      'Guía rápida de la app:\n📋 **Inicio** → tus tareas y retos del día\n🏆 **Retos** → desafíos personalizados IA\n📊 **EDA** → análisis de rendimiento\n💬 **Solicitudes** → comunicación con el CEO\n⚙️ **Config** → ajustes personales\n\nToca el círculo de cualquier tarea para registrarla.',
+      'Atajos útiles:\n✅ Toca el ○ para completar una tarea\n⏱ Mantén presionado para marcar "En proceso"\n📝 Toca "Agregar nota" para dejar observaciones\nℹ️ El botón ℹ️ muestra instrucciones detalladas\n🤖 Aquí mismo para resolver cualquier duda'
+    ]
+  },
+  marca:{
+    kw:['perfum plus','marca','fragancia','perfume','aroma','olor','colonia','esencia'],
+    r:[
+      'Perfum Plus es una marca premium de fragancias. Sus pilares son:\n🌸 Formulaciones de larga duración (6-8 horas)\n💛 Presentaciones elegantes y exclusivas\n⭐ Atención 100% personalizada\n🎁 La mejor opción para regalo\n\nSiempre resalta la exclusividad y calidad al vender.',
+      'Conocimiento de producto para argumentar la venta:\n• Notas: cítrica, amaderada, floral, oriental\n• Intensidades: perfume > EDP > EDT > colonia\n• Para regalo → siempre sugiere packaging premium\n• Para uso diario → EDT o EDC son ideales\n• Durabilidad: las notas de fondo duran toda la jornada 🌸'
+    ]
+  }
+};
+
+function _chatNow(){
+  const d=new Date();
+  return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+}
+
+function _chatBuildCtx(){
+  const f=hoy();
+  const pend=[];
+  if(CR==='colab'){
+    const est=getEstados(f,CU);
+    const tp=getTareasPers(f,CU);
+    const diasOk=esLaborable(CU,f)||(CU!=='Marlon'&&(S.turnos?.[f]?.[CU]===true));
+    if(diasOk){
+      (S.tareas||[]).forEach(t=>{if((est[t.id]||'')==='') pend.push({desc:t.desc,id:t.id});});
+    }
+    tp.forEach(t=>{if((est['p_'+t.id]||'')==='') pend.push({desc:t.desc,id:t.id});});
+  } else {
+    (S.tarCEO||[]).filter(t=>!t.hecho).forEach(t=>pend.push({desc:t.desc,id:t.id}));
+  }
+  return {nombre:CU,rol:CR,fecha:f,pend:pend.slice(0,8)};
+}
+
+function _chatChipsRender(){
+  const ctx=_chatBuildCtx();
+  const row=document.getElementById('chat-chips-row');
+  const wrap=document.getElementById('chat-chips-wrap');
+  if(!row) return;
+  if(!ctx.pend.length){ wrap.style.display='none'; return; }
+  wrap.style.display='';
+  let h=`<button class="chat-chip" data-q="¿Cómo puedo mejorar mi rendimiento hoy?" onclick="chatAskData(this)"><span class="chat-chip-dot" style="background:#f59e0b"></span>Tips del día</button>`;
+  ctx.pend.forEach(t=>{
+    const s=t.desc.length>27?t.desc.slice(0,25)+'…':t.desc;
+    const safeQ=t.desc.replace(/"/g,'&quot;');
+    h+=`<button class="chat-chip" data-q="Cómo hago: ${safeQ}" title="${t.desc.replace(/"/g,'&quot;')}" onclick="chatAskData(this)"><span class="chat-chip-dot"></span>${s}</button>`;
+  });
+  row.innerHTML=h;
+}
+
+const _CHAT_BOT_AVA=`<div class="chat-bot-ava"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>`;
+function _chatRender(){
+  const el=document.getElementById('chat-msgs');
+  if(!el) return;
+  let h='';
+  _chatH().forEach(m=>{
+    const txt=m.text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\n/g,'<br>')
+      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+    if(m.role==='bot'){
+      h+=`<div class="chat-bubble-row"><div>${_CHAT_BOT_AVA}</div><div class="chat-bubble bot">${txt}<span class="chat-btime">${m.time}</span></div></div>`;
+    } else {
+      h+=`<div class="chat-bubble-row user"><div class="chat-bubble user">${txt}<span class="chat-btime">${m.time}</span></div></div>`;
+    }
+  });
+  if(_chatTyping){
+    h+=`<div class="chat-bubble-row typing">${_CHAT_BOT_AVA}<div class="chat-typing"><div class="chat-td"></div><div class="chat-td"></div><div class="chat-td"></div></div></div>`;
+  }
+  el.innerHTML=h;
+  el.scrollTop=el.scrollHeight;
+}
+
+function _chatTaskGuide(desc){
+  const td=desc.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  if(/venta|vend|cobr|factur/.test(td))
+    return '**'+desc+'**\n\n1️⃣ Saluda al cliente con calidez\n2️⃣ Identifica su necesidad (regalo, diario, noche)\n3️⃣ Ofrece 2-3 opciones y deja que huela\n4️⃣ Cierra con opciones de pago o empaque\n5️⃣ Registra la venta y marca ✅\n\n💡 Si duda, ofrece una muestra gratis.';
+  if(/social|instagram|post|historia|contenid|tiktok/.test(td))
+    return '**'+desc+'**\n\n1️⃣ Elige el producto del día\n2️⃣ Toma foto con luz natural (fondo blanco/negro)\n3️⃣ Escribe texto corto: nombre + precio + emojis\n4️⃣ Publica a las 12pm o 7pm (horas pico)\n5️⃣ Marca como completada ✅\n\n📱 Consistencia diaria = más audiencia.';
+  if(/inventar|stock|conteo|product|mercanc/.test(td))
+    return '**'+desc+'**\n\n1️⃣ Agrupa por familia de fragancia\n2️⃣ Cuenta uno por uno con calma\n3️⃣ Compara con el registro anterior\n4️⃣ Anota diferencias en la nota de la tarea\n5️⃣ Reporta faltantes al CEO 🚨\n\n📦 Hazlo siempre a la misma hora del día.';
+  if(/limpi|orden|organiz|exhibit|vitrina/.test(td))
+    return '**'+desc+'**\n\n1️⃣ Despeja superficies primero\n2️⃣ Limpia de arriba hacia abajo\n3️⃣ Organiza por familia y precio\n4️⃣ Verifica que las etiquetas sean visibles\n5️⃣ Toma foto del resultado ✅\n\n✨ Un punto ordenado vende más.';
+  if(/apertura|abrir|abre/.test(td))
+    return '**'+desc+'**\n\n1️⃣ Llega 10 min antes\n2️⃣ Enciende luces y música ambiental\n3️⃣ Revisa inventario de muestras\n4️⃣ Organiza el punto de venta\n5️⃣ Registra la apertura y revisa tus tareas del día 📋';
+  if(/cierre|cerrar|cierra/.test(td))
+    return '**'+desc+'**\n\n1️⃣ Cuadra caja y registra ventas del día\n2️⃣ Haz un conteo rápido de inventario\n3️⃣ Limpia y organiza el punto\n4️⃣ Completa todas las tareas en la app\n5️⃣ Registra novedades antes de salir 📝';
+  if(/reporte|informe|resumen/.test(td))
+    return '**'+desc+'**\n\n1️⃣ Revisa las tareas completadas del día\n2️⃣ Anota ventas totales y productos top\n3️⃣ Registra novedades o incidencias\n4️⃣ Usa la sección de notas en cada tarea\n5️⃣ El CEO podrá ver todo en el EDA 📊';
+  // generic
+  return '**'+desc+'**\n\nPasos para completarla:\n1️⃣ Lee las instrucciones completas (botón ℹ️ en la tarea)\n2️⃣ Prepara lo que necesitas antes de empezar\n3️⃣ Ejecuta paso a paso sin saltarte nada\n4️⃣ Si tienes duda, escríbeme aquí 💬\n5️⃣ Marca como ✅ cuando termines\n\n¿Tienes alguna pregunta específica?';
+}
+
+function _chatGenResp(msg){
+  const m=msg.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  // Task guide shortcut
+  if(/como hago:|como hacer:|cómo hago:|ayuda con/.test(m)){
+    const raw=msg.replace(/^(cómo hago:|como hago:|como hacer:|cómo hacer:|ayuda con)/i,'').replace(/\?/g,'').trim();
+    return _chatTaskGuide(raw||msg);
+  }
+  // KB keyword match
+  let best=null,score=0;
+  for(const[cat,d] of Object.entries(_CHAT_KB)){
+    if(!d.kw) continue;
+    const s=d.kw.filter(k=>m.includes(k)).length;
+    if(s>score){score=s;best=cat;}
+  }
+  if(score>0&&best){
+    const rs=_CHAT_KB[best].r;
+    return rs[Math.floor(Math.random()*rs.length)];
+  }
+  // Rendimiento / tips
+  if(/rendimiento|mejorar|tips del dia|tips de hoy/.test(m)){
+    const f=hoy();
+    const{pct}=calcEficacia(CU,f);
+    if(pct<50) return 'Tu rendimiento hoy es del **'+pct+'%**. Tres pasos clave:\n1️⃣ Prioriza las tareas urgentes ⚡\n2️⃣ Completa primero las más cortas\n3️⃣ Registra todo en la app para que cuente 📊\n\n¡Tú puedes lograrlo! 💪';
+    if(pct<80) return 'Llevas un **'+pct+'%** del día. ¡Vas bien! 🌟\nFaltan '+(100-pct)+'% para completar todo.\n\nTip: Las notas en cada tarea ayudan al CEO a ver tu esfuerzo, aunque la tarea sea difícil. 📝';
+    return '¡Excelente! Llevas un **'+pct+'%** completado hoy. 🏆\nEstás en el top del equipo. Mantén el ritmo y apoya a tus compañeros si puedes.';
+  }
+  // Pending summary
+  if(/pendiente|que me falta|qué me falta|tareas de hoy/.test(m)){
+    const ctx=_chatBuildCtx();
+    if(!ctx.pend.length) return '¡Todo al día! No tienes tareas pendientes 🌟 Revisa los Retos del día para ir más allá.';
+    const lista=ctx.pend.slice(0,5).map((t,i)=>i+1+'. '+t.desc).join('\n');
+    return 'Tienes **'+ctx.pend.length+' tarea'+(ctx.pend.length!==1?'s':'')+' pendiente'+(ctx.pend.length!==1?'s':'')+'**:\n\n'+lista+(ctx.pend.length>5?'\n…y más':'')+'.\n\nToca cualquiera en las chips de arriba ⬆️ para que te explique cómo hacerla.';
+  }
+  // CEO-specific equipo
+  if(CR==='ceo'&&/equipo|colaborad|rendim/.test(m)) return _CHAT_KB.equipo.r[0];
+  // Default
+  const defs=[
+    'Estoy aquí para ayudarte 😊 Puedes preguntarme sobre:\n• Cómo completar cualquier tarea\n• Tips de ventas y atención al cliente\n• Gestión de inventario y punto de venta\n• Uso de la app\n• Información de la marca\n\n¿Qué necesitas saber?',
+    'Cuéntame más sobre tu duda y te guío paso a paso 👌 También puedes tocar una tarea pendiente de la lista de arriba ⬆️ para que te explique exactamente cómo hacerla.'
+  ];
+  return defs[Math.floor(Math.random()*defs.length)];
+}
+
+/* Helper: open chat from data-desc attribute on button */
+function openChatTask(el){
+  openChat(el.dataset.desc||el.getAttribute('data-desc')||'');
+}
+/* Helper: send question from data-q attribute on chip */
+function chatAskData(el){
+  const q=el.dataset.q||el.getAttribute('data-q')||'';
+  if(q) chatAsk(q);
+}
+
+function openChat(taskDesc){
+  _chatOpen=true;
+  const fabEl=document.getElementById('chat-fab');
+  if(fabEl){fabEl.classList.add('open');fabEl.style.opacity='0';fabEl.style.pointerEvents='none';setTimeout(()=>{fabEl.style.display='none';},200);}
+  document.getElementById('chat-panel')?.classList.add('open');
+  // Update header sub
+  const ctx=_chatBuildCtx();
+  const sub=document.getElementById('chat-hdr-sub');
+  if(sub) sub.innerHTML='<span class="chat-hdr-dot"></span>'+ctx.nombre+' · '+(ctx.pend.length?ctx.pend.length+' pendiente'+(ctx.pend.length!==1?'s':''):'Al día ✓');
+  _chatChipsRender();
+  // Welcome on first open
+  if(!_chatH().length){
+    _chatH().push({role:'bot',text:_CHAT_KB.bienvenida.join(' '),time:_chatNow()});
+  }
+  // Always render current history when opening
+  _chatRender();
+  if(taskDesc){
+    setTimeout(()=>{
+      _chatH().push({role:'user',text:'¿Cómo hago: '+taskDesc+'?',time:_chatNow()});
+      _chatTyping=true;_chatRender();
+      setTimeout(()=>{
+        _chatTyping=false;
+        _chatH().push({role:'bot',text:_chatTaskGuide(taskDesc),time:_chatNow()});
+        _chatRender();
+      },950);
+    },320);
+    return;
+  }
+  setTimeout(()=>document.getElementById('chat-inp')?.focus(),350);
+}
+
+function toggleChat(){
+  if(_chatOpen) closeChat(); else openChat();
+}
+
+function closeChat(){
+  _chatOpen=false;
+  document.getElementById('chat-panel')?.classList.remove('open');
+  const fabEl=document.getElementById('chat-fab');
+  if(fabEl){
+    fabEl.style.display='';
+    fabEl.classList.remove('open');
+    void fabEl.offsetWidth;
+    fabEl.style.opacity='1';
+    fabEl.style.pointerEvents='';
+  }
+}
+
+function chatAsk(q){
+  const wasOpen=_chatOpen;
+  if(!wasOpen) openChat();
+  setTimeout(()=>{
+    const inp=document.getElementById('chat-inp');
+    if(inp){inp.value=q;inp.style.height='auto';chatSend();}
+  }, wasOpen?0:360);
+}
+
+function chatSend(){
+  const inp=document.getElementById('chat-inp');
+  const text=(inp?.value||'').trim();
+  if(!text||_chatTyping) return;
+  inp.value='';inp.style.height='auto';
+  _chatH().push({role:'user',text,time:_chatNow()});
+  _chatTyping=true;_chatRender();
+  setTimeout(()=>{
+    _chatTyping=false;
+    _chatH().push({role:'bot',text:_chatGenResp(text),time:_chatNow()});
+    _chatRender();
+  },600+Math.random()*700);
+}
+/* ════════════════════════ END CHATBOT ════════════════════════ */
+
 </script>
+
+<!-- ══ CHATBOT IA ══ -->
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()" title="Asistente IA · Perfum Plus">
+  <span class="chat-fab-ico" id="chat-fab-ico">
+    <svg id="chat-ico-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="8" cy="11" r="1" fill="currentColor"/><circle cx="12" cy="11" r="1" fill="currentColor"/><circle cx="16" cy="11" r="1" fill="currentColor"/></svg>
+  </span>
+</button>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-hdr">
+    <div class="chat-hdr-ava">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </div>
+    <div class="chat-hdr-info">
+      <div class="chat-hdr-name">Asistente Perfum Plus</div>
+      <div class="chat-hdr-sub" id="chat-hdr-sub"><span class="chat-hdr-dot"></span>IA · Listo para ayudarte</div>
+    </div>
+    <button class="chat-hdr-close" onclick="closeChat()">✕</button>
+  </div>
+  <div class="chat-chips-wrap" id="chat-chips-wrap">
+    <div class="chat-chips-lbl"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Tareas pendientes</div>
+    <div class="chat-chips-row" id="chat-chips-row"></div>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="chat-inp-wrap">
+    <textarea class="chat-inp" id="chat-inp" placeholder="Escribe tu pregunta…" rows="1"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();chatSend();}"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,96)+'px'"></textarea>
+    <button class="chat-send" id="chat-send" onclick="chatSend()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
