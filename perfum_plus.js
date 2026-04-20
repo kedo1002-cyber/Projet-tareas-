@@ -1098,23 +1098,30 @@ function ceoTab(tab,btn){
 // ══════════════════════════════════════════════════════════════
 // 7c-2. GESTIÓN — Plantilla Base + Asignación Individual
 // ══════════════════════════════════════════════════════════════
-let _gtColab='';
 let _gtTmplOpen=false;
+let _gtExpanded='';
+const _GT_COLORS={Marlon:'#b8943a',Ingrid:'#2a7a4a',Isabella:'#2060a0'};
 
 function renderGestion(){
-  const body=document.getElementById('gt-tmpl-body');
+  const dayLbl=document.getElementById('gt-day-lbl');
+  if(dayLbl){
+    const d=new Date(hoy()+'T00:00:00');
+    const str=d.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
+    dayLbl.textContent=str.charAt(0).toUpperCase()+str.slice(1);
+  }
+  const panel=document.getElementById('gt-tmpl-panel');
   const arrow=document.getElementById('gt-tmpl-arrow');
-  if(body) body.classList.toggle('hidden',!_gtTmplOpen);
+  if(panel) panel.classList.toggle('hidden',!_gtTmplOpen);
   if(arrow) arrow.textContent=_gtTmplOpen?'∧':'∨';
   _gtRenderTemplate();
-  if(_gtColab) _gtRenderColab();
+  _gtRenderColabs();
 }
 
 function gtToggleTmpl(){
   _gtTmplOpen=!_gtTmplOpen;
-  const body=document.getElementById('gt-tmpl-body');
+  const panel=document.getElementById('gt-tmpl-panel');
   const arrow=document.getElementById('gt-tmpl-arrow');
-  if(body) body.classList.toggle('hidden',!_gtTmplOpen);
+  if(panel) panel.classList.toggle('hidden',!_gtTmplOpen);
   if(arrow) arrow.textContent=_gtTmplOpen?'∧':'∨';
 }
 
@@ -1122,16 +1129,17 @@ function _gtRenderTemplate(){
   const list=document.getElementById('gt-tmpl-list');
   const count=document.getElementById('gt-tmpl-count');
   if(!list) return;
-  if(count) count.textContent=S.tareas.length+(S.tareas.length===1?' tarea':' tareas');
+  if(count) count.textContent=S.tareas.length;
   if(!S.tareas.length){
-    list.innerHTML='<div class="gt-empty-sm">Sin tareas — agregá la primera abajo</div>';
+    list.innerHTML='<div class="gt-tmpl-empty">Todavía no hay tareas — añadí la primera abajo</div>';
     return;
   }
   list.innerHTML=S.tareas.map(t=>{
     const safe=t.desc.replace(/&/g,'&amp;').replace(/</g,'&lt;');
     return `<div class="gt-tmpl-row">
+      <span class="gt-tmpl-dot"></span>
       <span class="gt-tmpl-row-txt">${safe}</span>
-      <button class="gt-row-del" onclick="gtDelTemplate(${t.id})" title="Eliminar">×</button>
+      <button class="gt-row-del" onclick="gtDelTemplate(${t.id})">×</button>
     </div>`;
   }).join('');
 }
@@ -1142,105 +1150,82 @@ function gtAddTemplate(){
   const desc=inp.value.trim();
   if(!desc) return;
   S.tareas.push({id:S.nid++,cat:'ventas',desc,autoAsignar:true,prioridad:'media',frecuencia:'diaria'});
-  sv();
-  inp.value='';
+  sv(); inp.value='';
   _gtRenderTemplate();
+  const count=document.getElementById('gt-tmpl-count');
+  if(count) count.textContent=S.tareas.length;
+  toast('Tarea añadida a la plantilla ✓');
 }
 
 function gtDelTemplate(id){
   S.tareas=S.tareas.filter(t=>t.id!==id);
   sv();
   _gtRenderTemplate();
-  if(_gtColab) _gtRenderColab();
+  const count=document.getElementById('gt-tmpl-count');
+  if(count) count.textContent=S.tareas.length;
+  _gtRenderColabs();
 }
 
-function gtSelColab(emp){
-  _gtColab=emp;
-  const panel=document.getElementById('gt-colab-panel');
-  if(!emp){if(panel)panel.classList.add('hidden');return;}
-  _gtRenderColab();
-}
-
-function _gtRenderColab(){
-  const emp=_gtColab;
-  if(!emp) return;
-  const panel=document.getElementById('gt-colab-panel');
-  if(panel) panel.classList.remove('hidden');
-  const nameEl=document.getElementById('gt-colab-name');
-  const dateEl=document.getElementById('gt-colab-date');
-  if(nameEl) nameEl.textContent=emp;
+function _gtRenderColabs(){
+  const el=document.getElementById('gt-colabs');
+  if(!el) return;
   const fecha=hoy();
-  if(dateEl){
-    const d=new Date(fecha+'T00:00:00');
-    dateEl.textContent=d.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
-  }
-  const tmplDone=(S.tmplDone[fecha]&&S.tmplDone[fecha][emp])||[];
-  const indiv=(S.tp[fecha]&&S.tp[fecha][emp])||[];
-  let html='';
-  if(S.tareas.length){
-    html+='<div class="gt-sec-lbl">Plantilla</div>';
-    html+=S.tareas.map(t=>{
-      const done=tmplDone.includes(t.id);
-      const safe=t.desc.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-      return `<div class="gt-task-row${done?' gt-done':''}" onclick="gtToggleTmplTask(${t.id})">
-        <div class="gt-chk${done?' on':''}"></div>
-        <span class="gt-task-txt">${safe}</span>
-        <span class="gt-badge-p">P</span>
+  el.innerHTML=TODOS_EMP.map(emp=>{
+    const color=_GT_COLORS[emp]||'#b8943a';
+    const indiv=(S.tp[fecha]&&S.tp[fecha][emp])||[];
+    const isOpen=_gtExpanded===emp;
+    const subTxt=indiv.length>0
+      ? indiv.length+(indiv.length===1?' tarea individual':' tareas individuales')
+      : 'Sin tareas individuales hoy';
+    let html=`<div class="gt-cc" id="gt-cc-${emp}">
+      <div class="gt-cc-hd" onclick="gtToggleColab('${emp}')">
+        <div class="gt-av" style="background:${color}">${emp.slice(0,2).toUpperCase()}</div>
+        <div class="gt-cc-info">
+          <div class="gt-cc-nm">${emp}</div>
+          <div class="gt-cc-sub">${subTxt}</div>
+        </div>
+        <div class="gt-cc-arr${isOpen?' open':''}">›</div>
       </div>`;
-    }).join('');
-  }
-  if(indiv.length){
-    html+='<div class="gt-sec-lbl">Individual</div>';
-    html+=indiv.map(t=>{
-      const done=t.hecho;
-      const safe=t.desc.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-      return `<div class="gt-task-row${done?' gt-done':''}${t.urgente?' gt-urgent':''}" onclick="gtToggleIndiv(${t.id})">
-        <div class="gt-chk${done?' on':''}"></div>
-        <span class="gt-task-txt">${safe}</span>
-        <button class="gt-row-del" onclick="event.stopPropagation();gtDelIndiv(${t.id})">×</button>
-      </div>`;
-    }).join('');
-  }
-  if(!S.tareas.length&&!indiv.length){
-    html='<div class="gt-empty">Sin tareas para hoy. Agregá tareas a la plantilla o una individual abajo.</div>';
-  }
-  const list=document.getElementById('gt-task-list');
-  if(list) list.innerHTML=html;
-}
-
-function gtToggleTmplTask(id){
-  const fecha=hoy();
-  const emp=_gtColab;
-  if(!S.tmplDone[fecha])S.tmplDone[fecha]={};
-  if(!S.tmplDone[fecha][emp])S.tmplDone[fecha][emp]=[];
-  const arr=S.tmplDone[fecha][emp];
-  const idx=arr.indexOf(id);
-  if(idx===-1)arr.push(id);else arr.splice(idx,1);
-  sv();
-  _gtRenderColab();
-}
-
-function gtToggleIndiv(id){
-  const fecha=hoy();
-  const emp=_gtColab;
-  const tasks=S.tp[fecha]&&S.tp[fecha][emp];
-  if(!tasks) return;
-  const task=tasks.find(t=>t.id===id);
-  if(task){task.hecho=!task.hecho;sv();_gtRenderColab();}
-}
-
-function gtDelIndiv(id){
-  const fecha=hoy();
-  const emp=_gtColab;
-  if(S.tp[fecha]&&S.tp[fecha][emp]){
-    S.tp[fecha][emp]=S.tp[fecha][emp].filter(t=>t.id!==id);
-    sv();_gtRenderColab();
+    if(isOpen){
+      html+=`<div class="gt-cc-body">`;
+      if(indiv.length){
+        html+=indiv.map(t=>{
+          const safe=t.desc.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+          return `<div class="gt-indiv-row${t.urgente?' gt-urg':''}">
+            <span class="gt-indiv-dot" style="background:${t.urgente?'var(--red)':color}"></span>
+            <span class="gt-indiv-txt">${t.urgente?'⚡ ':''}${safe}</span>
+            <button class="gt-row-del" onclick="event.stopPropagation();gtDelIndivG('${emp}',${t.id})">×</button>
+          </div>`;
+        }).join('');
+      } else {
+        html+=`<div class="gt-cc-empty">Sin tareas individuales asignadas hoy</div>`;
+      }
+      html+=`<div class="gt-cc-add">
+        <input id="gt-inp-${emp}" class="gt-inp" type="text"
+          placeholder="Tarea para ${emp}… (! = urgente)" maxlength="90"
+          onkeydown="if(event.key==='Enter')gtAddIndivG('${emp}')">
+        <button class="gt-add-btn" onclick="gtAddIndivG('${emp}')">+</button>
+      </div></div>`;
+    }
+    html+=`</div>`;
+    return html;
+  }).join('');
+  if(_gtExpanded){
+    setTimeout(()=>{
+      const inp=document.getElementById('gt-inp-'+_gtExpanded);
+      if(inp) inp.focus();
+    },60);
   }
 }
 
-function gtAddIndiv(){
-  const inp=document.getElementById('gt-indiv-inp');
-  if(!inp||!_gtColab) return;
+function gtToggleColab(emp){
+  _gtExpanded=_gtExpanded===emp?'':emp;
+  _gtRenderColabs();
+}
+
+function gtAddIndivG(emp){
+  const inp=document.getElementById('gt-inp-'+emp);
+  if(!inp) return;
   const raw=inp.value.trim();
   if(!raw) return;
   const urgente=raw.startsWith('!');
@@ -1248,11 +1233,19 @@ function gtAddIndiv(){
   if(!desc) return;
   const fecha=hoy();
   if(!S.tp[fecha])S.tp[fecha]={};
-  if(!S.tp[fecha][_gtColab])S.tp[fecha][_gtColab]=[];
-  S.tp[fecha][_gtColab].push({id:S.nid++,desc,urgente,hecho:false});
-  sv();
-  inp.value='';
-  _gtRenderColab();
+  if(!S.tp[fecha][emp])S.tp[fecha][emp]=[];
+  S.tp[fecha][emp].push({id:S.nid++,desc,urgente,hecho:false});
+  sv(); inp.value='';
+  _gtRenderColabs();
+  toast(`Tarea asignada a ${emp} ✓`);
+}
+
+function gtDelIndivG(emp,id){
+  const fecha=hoy();
+  if(S.tp[fecha]&&S.tp[fecha][emp]){
+    S.tp[fecha][emp]=S.tp[fecha][emp].filter(t=>t.id!==id);
+    sv(); _gtRenderColabs();
+  }
 }
 
 // ══════════════════════════════════════════════════════════════

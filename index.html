@@ -139,51 +139,28 @@
 
     <!-- GESTIÓN: Plantilla Base + Asignación Individual -->
     <div id="ct-gestion" class="hidden">
-      <!-- Plantilla Base -->
-      <div class="gt-tmpl-card">
-        <div class="gt-tmpl-hd" onclick="gtToggleTmpl()">
-          <div class="gt-tmpl-title">
-            <span>Plantilla base</span>
-            <span class="gt-tmpl-count" id="gt-tmpl-count">0 tareas</span>
-          </div>
-          <span class="gt-tmpl-chevron" id="gt-tmpl-arrow">∨</span>
-        </div>
-        <div id="gt-tmpl-body" class="hidden">
+      <!-- Encabezado: fecha + plantilla -->
+      <div class="gt-top-row">
+        <div class="gt-day-lbl" id="gt-day-lbl"></div>
+        <button class="gt-tmpl-btn" onclick="gtToggleTmpl()">
+          Plantilla <span id="gt-tmpl-count">0</span>
+          <span id="gt-tmpl-arrow" class="gt-tmpl-btn-arr">∨</span>
+        </button>
+      </div>
+      <!-- Panel de plantilla (colapsable) -->
+      <div id="gt-tmpl-panel" class="hidden">
+        <div class="gt-tmpl-inner">
           <div id="gt-tmpl-list"></div>
           <div class="gt-tmpl-add">
             <input id="gt-tmpl-inp" class="gt-inp" type="text"
-              placeholder="Nueva tarea para todos…" maxlength="90"
+              placeholder="Nueva tarea base para todos…" maxlength="90"
               onkeydown="if(event.key==='Enter')gtAddTemplate()">
             <button class="gt-add-btn" onclick="gtAddTemplate()">+</button>
           </div>
         </div>
       </div>
-      <!-- Selector de colaborador -->
-      <div class="gt-sel-wrap">
-        <label class="gt-sel-label" for="gt-colab-sel">Colaborador</label>
-        <div class="gt-sel-box">
-          <select class="gt-sel" id="gt-colab-sel" onchange="gtSelColab(this.value)">
-            <option value="">— Seleccionar —</option>
-            <option value="Marlon">Marlon</option>
-            <option value="Ingrid">Ingrid</option>
-            <option value="Isabella">Isabella</option>
-          </select>
-        </div>
-      </div>
-      <!-- Panel del colaborador -->
-      <div id="gt-colab-panel" class="hidden">
-        <div class="gt-colab-hd">
-          <span class="gt-colab-name" id="gt-colab-name"></span>
-          <span class="gt-colab-date" id="gt-colab-date"></span>
-        </div>
-        <div id="gt-task-list"></div>
-        <div class="gt-add-row">
-          <input id="gt-indiv-inp" class="gt-inp" type="text"
-            placeholder="Tarea individual… (! = urgente)" maxlength="90"
-            onkeydown="if(event.key==='Enter')gtAddIndiv()">
-          <button class="gt-add-btn" onclick="gtAddIndiv()">+</button>
-        </div>
-      </div>
+      <!-- Cards de colaboradores (renderizadas por JS) -->
+      <div id="gt-colabs"></div>
     </div>
 
     <!-- DETALLE colaborador -->
@@ -485,7 +462,7 @@
 <div id="autosave-ind">Guardado ✓</div>
 <div id="toast"></div>
 
-<script src="perfum_plus.js?v=2"></script>
+<script src="perfum_plus.js?v=3"></script>
 
 </body>
 </html>
