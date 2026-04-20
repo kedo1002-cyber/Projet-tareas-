@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Perfum Plus — Tareas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="perfum_plus.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="s-login">
+  <div class="logo-w">
+    <div class="logo-t">PERFUM PLUS</div>
+    <div class="logo-s">Sistema de Tareas</div>
+  </div>
+  <div class="lcard">
+    <h2>Ingresar</h2>
+    <div class="rtabs">
+      <button class="rtab on" onclick="setRole('colab',this)">Colaborador</button>
+      <button class="rtab" onclick="setRole('ceo',this)">Ceo</button>
+    </div>
+    <div id="l-colab">
+      <div class="fg">
+        <label>Nombre</label>
+        <select id="sel-nombre">
+          <option value="">— Selecciona —</option>
+          <option value="Marlon">Marlon</option>
+          <option value="Ingrid">Ingrid</option>
+          <option value="Isabella">Isabella</option>
+        </select>
+      </div>
+      <button class="btn" onclick="loginColab()">Entrar</button>
+    </div>
+    <div id="l-ceo" class="hidden">
+      <div class="fg">
+        <label>Contraseña</label>
+        <input type="password" id="inp-pass" placeholder="••••••" onkeydown="if(event.key==='Enter')loginCeo()">
+      </div>
+      <button class="btn" onclick="loginCeo()">Entrar como Ceo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ COLABORADOR ══ -->
+<div id="s-colab" class="hidden">
+  <div class="ah">
+    <div style="display:flex;align-items:center;gap:.65rem">
+    <div>
+        <div class="ah-brand">PERFUM PLUS</div>
+        <div class="ah-sub" id="c-hname"></div>
+      </div>
+    </div>
+    <div class="ah-right">
+      <button class="btn-sm" onclick="cToggle()">Mi semana</button>
+      <button class="btn-sm" onclick="logout()">Salir</button>
+    </div>
+  </div>
+
+  <div class="ac">
+    <!-- Vista principal: hoy -->
+    <div id="c-view-hoy">
+      <!-- Hero de progreso -->
+      <div class="prog-hero" id="c-hero"></div>
+
+      <!-- Tareas del CEO primero -->
+      <div id="c-tp-wrap" class="hidden">
+        <div class="card" id="c-tp-card">
+          <div class="frow" style="margin-bottom:.6rem">
+            <span class="card-t">Del Ceo</span>
+            <div style="display:flex;gap:5px;align-items:center" id="c-tp-badges">
+              <span class="badge b-gold"><span class="bdot"></span>Personalizadas</span>
+            </div>
+          </div>
+          <div id="c-tp-lista"></div>
+        </div>
+      </div>
+
+      <!-- Reportar necesidad -->
+      <div class="sol-btn-wrap">
+        <button class="sol-btn" onclick="abrirSolicitudModal()">
+          📣 Reportar necesidad al CEO
+        </button>
+      </div>
+
+      <!-- 🏆 Retos del día — Motor de sugerencias -->
+      <div id="c-retos-wrap" class="hidden retos-wrap"></div>
+
+      <!-- Tareas base por categoría -->
+      <div id="c-tareas-base"></div>
+
+      <!-- autoguardado: sin botón -->
+
+      <!-- Evaluación del CEO -->
+      <div id="c-msg" class="hidden feedback-card"></div>
+    </div>
+
+    <!-- Vista: semana/mes -->
+    <div id="c-view-periodo" class="hidden">
+      <button class="det-back" onclick="cToggle()">← Volver a hoy</button>
+      <div style="font-family:var(--ff);font-size:1.3rem;font-weight:600;color:var(--g800);margin-bottom:.2rem" id="c-per-titulo"></div>
+      <div class="txt-muted" style="margin-bottom:1rem" id="c-per-sub"></div>
+      <div class="nums-row" id="c-per-nums"></div>
+      <div class="prog-wrap" style="margin-bottom:.85rem"><div class="prog-bar" id="c-per-prog" style="width:0%"></div></div>
+      <div id="c-per-hist"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CEO ══ -->
+<div id="s-ceo" class="hidden">
+  <div class="ah">
+    <div style="display:flex;align-items:center;gap:.65rem">
+    <div>
+        <div class="ah-brand">PERFUM PLUS</div>
+        <div class="ah-sub">Dashboard · Ceo</div>
+      </div>
+    </div>
+    <button class="btn-sm" onclick="logout()">Salir</button>
+  </div>
+
+  <div class="ac">
+    <div class="ctabs">
+      <button class="ctab on" onclick="ceoTab('hoy',this)">Hoy</button>
+      <button class="ctab" onclick="ceoTab('tareas',this)">Tareas</button>
+      <button class="ctab" id="tab-solicitudes" onclick="ceoTab('solicitudes',this)">Solicitudes<span class="ctab-badge hidden" id="sol-badge"></span></button>
+      <button class="ctab" onclick="ceoTab('equipo',this)">Equipo</button>
+      <button class="ctab" onclick="ceoTab('analisis',this)">Análisis</button>
+      <button class="ctab" onclick="ceoTab('config',this)">Config</button>
+    </div>
+
+    <!-- HOY -->
+    <div id="ct-hoy">
+      <div class="txt-muted" style="margin-bottom:.75rem" id="ceo-hoy-fecha"></div>
+      <div id="ceo-alertas" class="alerta-wrap"></div>
+      <div class="colab-grid" id="ceo-cards"></div>
+    </div>
+
+    <!-- TAREAS: agenda unificada CEO -->
+    <div id="ct-tareas" class="hidden">
+      <!-- Selector colaborador -->
+      <div class="tar-pills">
+        <button class="tar-pill on" id="tarcol-Marlon" onclick="tarSelColab('Marlon')">
+          <span class="tar-pill-dot" style="background:#b8943a"></span>Marlon
+        </button>
+        <button class="tar-pill" id="tarcol-Ingrid" onclick="tarSelColab('Ingrid')">
+          <span class="tar-pill-dot" style="background:#2a7a4a"></span>Ingrid
+        </button>
+        <button class="tar-pill" id="tarcol-Isabella" onclick="tarSelColab('Isabella')">
+          <span class="tar-pill-dot" style="background:#2060a0"></span>Isabella
+        </button>
+      </div>
+      <!-- Strip semanal -->
+      <div id="agenda-strip"></div>
+      <!-- Barra inteligente: input + smart actions -->
+      <div class="agenda-bar">
+        <div class="agenda-bar-row">
+          <input id="agenda-inp" class="agenda-inp" type="text"
+            placeholder="Nueva tarea…  (! al inicio = urgente)" maxlength="90"
+            onkeydown="if(event.key==='Enter')agendaSubmitTask()">
+          <button class="agenda-add-btn" onclick="agendaSubmitTask()" title="Agregar tarea">+</button>
+          <button class="agenda-act-btn" id="agenda-act-btn"
+            onclick="agendaToggleActions()" title="Acciones rápidas">⚡</button>
+        </div>
+        <div id="agenda-actions" class="agenda-actions hidden">
+          <button class="agenda-act-item" onclick="agendaSmartAction('auto')">
+            <span class="agenda-act-ico">⚡</span>
+            <div><div class="agenda-act-lbl">Auto-asignar</div>
+              <div class="agenda-act-sub">Según rendimiento del colaborador</div></div>
+          </button>
+          <button class="agenda-act-item" onclick="agendaSmartAction('ayer')">
+            <span class="agenda-act-ico">📋</span>
+            <div><div class="agenda-act-lbl">Copiar de ayer</div>
+              <div class="agenda-act-sub">Duplicar todas las tareas del día anterior</div></div>
+          </button>
+          <button class="agenda-act-item" onclick="agendaSmartAction('tmpl')">
+            <span class="agenda-act-ico">📐</span>
+            <div><div class="agenda-act-lbl">Aplicar plantilla</div>
+              <div class="agenda-act-sub">Elegir de las plantillas guardadas</div></div>
+          </button>
+          <button class="agenda-act-item" onclick="agendaSmartAction('semana')">
+            <span class="agenda-act-ico">📅</span>
+            <div><div class="agenda-act-lbl">Planificar semana</div>
+              <div class="agenda-act-sub">Asignar automáticamente toda la semana</div></div>
+          </button>
+        </div>
+      </div>
+      <!-- Lista de tareas del día seleccionado -->
+      <div id="agenda-tasks"></div>
+      <!-- Elementos ghost para compatibilidad con funciones heredadas -->
+      <div id="tar-cal" class="hidden"></div>
+      <div id="tar-dia-panel" class="hidden"></div>
+    </div>
+
+    <!-- DETALLE colaborador -->
+    <div id="ct-detalle" class="hidden">
+      <button class="det-back" onclick="volverCeo()">← Volver</button>
+
+      <!-- Hero: contexto del día -->
+      <div class="det-hero">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.7rem">
+          <div id="det-av" style="width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:1.15rem;font-weight:700;flex-shrink:0"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:var(--ff);font-size:1.1rem;font-weight:700;color:var(--g800)" id="det-nombre"></div>
+            <div class="txt-muted" style="font-size:.73rem;margin-top:1px" id="det-fecha"></div>
+          </div>
+          <div id="det-pct" style="text-align:right;flex-shrink:0"></div>
+        </div>
+        <div style="height:6px;background:var(--g100);border-radius:6px;overflow:hidden">
+          <div id="det-bar" style="height:100%;width:0%;border-radius:6px;transition:width .5s cubic-bezier(.4,0,.2,1)"></div>
+        </div>
+      </div>
+
+      <!-- Tareas del día -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="card-t" style="margin-bottom:.75rem">Tareas del día</div>
+        <div id="det-tareas"></div>
+      </div>
+
+      <!-- Calificación: rating cards + mensaje -->
+      <div class="card">
+        <div class="card-t" style="margin-bottom:.75rem">Calificación del turno</div>
+
+        <div id="rating-opts">
+          <div class="rating-opt" id="ro-green" onclick="setSema('green')">
+            <div class="rating-opt-bar" style="background:var(--green)"></div>
+            <div class="rating-opt-body">
+              <div class="rating-opt-title">Excelente rendimiento</div>
+              <div class="rating-opt-sub">Cumplió o superó las expectativas del turno</div>
+            </div>
+            <div class="rating-opt-check" style="color:var(--green)">✓</div>
+          </div>
+          <div class="rating-opt" id="ro-yellow" onclick="setSema('yellow')">
+            <div class="rating-opt-bar" style="background:var(--yellow)"></div>
+            <div class="rating-opt-body">
+              <div class="rating-opt-title">Rendimiento regular</div>
+              <div class="rating-opt-sub">Puede mejorar en algunos aspectos</div>
+            </div>
+            <div class="rating-opt-check" style="color:var(--yellow)">✓</div>
+          </div>
+          <div class="rating-opt" id="ro-red" onclick="setSema('red')">
+            <div class="rating-opt-bar" style="background:var(--red)"></div>
+            <div class="rating-opt-body">
+              <div class="rating-opt-title">Requiere atención</div>
+              <div class="rating-opt-sub">Necesita seguimiento y apoyo directo</div>
+            </div>
+            <div class="rating-opt-check" style="color:var(--red)">✓</div>
+          </div>
+        </div>
+
+        <div style="margin-top:.8rem">
+          <div style="font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--g400);margin-bottom:.45rem">Mensaje rápido</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.6rem">
+            <button class="qmsg-chip" onclick="setQuickMsg('¡Buen turno hoy, sigue así!')">¡Buen turno! 👍</button>
+            <button class="qmsg-chip" onclick="setQuickMsg('Puede mejorar el desempeño')">Puede mejorar</button>
+            <button class="qmsg-chip" onclick="setQuickMsg('Necesitamos conversar esta semana')">Pendiente hablar</button>
+          </div>
+          <textarea id="ceo-msg" class="tarea-nota" rows="2" placeholder="Añadir comentario personalizado..." onblur="guardarMsg()"></textarea>
+          <div id="rating-saved" class="rating-saved">Guardado ✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EQUIPO: selector visual + perfil activo -->
+    <div id="ct-equipo" class="hidden">
+      <div class="eq-cards-grid" id="eq-cards-grid"></div>
+      <div id="eq-profile-card"></div>
+      <div id="eq-hist"></div>
+      <div id="eq-proximas"></div>
+    </div>
+
+    <!-- ANÁLISIS EDA -->
+    <div id="ct-analisis" class="hidden">
+
+      <!-- ══ BANNER EDA ══ -->
+      <div class="eda-banner">
+        <div>
+          <div class="eda-banner-badge">Dashboard · Perfum Plus</div>
+          <div class="eda-banner-title">Análisis de Rendimiento</div>
+          <div class="eda-banner-sub">
+            <span class="eda-banner-dot"></span>
+            <span id="eda-sub">Cargando datos…</span>
+          </div>
+        </div>
+        <div class="eda-periodo-pills">
+          <button class="eda-periodo-btn on" data-p="semana" onclick="edaCambiarPeriodo('semana')">Semana</button>
+          <button class="eda-periodo-btn" data-p="mes" onclick="edaCambiarPeriodo('mes')">Mes</button>
+          <button class="eda-periodo-btn" data-p="30d" onclick="edaCambiarPeriodo('30d')">30 días</button>
+        </div>
+      </div>
+
+      <!-- ══ KPIs ══ -->
+      <div class="eda-kpi-row" id="eda-kpi-row"></div>
+
+      <!-- ══ SCORECARDS ══ -->
+      <div style="margin-bottom:1rem">
+        <div id="eda-scorecards"></div>
+      </div>
+
+      <!-- ══ INSIGHTS EJECUTIVOS ══ -->
+      <div style="margin-bottom:1rem">
+        <div id="eda-resumen-wrap"></div>
+      </div>
+
+      <!-- ══ GRÁFICO — Comparación del equipo ══ -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="eda-chart-hd">
+          <div>
+            <div class="eda-sec-hd" style="border:none;margin-bottom:.25rem;padding:0">
+              <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+              <span class="eda-sec-hd-txt">Tendencia del equipo</span>
+            </div>
+            <div class="txt-muted" style="font-size:.71rem" id="eda-comp-sub">Eficacia diaria por colaborador</div>
+          </div>
+          <div id="eda-emp-pills" class="eda-emp-pills-row"></div>
+        </div>
+        <div style="position:relative;height:185px"><canvas id="chart-tendencia-m"></canvas></div>
+      </div>
+
+      <!-- ══ TURNOS FDS ══ -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem">
+          <div>
+            <div class="eda-sec-hd" style="border:none;margin-bottom:.2rem;padding:0">
+              <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+              <span class="eda-sec-hd-txt">Fin de semana — este mes</span>
+            </div>
+            <div class="txt-muted" style="font-size:.71rem" id="eda-fds-sub">Ingrid e Isabella</div>
+          </div>
+          <div id="eda-fds-badges" style="display:flex;gap:6px;flex-shrink:0"></div>
+        </div>
+        <div id="fds-turnos-list"></div>
+      </div>
+
+      <!-- ══ RENDIMIENTO POR CATEGORÍA ══ -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="eda-chart-hd">
+          <div>
+            <div class="eda-sec-hd" style="border:none;margin-bottom:.25rem;padding:0">
+              <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+              <span class="eda-sec-hd-txt">Rendimiento por área</span>
+            </div>
+            <div class="txt-muted" style="font-size:.71rem" id="eda-cat-sub">% completado por categoría de tarea</div>
+          </div>
+        </div>
+        <div style="position:relative;height:185px"><canvas id="chart-cats"></canvas></div>
+      </div>
+
+      <!-- ══ CONSISTENCIA ══ -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div class="eda-sec-hd">
+          <div class="eda-sec-hd-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <span class="eda-sec-hd-txt">Consistencia del equipo</span>
+        </div>
+        <div id="eda-consistencia"></div>
+      </div>
+
+      <!-- ══ RETOS ══ -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div id="eda-kpi-retos"></div>
+      </div>
+
+      <!-- ══ GESTIÓN OPERATIVA ══ -->
+      <div class="card" style="margin-bottom:.85rem">
+        <div id="eda-kpi-op"></div>
+      </div>
+
+    </div>
+
+    <!-- SOLICITUDES DEL EQUIPO + BACKLOG CEO -->
+    <div id="ct-solicitudes" class="hidden">
+      <!-- 💡 Panel Pulso del equipo (IA liderazgo) -->
+      <div id="sol-panel-liderazgo"></div>
+      <div id="sol-panel-solicitudes"></div>
+      <div id="sol-panel-backlog"></div>
+    </div>
+
+    <!-- CONFIG TAREAS BASE -->
+    <div id="ct-config" class="hidden">
+      <!-- Sección 1: Tareas base -->
+      <div id="cfg-panel-base"></div>
+      <!-- Sección 2: Próximas asignaciones -->
+      <div id="cfg-panel-prog"></div>
+    </div>
+  </div>
+
+  <!-- FAB: tarea rápida personalizada -->
+  <button class="fab" id="fab-btn" onclick="abrirModal()" title="Asignar tarea personalizada">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+</div>
+
+<!-- ══ MODAL: tarea rápida ══ -->
+<div id="modal" class="modal-overlay hidden" onclick="if(event.target===this)cerrarModal()">
+  <div class="modal" style="padding:1.2rem 1.3rem 2rem">
+    <div class="modal-drag"></div>
+    <div class="frow" style="margin-bottom:1.1rem">
+      <span class="modal-title" style="float:none;margin:0;font-size:1.1rem">Asignar tarea</span>
+      <button class="modal-close" onclick="cerrarModal()">✕</button>
+    </div>
+
+    <!-- Colaborador -->
+    <span class="modal-sec-lbl">Para quién</span>
+    <div class="modal-av-sel">
+      <button type="button" class="modal-av-btn" id="mav-Marlon"
+        style="--emp-color:#b8943a"
+        onclick="selModalColab('Marlon')">
+        <div class="modal-av-ico" id="mav-ico-Marlon" style="background:#b8943a20;color:#b8943a">Ma</div>
+        <span class="modal-av-nom">Marlon</span>
+      </button>
+      <button type="button" class="modal-av-btn" id="mav-Ingrid"
+        style="--emp-color:#2a7a4a"
+        onclick="selModalColab('Ingrid')">
+        <div class="modal-av-ico" id="mav-ico-Ingrid" style="background:#2a7a4a20;color:#2a7a4a">In</div>
+        <span class="modal-av-nom">Ingrid</span>
+      </button>
+      <button type="button" class="modal-av-btn" id="mav-Isabella"
+        style="--emp-color:#2060a0"
+        onclick="selModalColab('Isabella')">
+        <div class="modal-av-ico" id="mav-ico-Isabella" style="background:#2060a020;color:#2060a0">Is</div>
+        <span class="modal-av-nom">Isabella</span>
+      </button>
+    </div>
+
+    <!-- Fecha -->
+    <span class="modal-sec-lbl">¿Para qué día?</span>
+    <div class="modal-chips-row">
+      <button type="button" class="modal-chip on" id="mfc-hoy" onclick="selModalFecha('hoy')">Hoy</button>
+      <button type="button" class="modal-chip" id="mfc-man" onclick="selModalFecha('man')">Mañana</button>
+      <button type="button" class="modal-chip" id="mfc-pick" onclick="selModalFecha('pick')">Elegir fecha</button>
+    </div>
+    <input type="date" id="m-fecha" style="display:none;font-family:var(--fb);width:100%;margin-bottom:.8rem;padding:.42rem .7rem;border:1.5px solid var(--g200);border-radius:var(--rs);font-size:.85rem;color:var(--g800);background:var(--white);outline:none" oninput="_syncFechaManual()">
+
+    <!-- Descripción -->
+    <span class="modal-sec-lbl">Descripción</span>
+    <input type="text" id="m-desc" placeholder="Ej: Revisar difusores del local"
+      maxlength="100"
+      style="width:100%;border:1.5px solid var(--g200);border-radius:var(--rs);padding:.48rem .75rem;font-family:var(--fb);font-size:.85rem;color:var(--g800);background:var(--white);outline:none;transition:border-color .15s;margin-bottom:.85rem"
+      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--g200)'">
+
+    <!-- Prioridad -->
+    <span class="modal-sec-lbl">Prioridad</span>
+    <div class="modal-chips-row" style="margin-bottom:1rem">
+      <button type="button" class="modal-chip on" id="mp-normal" onclick="setPrio('normal')">Normal</button>
+      <button type="button" class="modal-chip" id="mp-urgente" onclick="setPrio('urgente')">⚡ Urgente</button>
+    </div>
+
+    <button class="btn" style="width:100%" onclick="guardarTareaRapida()">Asignar tarea</button>
+  </div>
+</div>
+
+<!-- ══ SHEET: APLICAR PLANTILLA ══ -->
+<div id="apply-overlay" class="apply-overlay hidden" onclick="if(event.target===this)cerrarApply()">
+  <div class="apply-sheet">
+    <div class="modal-drag"></div>
+    <div class="frow" style="margin-bottom:1rem">
+      <span style="font-family:var(--ff);font-size:1rem;font-weight:600;color:var(--g800)" id="apply-title">Aplicar plantilla</span>
+      <button class="modal-close" onclick="cerrarApply()">✕</button>
+    </div>
+    <span class="modal-sec-lbl">Para quién</span>
+    <div class="modal-av-sel" style="margin-bottom:.85rem">
+      <button type="button" class="modal-av-btn" id="apav-Marlon" style="--emp-color:#b8943a" onclick="selApplyColab('Marlon')">
+        <div class="modal-av-ico" style="background:#b8943a20;color:#b8943a">Ma</div>
+        <span class="modal-av-nom">Marlon</span>
+      </button>
+      <button type="button" class="modal-av-btn" id="apav-Ingrid" style="--emp-color:#2a7a4a" onclick="selApplyColab('Ingrid')">
+        <div class="modal-av-ico" style="background:#2a7a4a20;color:#2a7a4a">In</div>
+        <span class="modal-av-nom">Ingrid</span>
+      </button>
+      <button type="button" class="modal-av-btn" id="apav-Isabella" style="--emp-color:#2060a0" onclick="selApplyColab('Isabella')">
+        <div class="modal-av-ico" style="background:#2060a020;color:#2060a0">Is</div>
+        <span class="modal-av-nom">Isabella</span>
+      </button>
+    </div>
+    <span class="modal-sec-lbl">¿Para qué día?</span>
+    <div class="modal-chips-row" style="margin-bottom:.8rem">
+      <button type="button" class="modal-chip on" id="apfc-hoy" onclick="selApplyFecha('hoy')">Hoy</button>
+      <button type="button" class="modal-chip" id="apfc-man" onclick="selApplyFecha('man')">Mañana</button>
+      <button type="button" class="modal-chip" id="apfc-pick" onclick="selApplyFecha('pick')">Elegir fecha</button>
+    </div>
+    <input type="date" id="ap-fecha" style="display:none;font-family:var(--fb);width:100%;margin-bottom:.8rem;padding:.42rem .7rem;border:1.5px solid var(--g200);border-radius:var(--rs);font-size:.85rem;color:var(--g800);background:var(--white);outline:none">
+    <button class="btn" style="width:100%" onclick="confirmarApply()">Aplicar plantilla</button>
+  </div>
+</div>
+
+<!-- ══ MODAL CELEBRACIÓN 100% ══ -->
+<div id="modal-celebracion" class="hidden" onclick="cerrarCelebracion()">
+  <div class="celeb-card" onclick="event.stopPropagation()">
+    <div class="celeb-glow"></div>
+    <div class="celeb-pct">100%</div>
+    <div class="celeb-linea"></div>
+    <div class="celeb-titulo" id="celeb-nombre">Excelente trabajo</div>
+    <div class="celeb-sub">Todas las tareas completadas</div>
+    <button class="celeb-btn" onclick="cerrarCelebracion()">Continuar</button>
+  </div>
+</div>
+
+<div id="autosave-ind">Guardado ✓</div>
+<div id="toast"></div>
+
+<script src="perfum_plus.js"></script>
+
+</body>
+</html>
