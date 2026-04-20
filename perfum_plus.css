@@ -1235,106 +1235,47 @@ input,textarea,select{
 /* ── Desktop (≥ 1024px) ── */
 @media(min-width:1024px){
   html{font-size:16px}
-  body{background:#ddd7cc}
+  body{background:#e8e3da}
 
-  /* ── Header edge-to-edge ── */
+  /* ── Header ── */
   .ah{
-    max-width:none;
     padding-top:1rem;
     padding-bottom:1rem;
-    padding-left:max(2rem,calc((100vw - 1160px)/2));
-    padding-right:max(2rem,calc((100vw - 1160px)/2));
+    padding-left:max(2.5rem,calc((100vw - 1060px)/2));
+    padding-right:max(2.5rem,calc((100vw - 1060px)/2));
   }
   .ah-brand{font-size:1.2rem}
 
-  /* ── Colaborador: columna centrada ── */
-  #s-colab .ac{max-width:760px;margin:0 auto;padding:1.8rem 2rem 4rem}
+  /* ── Contenido centrado ── */
+  .ac{max-width:1060px;margin:0 auto;padding:2rem 2.5rem 4rem}
+
+  /* ── CEO: tabs horizontales, más espacio ── */
+  .ctabs{
+    gap:6px;
+    margin-bottom:1.5rem;
+    overflow-x:visible;
+    flex-wrap:wrap;
+    scrollbar-width:none;
+  }
+  .ctabs::-webkit-scrollbar{display:none}
+  .ctab{padding:.6rem 1.35rem;font-size:.82rem}
+
+  /* ── CEO Hoy: 3 cols para colaboradores ── */
+  .colab-grid{grid-template-columns:repeat(3,1fr);gap:1rem}
+
+  /* ── Colaborador: tareas en 2 cols ── */
   #c-tareas-base{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem}
   #c-tareas-base .card{margin-bottom:0}
 
-  /* ── CEO: layout sidebar + contenido ── */
-  #s-ceo .ac{
-    display:grid;
-    grid-template-columns:200px 1fr;
-    column-gap:1.75rem;
-    align-items:start;
-    max-width:1160px;
-    margin:0 auto;
-    padding:1.5rem 2rem 3rem;
-  }
-
-  /* Sidebar: navegación vertical */
-  #s-ceo .ctabs{
-    grid-column:1;
-    grid-row:1 / span 20;
-    flex-direction:column;
-    background:var(--white);
-    border-radius:14px;
-    box-shadow:var(--sh);
-    padding:.35rem;
-    gap:3px;
-    overflow:visible;
-    position:sticky;
-    top:72px;
-    margin-bottom:0;
-    scrollbar-width:none;
-  }
-  #s-ceo .ctabs::-webkit-scrollbar{display:none}
-
-  #s-ceo .ctab{
-    text-align:left;
-    padding:.65rem 1.1rem;
-    border-radius:10px;
-    font-size:.82rem;
-    white-space:nowrap;
-    width:100%;
-    min-height:40px;
-    flex-shrink:0;
-    justify-content:flex-start;
-    border-color:transparent;
-  }
-  #s-ceo .ctab:hover:not(.on){background:var(--cream);border-color:transparent}
-  #s-ceo .ctab.on{background:var(--black);border-color:var(--black);color:var(--white);border-radius:10px}
-
-  /* Todos los tab panels en la misma celda (columna 2) */
-  #ct-hoy,#ct-tareas,#ct-detalle,#ct-equipo,
-  #ct-analisis,#ct-solicitudes,#ct-config{
-    grid-column:2;
-    grid-row:1;
-    min-width:0;
-  }
-
-  /* ── FAB → botón en base del sidebar ── */
-  #s-ceo .fab{
-    left:max(2rem,calc((100vw - 1160px)/2 + 8px));
-    right:auto;
-    bottom:2.5rem;
-    width:184px;
-    height:44px;
-    border-radius:12px;
-    box-shadow:var(--sh2);
-    justify-content:flex-start;
-    padding:0 1rem;
-  }
-  #s-ceo .fab::after{
-    content:'Nueva tarea';
-    font-family:var(--fb);
-    font-size:.82rem;
-    font-weight:600;
-    letter-spacing:.02em;
-    color:var(--white);
-    margin-left:.65rem;
-    white-space:nowrap;
-  }
-  #s-ceo .fab svg{width:18px;height:18px;flex-shrink:0}
-  #s-ceo .fab{overflow:hidden}
+  /* ── Análisis: 2 charts en paralelo ── */
+  #ct-analisis .card:nth-child(5),
+  #ct-analisis .card:nth-child(6){display:inline-block;width:calc(50% - .5rem);vertical-align:top}
 
   /* ── Cards ── */
-  .colab-grid{grid-template-columns:repeat(3,1fr);gap:.9rem}
-  .card{padding:1.25rem 1.5rem;margin-bottom:1.1rem;border-radius:16px}
-  .ccard{padding:1.2rem 1.3rem}
-  .prog-hero{padding:1.7rem 2rem 1.4rem;border-radius:16px}
-  .ph-big{font-size:3.1rem}
+  .card{padding:1.3rem 1.6rem;margin-bottom:1rem;border-radius:16px}
+  .ccard{padding:1.2rem 1.4rem}
+  .prog-hero{padding:1.8rem 2rem 1.5rem;border-radius:16px}
+  .ph-big{font-size:3rem}
   .ph-greeting{font-size:1.75rem}
   .ph-date{font-size:.8rem}
 
@@ -1343,14 +1284,14 @@ input,textarea,select{
   #s-login .lcard{max-width:420px}
   .logo-t{font-size:3.2rem}
 
-  /* ── Modales ── */
-  .modal-box{max-width:580px;margin-left:auto;margin-right:auto}
-  .modal{max-width:560px;margin-left:auto;margin-right:auto;border-radius:var(--r) var(--r) 0 0}
+  /* ── Modales centrados ── */
+  .modal-box{max-width:560px;margin-left:auto;margin-right:auto}
+  .modal{max-width:540px;margin-left:auto;margin-right:auto;border-radius:var(--r) var(--r) 0 0}
 
-  /* FAB colaborador */
+  /* ── FAB ── */
   .fab{bottom:2rem;right:2.5rem;width:54px;height:54px}
 
-  /* ── EDA gaps ── */
+  /* ── EDA ── */
   .eda-kpi-row{gap:1rem}
   .eda-scorecards-row{gap:1rem}
   .eda-insights-grid{gap:1rem}
@@ -1363,19 +1304,14 @@ input,textarea,select{
 /* ── Desktop grande (≥ 1440px) ── */
 @media(min-width:1440px){
   .ah{
-    padding-left:max(2.5rem,calc((100vw - 1320px)/2));
-    padding-right:max(2.5rem,calc((100vw - 1320px)/2));
+    padding-left:max(3rem,calc((100vw - 1160px)/2));
+    padding-right:max(3rem,calc((100vw - 1160px)/2));
   }
-  #s-colab .ac{max-width:860px}
-  #s-ceo .ac{max-width:1320px;grid-template-columns:220px 1fr}
-  #s-ceo .fab{
-    left:max(2.5rem,calc((100vw - 1320px)/2 + 8px));
-    width:204px;
-  }
-  .prog-hero{padding:1.9rem 2.2rem 1.6rem}
-  .ph-big{font-size:3.5rem}
+  .ac{max-width:1160px}
   .colab-grid{gap:1.1rem}
-  .card{padding:1.4rem 1.6rem}
+  .card{padding:1.4rem 1.7rem}
+  .prog-hero{padding:2rem 2.2rem 1.6rem}
+  .ph-big{font-size:3.4rem}
 }
 
 /* 6) Mejoras de tap target — mínimo 44×44px en móvil (WCAG) */
