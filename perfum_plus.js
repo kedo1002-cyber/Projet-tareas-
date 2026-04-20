@@ -755,10 +755,6 @@ function renderHeroYTareas(){
   });
   document.getElementById('c-tareas-base').innerHTML=hb;
 
-  // ── Retos del día ── generarRetos es idempotente
-  generarRetos(f, CU);
-  _renderRetosColab();
-
   // ── Evaluación del CEO ──
   const cal=getCalif(f,CU);
   const msgEl=document.getElementById('c-msg');
