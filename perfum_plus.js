@@ -60,6 +60,7 @@ if(typeof S._lastReaDate!=='string')S._lastReaDate='';
 if(!Array.isArray(S.solicitudes))S.solicitudes=[];
 if(!Array.isArray(S.tarCEO))S.tarCEO=[];
 if(!Array.isArray(S.retos))S.retos=[];
+if(!S.tmplDone||typeof S.tmplDone!=='object')S.tmplDone={};
 
 // ════════════════════════════════════════════════════════════════
 // MOTOR DE RETOS — constantes
@@ -1082,21 +1083,180 @@ function guardarCalif(){_saveCalif();}
 function ceoTab(tab,btn){
   document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('on'));
   if(btn)btn.classList.add('on');
-  ['hoy','tareas','equipo','analisis','config','detalle','solicitudes'].forEach(t=>{
+  ['hoy','gestion','equipo','analisis','detalle','solicitudes'].forEach(t=>{
     const el=document.getElementById('ct-'+t);if(el)el.classList.toggle('hidden',t!==tab);
   });
   const fab=document.getElementById('fab-btn');
   if(fab)fab.classList.toggle('hidden',tab!=='hoy');
   if(tab==='hoy')renderCardsHoy();
-  if(tab==='tareas')renderTareas();
+  if(tab==='gestion')renderGestion();
   if(tab==='equipo')renderEquipo(_equipoEmp);
   if(tab==='analisis')renderAnalisis();
-  if(tab==='config')renderConfig();
   if(tab==='solicitudes')renderSolicitudes();
 }
 
 // ══════════════════════════════════════════════════════════════
-// 7c-2. TAB TAREAS — Calendario mensual + asignación inline
+// 7c-2. GESTIÓN — Plantilla Base + Asignación Individual
+// ══════════════════════════════════════════════════════════════
+let _gtColab='';
+let _gtTmplOpen=false;
+
+function renderGestion(){
+  const body=document.getElementById('gt-tmpl-body');
+  const arrow=document.getElementById('gt-tmpl-arrow');
+  if(body) body.classList.toggle('hidden',!_gtTmplOpen);
+  if(arrow) arrow.textContent=_gtTmplOpen?'∧':'∨';
+  _gtRenderTemplate();
+  if(_gtColab) _gtRenderColab();
+}
+
+function gtToggleTmpl(){
+  _gtTmplOpen=!_gtTmplOpen;
+  const body=document.getElementById('gt-tmpl-body');
+  const arrow=document.getElementById('gt-tmpl-arrow');
+  if(body) body.classList.toggle('hidden',!_gtTmplOpen);
+  if(arrow) arrow.textContent=_gtTmplOpen?'∧':'∨';
+}
+
+function _gtRenderTemplate(){
+  const list=document.getElementById('gt-tmpl-list');
+  const count=document.getElementById('gt-tmpl-count');
+  if(!list) return;
+  if(count) count.textContent=S.tareas.length+(S.tareas.length===1?' tarea':' tareas');
+  if(!S.tareas.length){
+    list.innerHTML='<div class="gt-empty-sm">Sin tareas — agregá la primera abajo</div>';
+    return;
+  }
+  list.innerHTML=S.tareas.map(t=>{
+    const safe=t.desc.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    return `<div class="gt-tmpl-row">
+      <span class="gt-tmpl-row-txt">${safe}</span>
+      <button class="gt-row-del" onclick="gtDelTemplate(${t.id})" title="Eliminar">×</button>
+    </div>`;
+  }).join('');
+}
+
+function gtAddTemplate(){
+  const inp=document.getElementById('gt-tmpl-inp');
+  if(!inp) return;
+  const desc=inp.value.trim();
+  if(!desc) return;
+  S.tareas.push({id:S.nid++,cat:'ventas',desc,autoAsignar:true,prioridad:'media',frecuencia:'diaria'});
+  sv();
+  inp.value='';
+  _gtRenderTemplate();
+}
+
+function gtDelTemplate(id){
+  S.tareas=S.tareas.filter(t=>t.id!==id);
+  sv();
+  _gtRenderTemplate();
+  if(_gtColab) _gtRenderColab();
+}
+
+function gtSelColab(emp){
+  _gtColab=emp;
+  const panel=document.getElementById('gt-colab-panel');
+  if(!emp){if(panel)panel.classList.add('hidden');return;}
+  _gtRenderColab();
+}
+
+function _gtRenderColab(){
+  const emp=_gtColab;
+  if(!emp) return;
+  const panel=document.getElementById('gt-colab-panel');
+  if(panel) panel.classList.remove('hidden');
+  const nameEl=document.getElementById('gt-colab-name');
+  const dateEl=document.getElementById('gt-colab-date');
+  if(nameEl) nameEl.textContent=emp;
+  const fecha=hoy();
+  if(dateEl){
+    const d=new Date(fecha+'T00:00:00');
+    dateEl.textContent=d.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
+  }
+  const tmplDone=(S.tmplDone[fecha]&&S.tmplDone[fecha][emp])||[];
+  const indiv=(S.tp[fecha]&&S.tp[fecha][emp])||[];
+  let html='';
+  if(S.tareas.length){
+    html+='<div class="gt-sec-lbl">Plantilla</div>';
+    html+=S.tareas.map(t=>{
+      const done=tmplDone.includes(t.id);
+      const safe=t.desc.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      return `<div class="gt-task-row${done?' gt-done':''}" onclick="gtToggleTmplTask(${t.id})">
+        <div class="gt-chk${done?' on':''}"></div>
+        <span class="gt-task-txt">${safe}</span>
+        <span class="gt-badge-p">P</span>
+      </div>`;
+    }).join('');
+  }
+  if(indiv.length){
+    html+='<div class="gt-sec-lbl">Individual</div>';
+    html+=indiv.map(t=>{
+      const done=t.hecho;
+      const safe=t.desc.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      return `<div class="gt-task-row${done?' gt-done':''}${t.urgente?' gt-urgent':''}" onclick="gtToggleIndiv(${t.id})">
+        <div class="gt-chk${done?' on':''}"></div>
+        <span class="gt-task-txt">${safe}</span>
+        <button class="gt-row-del" onclick="event.stopPropagation();gtDelIndiv(${t.id})">×</button>
+      </div>`;
+    }).join('');
+  }
+  if(!S.tareas.length&&!indiv.length){
+    html='<div class="gt-empty">Sin tareas para hoy. Agregá tareas a la plantilla o una individual abajo.</div>';
+  }
+  const list=document.getElementById('gt-task-list');
+  if(list) list.innerHTML=html;
+}
+
+function gtToggleTmplTask(id){
+  const fecha=hoy();
+  const emp=_gtColab;
+  if(!S.tmplDone[fecha])S.tmplDone[fecha]={};
+  if(!S.tmplDone[fecha][emp])S.tmplDone[fecha][emp]=[];
+  const arr=S.tmplDone[fecha][emp];
+  const idx=arr.indexOf(id);
+  if(idx===-1)arr.push(id);else arr.splice(idx,1);
+  sv();
+  _gtRenderColab();
+}
+
+function gtToggleIndiv(id){
+  const fecha=hoy();
+  const emp=_gtColab;
+  const tasks=S.tp[fecha]&&S.tp[fecha][emp];
+  if(!tasks) return;
+  const task=tasks.find(t=>t.id===id);
+  if(task){task.hecho=!task.hecho;sv();_gtRenderColab();}
+}
+
+function gtDelIndiv(id){
+  const fecha=hoy();
+  const emp=_gtColab;
+  if(S.tp[fecha]&&S.tp[fecha][emp]){
+    S.tp[fecha][emp]=S.tp[fecha][emp].filter(t=>t.id!==id);
+    sv();_gtRenderColab();
+  }
+}
+
+function gtAddIndiv(){
+  const inp=document.getElementById('gt-indiv-inp');
+  if(!inp||!_gtColab) return;
+  const raw=inp.value.trim();
+  if(!raw) return;
+  const urgente=raw.startsWith('!');
+  const desc=urgente?raw.slice(1).trim():raw;
+  if(!desc) return;
+  const fecha=hoy();
+  if(!S.tp[fecha])S.tp[fecha]={};
+  if(!S.tp[fecha][_gtColab])S.tp[fecha][_gtColab]=[];
+  S.tp[fecha][_gtColab].push({id:S.nid++,desc,urgente,hecho:false});
+  sv();
+  inp.value='';
+  _gtRenderColab();
+}
+
+// ══════════════════════════════════════════════════════════════
+// 7c-3. TAB TAREAS (legacy — mantenido para compatibilidad)
 // ══════════════════════════════════════════════════════════════
 let _tarColab='Marlon';
 let _tarMesOff=0;      // 0=mes actual, -1=anterior, +1=siguiente

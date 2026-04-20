@@ -124,11 +124,10 @@
   <div class="ac">
     <div class="ctabs">
       <button class="ctab on" onclick="ceoTab('hoy',this)">Hoy</button>
-      <button class="ctab" onclick="ceoTab('tareas',this)">Tareas</button>
+      <button class="ctab" onclick="ceoTab('gestion',this)">Tareas</button>
       <button class="ctab" id="tab-solicitudes" onclick="ceoTab('solicitudes',this)">Solicitudes<span class="ctab-badge hidden" id="sol-badge"></span></button>
       <button class="ctab" onclick="ceoTab('equipo',this)">Equipo</button>
       <button class="ctab" onclick="ceoTab('analisis',this)">Análisis</button>
-      <button class="ctab" onclick="ceoTab('config',this)">Config</button>
     </div>
 
     <!-- HOY -->
@@ -138,60 +137,53 @@
       <div class="colab-grid" id="ceo-cards"></div>
     </div>
 
-    <!-- TAREAS: agenda unificada CEO -->
-    <div id="ct-tareas" class="hidden">
-      <!-- Selector colaborador -->
-      <div class="tar-pills">
-        <button class="tar-pill on" id="tarcol-Marlon" onclick="tarSelColab('Marlon')">
-          <span class="tar-pill-dot" style="background:#b8943a"></span>Marlon
-        </button>
-        <button class="tar-pill" id="tarcol-Ingrid" onclick="tarSelColab('Ingrid')">
-          <span class="tar-pill-dot" style="background:#2a7a4a"></span>Ingrid
-        </button>
-        <button class="tar-pill" id="tarcol-Isabella" onclick="tarSelColab('Isabella')">
-          <span class="tar-pill-dot" style="background:#2060a0"></span>Isabella
-        </button>
-      </div>
-      <!-- Strip semanal -->
-      <div id="agenda-strip"></div>
-      <!-- Barra inteligente: input + smart actions -->
-      <div class="agenda-bar">
-        <div class="agenda-bar-row">
-          <input id="agenda-inp" class="agenda-inp" type="text"
-            placeholder="Nueva tarea…  (! al inicio = urgente)" maxlength="90"
-            onkeydown="if(event.key==='Enter')agendaSubmitTask()">
-          <button class="agenda-add-btn" onclick="agendaSubmitTask()" title="Agregar tarea">+</button>
-          <button class="agenda-act-btn" id="agenda-act-btn"
-            onclick="agendaToggleActions()" title="Acciones rápidas">⚡</button>
+    <!-- GESTIÓN: Plantilla Base + Asignación Individual -->
+    <div id="ct-gestion" class="hidden">
+      <!-- Plantilla Base -->
+      <div class="gt-tmpl-card">
+        <div class="gt-tmpl-hd" onclick="gtToggleTmpl()">
+          <div class="gt-tmpl-title">
+            <span>Plantilla base</span>
+            <span class="gt-tmpl-count" id="gt-tmpl-count">0 tareas</span>
+          </div>
+          <span class="gt-tmpl-chevron" id="gt-tmpl-arrow">∨</span>
         </div>
-        <div id="agenda-actions" class="agenda-actions hidden">
-          <button class="agenda-act-item" onclick="agendaSmartAction('auto')">
-            <span class="agenda-act-ico">⚡</span>
-            <div><div class="agenda-act-lbl">Auto-asignar</div>
-              <div class="agenda-act-sub">Según rendimiento del colaborador</div></div>
-          </button>
-          <button class="agenda-act-item" onclick="agendaSmartAction('ayer')">
-            <span class="agenda-act-ico">📋</span>
-            <div><div class="agenda-act-lbl">Copiar de ayer</div>
-              <div class="agenda-act-sub">Duplicar todas las tareas del día anterior</div></div>
-          </button>
-          <button class="agenda-act-item" onclick="agendaSmartAction('tmpl')">
-            <span class="agenda-act-ico">📐</span>
-            <div><div class="agenda-act-lbl">Aplicar plantilla</div>
-              <div class="agenda-act-sub">Elegir de las plantillas guardadas</div></div>
-          </button>
-          <button class="agenda-act-item" onclick="agendaSmartAction('semana')">
-            <span class="agenda-act-ico">📅</span>
-            <div><div class="agenda-act-lbl">Planificar semana</div>
-              <div class="agenda-act-sub">Asignar automáticamente toda la semana</div></div>
-          </button>
+        <div id="gt-tmpl-body" class="hidden">
+          <div id="gt-tmpl-list"></div>
+          <div class="gt-tmpl-add">
+            <input id="gt-tmpl-inp" class="gt-inp" type="text"
+              placeholder="Nueva tarea para todos…" maxlength="90"
+              onkeydown="if(event.key==='Enter')gtAddTemplate()">
+            <button class="gt-add-btn" onclick="gtAddTemplate()">+</button>
+          </div>
         </div>
       </div>
-      <!-- Lista de tareas del día seleccionado -->
-      <div id="agenda-tasks"></div>
-      <!-- Elementos ghost para compatibilidad con funciones heredadas -->
-      <div id="tar-cal" class="hidden"></div>
-      <div id="tar-dia-panel" class="hidden"></div>
+      <!-- Selector de colaborador -->
+      <div class="gt-sel-wrap">
+        <label class="gt-sel-label" for="gt-colab-sel">Colaborador</label>
+        <div class="gt-sel-box">
+          <select class="gt-sel" id="gt-colab-sel" onchange="gtSelColab(this.value)">
+            <option value="">— Seleccionar —</option>
+            <option value="Marlon">Marlon</option>
+            <option value="Ingrid">Ingrid</option>
+            <option value="Isabella">Isabella</option>
+          </select>
+        </div>
+      </div>
+      <!-- Panel del colaborador -->
+      <div id="gt-colab-panel" class="hidden">
+        <div class="gt-colab-hd">
+          <span class="gt-colab-name" id="gt-colab-name"></span>
+          <span class="gt-colab-date" id="gt-colab-date"></span>
+        </div>
+        <div id="gt-task-list"></div>
+        <div class="gt-add-row">
+          <input id="gt-indiv-inp" class="gt-inp" type="text"
+            placeholder="Tarea individual… (! = urgente)" maxlength="90"
+            onkeydown="if(event.key==='Enter')gtAddIndiv()">
+          <button class="gt-add-btn" onclick="gtAddIndiv()">+</button>
+        </div>
+      </div>
     </div>
 
     <!-- DETALLE colaborador -->
@@ -377,13 +369,6 @@
       <div id="sol-panel-backlog"></div>
     </div>
 
-    <!-- CONFIG TAREAS BASE -->
-    <div id="ct-config" class="hidden">
-      <!-- Sección 1: Tareas base -->
-      <div id="cfg-panel-base"></div>
-      <!-- Sección 2: Próximas asignaciones -->
-      <div id="cfg-panel-prog"></div>
-    </div>
   </div>
 
   <!-- FAB: tarea rápida personalizada -->
@@ -500,7 +485,7 @@
 <div id="autosave-ind">Guardado ✓</div>
 <div id="toast"></div>
 
-<script src="perfum_plus.js"></script>
+<script src="perfum_plus.js?v=2"></script>
 
 </body>
 </html>
